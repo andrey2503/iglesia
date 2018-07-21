@@ -1,0 +1,25 @@
+.contenedor-usuario{
+	background: white;
+}
+
+.tabla-usuarios{
+	padding: 15px;
+}
+
+.btn-modal-inspeccion{
+	margin-top: 10px;
+}
+
+.content-wrapper{
+	overflow-y: scroll;
+}
+
+.login-page{
+	background-image: url(../img/bg-login.jpg);
+	background-size: cover; 
+}
+
+.div-content-font-control{
+	display: inline-flex;
+}
+
