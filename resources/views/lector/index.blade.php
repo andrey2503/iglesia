@@ -1,4 +1,4 @@
-@extends('digitador.escritorio')
+@extends('lector.escritorio')
 
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">

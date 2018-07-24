@@ -50,7 +50,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Na</b>Me</span>
+          <span class="logo-lg"><b>Lec</b>Tor</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -138,7 +138,7 @@
             </li>
             
              <li>
-              <a href="{{ URL::asset('/nuevoUsuario') }}">
+              <a href="{{ URL::asset('admin/nuevoUsuario') }}">
                 <i class="fa fa-plus-circle"></i> <span>Nuevo usuario</span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-plus"></span>
@@ -148,7 +148,7 @@
 
 
             <li>
-              <a href="{{ URL::asset('/aout') }}">
+              <a href="{{ URL::asset('/lout') }}">
                 <i class="fa fa-times-circle"></i> <span>cerrar sesión</span>
                  <small class="label pull-right bg-red">
                     <span class="glyphicon glyphicon-off"></span>

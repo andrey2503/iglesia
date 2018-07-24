@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'administrador' =>  Middleware\Administrador::class,
         'digitador' =>  Middleware\Digitador::class,
+        'lector' =>  Middleware\Lector::class,
+        
         
     ];
 }

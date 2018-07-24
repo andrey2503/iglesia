@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Contracts\Auth\Guard;
+
 use Closure;
+use Illuminate\Contracts\Auth\Guard;
 use Session;
 use Illuminate\Support\Facades\Auth;
-class Administrador
+class Lector
 {
     protected $auth;
     public function __contructor(Guard $auth){
@@ -23,12 +24,13 @@ class Administrador
         if (Auth::guard($this->auth)->check()) {
             switch (Auth::guard($this->auth)->user()->idrol) {
             case '1':
+            return redirect('administrador');//cru
             break;
             case '2':
              return redirect('digitador');//cru
             break;
             case '3':
-            return redirect('lector');//cru
+            // return redirect('lector');//cru
             break;
             default:
              return redirect('login');

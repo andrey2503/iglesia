@@ -25,18 +25,31 @@ Auth::routes();
   Route::get('/user', 'Auth\LoginController@iniciarUsuarioAdmin');
   Route::get('/salir', 'Auth\LoginController@getLogout');
   
+  
 
 
 Route::group(['middleware' => ['auth']], function () {
+    // admin
+    Route::get('/aout', 'AdminController@Logout');
     Route::get('/administrador','AdminController@index');
     Route::get('/modificarUsuario/{id}','AdminController@show');
     Route::post('/modificarUsuario','AdminController@update');
+    Route::get('/nuevoUsuario','AdminController@create');
+    Route::post('/nuevoUsuario','AdminController@store');
+    
+    
     
     // digitador
-
     Route::get('/digitador','Digitador@index');
-    Route::get('/modificarUsuario/{id}','AdminController@show');
-    Route::post('/modificarUsuario','AdminController@update');
+    // Route::get('/modificarUsuario/{id}','AdminController@show');
+    // Route::post('/modificarUsuario','AdminController@update');
+
+    // lector
+    Route::get('/lector','LectorController@index');
+    // Route::get('/modificarUsuario/{id}','AdminController@show');
+    // Route::post('/modificarUsuario','AdminController@update');
+    Route::get('/lout', 'LectorController@Logout');
+
     
     
     
@@ -48,4 +61,4 @@ Route::group(['middleware' => ['auth']], function () {
 
 // Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

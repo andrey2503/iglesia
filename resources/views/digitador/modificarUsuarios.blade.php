@@ -1,4 +1,4 @@
-@extends('administrador.escritorio')
+@extends('digitador.escritorio')
 
 @section('content')
 <div class="container row col-md-8 col-md-offset-2 ">

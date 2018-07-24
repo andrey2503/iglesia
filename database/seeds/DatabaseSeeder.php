@@ -12,15 +12,7 @@ class DatabaseSeeder extends Seeder
    
     public function run()
     {
-        $array = array("Tequila", "Vocka", "Ron", "Wisky");
-        $longitud = count($array);
-        //Recorro todos los elementos
-        for($i=0; $i<$longitud; $i++){
-            echo $array[$i];
-            $tipo = new TipoLicor();
-            $tipo->nombre=$array[$i];
-            echo $tipo->save();
-            }
+       
         // $this->call(UsersTableSeeder::class);
     }
 }

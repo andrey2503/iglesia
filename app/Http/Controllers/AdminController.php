@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Session;
 use App\User;
+use App\Logs;
+use Hash;
 class AdminController extends Controller
 {
     /**
@@ -19,6 +21,12 @@ class AdminController extends Controller
         $this->auth = $auth;
         $this->middleware(['auth','administrador'])->except('logout');
     }
+
+    public function Logout(){
+        auth()->logout();
+        session()->flash('message', 'Some goodbye message');
+        return redirect('/login');
+      }
 
     public function index()
     {
@@ -35,6 +43,7 @@ class AdminController extends Controller
     public function create()
     {
         //
+        return view ('administrador.nuevoUsuario');
     }
 
     /**
@@ -45,13 +54,34 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+    
         $this->validate($request,[
             'nombre'=>'required',
-            'email'=>'required|unique:users',
+            'email'=>'required|unique:usuarios',
             'idrol'=>'required',
             'contrasena'=>'required',
-            'estado'=>'required',
+            'usuario'=>"required|unique:usuarios"
             ]);
+        $usuario = new User();
+        $usuario->nombre = $request->nombre;
+        $usuario->usuario = $request->usuario;
+        $usuario->email= $request->email;
+        $usuario->telefono= $request->telefono;
+        $usuario->idrol=$request->idrol;
+        $usuario->password= Hash::make($request->contrasena);
+
+        if($usuario->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="usuarios";
+            $log->nombre_elemento= $usuario->id;
+            $log->accion="Agregar";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Usuario '.$request->usuario.' creado correctamente');
+        }else{
+            return redirect('/administrador');
+        }
         //
     }
 
@@ -88,23 +118,23 @@ class AdminController extends Controller
      */
     public function update(Request $request)
     {
+      
         $this->validate($request,[
             'nombre'=>'required',
-            'mail'=>'required',
+            'email'=>'required',
             'idrol'=>'required',
             'contrasena'=>'required',
-            'estado'=>'required',
             ]);
 
         $user = User::find($request->id);
-        $user->name=$request->nombre;
-        $user->email = $request->mail;
+        $user->nombre = $request->nombre;
+        $user->email = $request->email;
         $user->idrol = $request->idrol;
         if($user->password!=$request->contrasena){
             $contrasena=$request->contrasena;
             $user->password = Hash::make($contrasena);    
         }
-        $user->state=$request->estado;
+        // $user->state=$request->estado;
 
         if($user->save()){
             return redirect()->back()->with('message','Usuario '.$request->usuario.' actualizado correctamente');
@@ -131,6 +161,8 @@ class AdminController extends Controller
         Session::flush();
         return redirect('/');
     }
+
+    
 
    
 }

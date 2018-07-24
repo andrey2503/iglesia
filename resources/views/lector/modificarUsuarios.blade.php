@@ -12,12 +12,14 @@
                   @endif
       </div><!-- /.box-header -->
       <form  role="form"   method="post"  action="{{ url('modificarUsuario') }}" class="form-horizontal form_entrada" >
+
       <input type="hidden" name="id" value="{{ $usuario->id }}">
+      
       {{ csrf_field() }}
       <div class="box-body">
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" name="nombre" value="{{ $usuario->nombre }}">
+                <input type="text" class="form-control" name="nombre" value="{{ $usuario->name }}">
                 @if($errors->has('nombre'))
                   <span style="color: red;">{{ $errors->first('nombre') }}</span>
                 @endif
@@ -25,9 +27,9 @@
 
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" name="email" value="{{ $usuario->email }}">
-                @if($errors->has('email'))
-                  <span style="color: red;">{{ $errors->first('email') }}</span>
+                <input type="email" class="form-control" name="mail" value="{{ $usuario->email }}">
+                @if($errors->has('mail'))
+                  <span style="color: red;">{{ $errors->first('mail') }}</span>
                 @endif
               </div>
 
@@ -50,17 +52,11 @@
 
               <select name="idrol"class="form-control" >
                
-                @if($usuario->idrol==3)
-                  <option value="3" selected>Lector</option>
-                  <option value="2" >Digitador</option>
-                  <option value="1" >Administrador</option>
-                @elseif($usuario->idrol==2)
-                  <option value="3" >Lector</option>
-                  <option value="2" selected>Digitador</option>
+                @if($usuario->idrol==2)
+                  <option value="2" selected>Empleado</option>
                   <option value="1" >Administrador</option>
                 @elseif($usuario->idrol==1) 
-                  <option value="3" >Lector</option>
-                  <option value="2" >Digitador</option>
+                  <option value="2" >Empleado</option>
                   <option value="1" selected>Administrador</option>
                 @endif
               </select>

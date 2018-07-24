@@ -1,4 +1,4 @@
-@extends('digitador.escritorio')
+@extends('administrador.escritorio')
 
 @section('content')
 

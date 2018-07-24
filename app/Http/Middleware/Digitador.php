@@ -29,6 +29,9 @@ class Digitador
             case '2':
             //  return redirect('digitador');//cru
             break;
+            case '3':
+            return redirect('lector');//cru
+            break;
             default:
              return redirect('login');
             break;

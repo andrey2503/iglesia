@@ -13,28 +13,25 @@
                   <!-- <th>Usuario</th> -->
                   <th>Email</th>
                   <th>Rol</th>
-                  <th>Estado</th>
                   <th>Acción</th>
                 </thead>
                 <tbody>
                   @if(isset($users))
                     @foreach($users as $u)
                       <tr>
-                        <td>{{ $u->name }}</td>
+                        <td>{{ $u->nombre }}</td>
                         <!-- <td>{{ $u->user }}</td> -->
                         <td>{{ $u->email }}</td>
 
                          @if($u->idrol==1)
                         <td>Administrador</td>
                         @elseif($u->idrol==2)
-                        <td>Empleado</td>
+                        <td>Digitador</td>
+                        @elseif($u->idrol==3)
+                        <td>Lector</td>
                         @endif
 
-                        @if($u->state==1)
-                        <td>activo</td>
-                        @else
-                        <td>inactivo</td>
-                        @endif
+                       
                         <td> <a class="btn btn-warning btn-xs" href="{{ url('/modificarUsuario') }}/{{$u->id}}">Modificar</a> </td>
                       </tr>
                     @endforeach
