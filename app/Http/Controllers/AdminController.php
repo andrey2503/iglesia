@@ -150,9 +150,13 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
+        // dd($request);
+        $usuario=User::find($request->id);
+        $usuario->delete();
+
     }
     
     protected function getLogout()
@@ -162,6 +166,10 @@ class AdminController extends Controller
         return redirect('/');
     }
 
+    public function verusuario($id){
+        $usuario= User::find($id);
+        return view('administrador.verUsuarios')->with(['usuario'=>$usuario]);
+    }
     
 
    

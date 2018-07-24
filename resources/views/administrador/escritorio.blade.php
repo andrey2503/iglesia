@@ -50,7 +50,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Na</b>Me</span>
+          <span class="logo-lg"><b>AD</b>MIN</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -137,14 +137,14 @@
               </a>
             </li>
             
-             <li>
+             <!-- <li>
               <a href="{{ URL::asset('/nuevoUsuario') }}">
                 <i class="fa fa-plus-circle"></i> <span>Nuevo usuario</span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-plus"></span>
                  </small>
               </a>
-            </li>
+            </li> -->
 
 
             <li>

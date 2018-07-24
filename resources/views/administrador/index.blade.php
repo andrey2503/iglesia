@@ -3,7 +3,10 @@
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
   
-
+  <a href="{{ URL::asset('/nuevoUsuario') }}" class="btn btn-success btn-xs"> 
+          <span class="glyphicon glyphicon-plus"></span>
+          Agregar
+  </a>
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
             <div class="table-responsive">
@@ -18,6 +21,7 @@
                 <tbody>
                   @if(isset($users))
                     @foreach($users as $u)
+                    @if(Auth::user()->id!= $u->id)
                       <tr>
                         <td>{{ $u->nombre }}</td>
                         <!-- <td>{{ $u->user }}</td> -->
@@ -32,8 +36,13 @@
                         @endif
 
                        
-                        <td> <a class="btn btn-warning btn-xs" href="{{ url('/modificarUsuario') }}/{{$u->id}}">Modificar</a> </td>
+                        <td>
+                         <a class="btn btn-primary btn-xs" href="{{ url('/modificarUsuario') }}/{{$u->id}}">Modificar</a> 
+                         <a class="btn btn-success btn-xs" href="{{ url('/verUsuario') }}/{{$u->id}}">Ver</a> 
+                         <a  type="button" class="btn btn-danger btn-xs" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$u->id}})">Eliminar</a> 
+                        </td>
                       </tr>
+                    @endif
                     @endforeach
                   @endif
                 </tbody>
@@ -42,4 +51,33 @@
           </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog"  id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirmacion</h4>
+      </div>
+      <div class="modal-body">
+        <h4>Desea eliminar este elemento?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+        <form  action="{{ url('eliminarUsuario') }}" method="post">
+        {{ csrf_field() }}
+        <input id="rutaEliminar" type="hidden"  name="id">
+        <button type="submit" href="#" class="btn btn-danger"> <span class="glyphicon glyphicon-trash"></span>   Eliminar</button>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+  function preEliminar(id){
+    // alert(id);
+    let ruta= document.getElementById('rutaEliminar');
+    ruta.value=id;
+    console.log(ruta.value);
+  }
+</script>
 @endsection
