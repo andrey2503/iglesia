@@ -12,7 +12,7 @@
                       </div>
                   @endif
       </div><!-- /.box-header -->
-      <form  role="form"   method="post"  action="{{ url('nuevoUsuario') }}" class="form-horizontal form_entrada" >
+      <form  role="form"   method="post"  action="{{ url('nuevaCuentaBancaria') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
         <div class="box-body">
             <div class="form-group">
@@ -24,58 +24,51 @@
               </div>
 
               <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Email">
-                @if($errors->has('email'))
-                  <span style="color: red;">{{ $errors->first('email') }}</span>
+                <label for="email">Banco</label>
+                <input type="text" class="form-control" name="banco" placeholder="Banco">
+                @if($errors->has('banco'))
+                  <span style="color: red;">{{ $errors->first('banco') }}</span>
                 @endif
               </div>
 
                <div class="form-group">
-                <label for="user">usuario</label>
-                <input type="text" class="form-control" name="usuario" placeholder="usuario">
-                @if($errors->has('usuario'))
-                  <span style="color: red;">{{ $errors->first('usuario') }}</span>
+                <label for="user">Tipo de Cuenta</label>
+                <select class="form-control" name="tipo">
+                  <option value="Corriente">Corriente</option>
+                    <option value="Ahorros">Ahorros</option>
+                </select>
+                @if($errors->has('tipo'))
+                  <span style="color: red;">{{ $errors->first('tipo') }}</span>
                 @endif
               </div>
-
-
               <div class="form-group">
-                <label for="telefono">Telefono</label>
-                <input type="text" class="form-control" name="telefono" placeholder="Telefono">
-                @if($errors->has('telefono'))
-                  <span style="color: red;">{{ $errors->first('telefono') }}</span>
-                @endif
+               <label for="user">Moneda</label>
+               <select class="form-control" name="moneda">
+                 <option value="Colones">₡ Colones</option>
+                   <option value="Dolares">$ Dolares</option>
+                    <option value="Euros">€ Euros</option>
+               </select>
+               @if($errors->has('moneda'))
+                 <span style="color: red;">{{ $errors->first('moneda') }}</span>
+               @endif
               </div>
-
               <div class="form-group">
-                <label for="contrasena">Contraseña</label>
-                <input type="password" class="form-control" name="contrasena" placeholder="Password">
-                @if($errors->has('contrasena'))
-                  <span style="color: red;">{{ $errors->first('contrasena') }}</span>
+               <label for="user">Monto</label>
+               <input type="number" step="any" class="form-control" name="monto" placeholder="Monto">
+               @if($errors->has('cuenta'))
+                 <span style="color: red;">{{ $errors->first('cuenta') }}</span>
+               @endif
+              </div>
+              <div class="form-group">
+                <label for="telefono">Número de Cuenta</label>
+                <input type="text" class="form-control" name="cuenta" placeholder="Número de Cuenta">
+                @if($errors->has('cuenta'))
+                  <span style="color: red;">{{ $errors->first('cuenta') }}</span>
                 @endif
               </div>
-
-
-              <select name="idrol"class="form-control">
-                  <option value="3">Lector</option>
-                  <option value="2">Digitador</option>
-                  <option value="1">Administrador</option>
-              </select>
-              @if($errors->has('idrol'))
-                  <span style="color: red;">{{ $errors->first('idrol') }}</span>
-                @endif
-
-               <!-- <select name="estado"class="form-control">
-                  <option value="0">Inactivo</option>
-                  <option value="1">Activo</option>
-              </select> -->
-              <!-- @if($errors->has('estado'))
-                  <span style="color: red;">{{ $errors->first('estado') }}</span>
-                @endif -->
 
         </div>
-        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear usuario</button>
+        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Cuenta</button>
       </form>
       </div><!-- /.box -->
 </div>

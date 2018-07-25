@@ -20,7 +20,7 @@
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" name="email" value="{{ $usuario->email }}" disabled="true">
-               
+
               </div>
 
                <div class="form-group">
@@ -40,7 +40,7 @@
                 <input type="text" class="form-control" value="Lector" disabled="true">
                 @elseif($usuario->idrol==2)
                 <input type="text" class="form-control"  value="Digitador" disabled="true">
-                @elseif($usuario->idrol==1) 
+                @elseif($usuario->idrol==1)
                 <input type="text" class="form-control"  value="Admnistrador" disabled="true">
                 @endif
               </div>

@@ -38,8 +38,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/nuevoUsuario','AdminController@store');
     Route::get('/verUsuario/{id}','AdminController@verusuario');
     Route::post('/eliminarUsuario','AdminController@destroy');
+    // cuenta bancaria
     Route::get('/listaCuentaBancaria','CuentaBancariaController@index');
-    Route::post('/listaCuentaBancaria','CuentaBancariaController@store');
+    Route::get('/nuevaCuentaBancaria','CuentaBancariaController@create');
+    Route::post('/nuevaCuentaBancaria','CuentaBancariaController@store');
+    // fin cuenta bancaria
 
 
 

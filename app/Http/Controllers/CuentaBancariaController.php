@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CuentaBancaria;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Guard;
 
 class CuentaBancariaController extends Controller
 {
@@ -40,32 +41,26 @@ class CuentaBancariaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
       $this->validate($request,[
           'nombre'=>'required',
-          'email'=>'required|unique:usuarios',
-          'idrol'=>'required',
-          'contrasena'=>'required',
-          'usuario'=>"required|unique:usuarios"
+          'banco'=>'required',
+          'monto'=>'required',
+          'cuenta'=>"required|unique:cuenta_bancarias"
           ]);
-      $usuario = new User();
-      $usuario->nombre = $request->nombre;
-      $usuario->usuario = $request->usuario;
-      $usuario->email= $request->email;
-      $usuario->telefono= $request->telefono;
-      $usuario->idrol=$request->idrol;
-      $usuario->password= Hash::make($request->contrasena);
 
-      if($usuario->save()){
-          $log= new Logs();
-          $log->fk_usuario= \Auth::user()->id;
-          $log->nombre_tabla="usuarios";
-          $log->nombre_elemento= $usuario->id;
-          $log->accion="Agregar";
-          $log->fecha=date ('y-m-d H:i:s');
-          $log->save();
-          return redirect()->back()->with('message','Usuario '.$request->usuario.' creado correctamente');
+      $cuenta = new CuentaBancaria();
+      $cuenta->nombre = $request->nombre;
+      $cuenta->tipo = $request->tipo;
+      $cuenta->moneda= $request->moneda;
+      $cuenta->banco= $request->banco;
+      $cuenta->monto=$request->monto;
+      $cuenta->cuenta=$request->cuenta;
+
+      if($cuenta->save()){
+          return redirect()->back()->with('message','Cuenta '.$request->cuenta.' creada correctamente');
       }else{
-          return redirect('/listaCuentaBancaria');
+          return redirect('/nuevaCuentaBancaria');
       }
     }
 
