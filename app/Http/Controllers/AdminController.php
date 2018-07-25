@@ -75,7 +75,7 @@ class AdminController extends Controller
             $log->fk_usuario= \Auth::user()->id;
             $log->nombre_tabla="usuarios";
             $log->nombre_elemento= $usuario->id;
-            $log->accion="Agregar";
+            $log->accion="Agregar Usuario";
             $log->fecha=date ('y-m-d H:i:s');
             $log->save();
             return redirect()->back()->with('message','Usuario '.$request->usuario.' creado correctamente');
@@ -137,6 +137,13 @@ class AdminController extends Controller
         // $user->state=$request->estado;
 
         if($user->save()){
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="usuarios";
+          $log->nombre_elemento= $request->id;
+          $log->accion="Actualizar Usuario";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
             return redirect()->back()->with('message','Usuario '.$request->usuario.' actualizado correctamente');
         }else{
             return redirect('/');
@@ -157,6 +164,13 @@ class AdminController extends Controller
         $usuario=User::find($request->id);
         $usuario->delete();
         if ($usuario->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="usuarios";
+          $log->nombre_elemento= $request->id;
+          $log->accion="Eliminar Usuario";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
             return redirect('/administrador');
         }
 

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\CuentaBancaria;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
-
+use Session;
+use App\Logs;
 class CuentaBancariaController extends Controller
 {
     /**
@@ -58,6 +59,13 @@ class CuentaBancariaController extends Controller
       $cuenta->cuenta=$request->cuenta;
 
       if($cuenta->save()){
+        $log= new Logs();
+        $log->fk_usuario= \Auth::user()->id;
+        $log->nombre_tabla="cuenta_bancarias";
+        $log->nombre_elemento= $cuenta->id;
+        $log->accion="Agregar Cuenta Bancaria";
+        $log->fecha=date ('y-m-d H:i:s');
+        $log->save();
           return redirect()->back()->with('message','Cuenta '.$request->cuenta.' creada correctamente');
       }else{
           return redirect('/nuevaCuentaBancaria');
@@ -113,6 +121,13 @@ class CuentaBancariaController extends Controller
               // $user->state=$request->estado;
 
               if($cuenta->save()){
+                $log= new Logs();
+                $log->fk_usuario= \Auth::user()->id;
+                $log->nombre_tabla="cuenta_bancarias";
+                $log->nombre_elemento= $request->id;
+                $log->accion="Actualizar Cuenta Bancaria";
+                $log->fecha=date ('y-m-d H:i:s');
+                $log->save();
                   return redirect()->back()->with('message','Cuenta '.$request->cuenta.' Actualizada correctamente');
               }else{
                   return redirect('/modificarCuentas');
@@ -131,6 +146,13 @@ class CuentaBancariaController extends Controller
       $cuenta = CuentaBancaria::find($request->id);
       $cuenta->delete();
       if ($cuenta->delete()) {
+        $log= new Logs();
+        $log->fk_usuario= \Auth::user()->id;
+        $log->nombre_tabla="cuenta_bancarias";
+        $log->nombre_elemento= $request->id;
+        $log->accion="Eliminar Cuenta Bancaria";
+        $log->fecha=date ('y-m-d H:i:s');
+        $log->save();
           return redirect('/listaCuentaBancaria');
       }
     }
