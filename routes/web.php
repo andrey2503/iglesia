@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/verCuenta/{id}','CuentaBancariaController@vercuenta');
     Route::get('/modificarCuenta/{id}','CuentaBancariaController@show');
     Route::post('/modificarCuenta','CuentaBancariaController@update');
+    Route::post('/eliminarCuenta','CuentaBancariaController@destroy');
     // fin cuenta bancaria
 
 

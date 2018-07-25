@@ -156,6 +156,9 @@ class AdminController extends Controller
         // dd($request);
         $usuario=User::find($request->id);
         $usuario->delete();
+        if ($usuario->delete()) {
+            return redirect('/administrador');
+        }
 
     }
 

@@ -55,8 +55,8 @@
               <div class="form-group">
                <label for="user">Monto</label>
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto">
-               @if($errors->has('cuenta'))
-                 <span style="color: red;">{{ $errors->first('cuenta') }}</span>
+               @if($errors->has('monto'))
+                 <span style="color: red;">{{ $errors->first('monto') }}</span>
                @endif
               </div>
               <div class="form-group">

@@ -125,9 +125,14 @@ class CuentaBancariaController extends Controller
      * @param  \App\CuentaBancaria  $cuentaBancaria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CuentaBancaria $cuentaBancaria)
+    public function destroy(Request $request)
     {
-        //
+      // dd($request);
+      $cuenta = CuentaBancaria::find($request->id);
+      $cuenta->delete();
+      if ($cuenta->delete()) {
+          return redirect('/listaCuentaBancaria');
+      }
     }
 
 
