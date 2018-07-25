@@ -188,6 +188,12 @@ class AdminController extends Controller
         return view('administrador.verUsuarios')->with(['usuario'=>$usuario]);
     }
 
-
+    public function logs()
+    {
+        //
+        $logs= Logs::all();
+        // dd($logs);
+        return view('administrador.logs')->with(['logs'=>$logs]);
+    }
 
 }
