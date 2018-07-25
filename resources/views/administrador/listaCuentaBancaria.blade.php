@@ -33,7 +33,7 @@
 
                         <td>
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarUsuario') }}/{{$c->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
-                         <a class="btn btn-success btn-md" href="{{ url('/verUsuario') }}/{{$c->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                         <a class="btn btn-success btn-md" href="{{ url('/verCuenta') }}/{{$c->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
                          <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$c->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
                         </td>
                       </tr>

@@ -108,4 +108,10 @@ class CuentaBancariaController extends Controller
     {
         //
     }
+
+
+    public function vercuenta($id){
+        $cuentas= CuentaBancaria::find($id);
+        return view('administrador.verCuentas')->with(['cuentas'=>$cuentas]);
+    }
 }

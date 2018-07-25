@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/listaCuentaBancaria','CuentaBancariaController@index');
     Route::get('/nuevaCuentaBancaria','CuentaBancariaController@create');
     Route::post('/nuevaCuentaBancaria','CuentaBancariaController@store');
+    Route::get('/verCuenta/{id}','CuentaBancariaController@vercuenta');
     // fin cuenta bancaria
 
 
