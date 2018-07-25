@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
-  
-  <a href="{{ URL::asset('/nuevoUsuario') }}" class="btn btn-success btn-xs"> 
+
+  <a href="{{ URL::asset('/nuevoUsuario') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar
   </a>
@@ -35,11 +35,11 @@
                         <td>Lector</td>
                         @endif
 
-                       
+
                         <td>
-                         <a class="btn btn-primary btn-xs" href="{{ url('/modificarUsuario') }}/{{$u->id}}">Modificar</a> 
-                         <a class="btn btn-success btn-xs" href="{{ url('/verUsuario') }}/{{$u->id}}">Ver</a> 
-                         <a  type="button" class="btn btn-danger btn-xs" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$u->id}})">Eliminar</a> 
+                         <a class="btn btn-primary btn-md" href="{{ url('/modificarUsuario') }}/{{$u->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
+                         <a class="btn btn-success btn-md" href="{{ url('/verUsuario') }}/{{$u->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                         <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$u->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
                         </td>
                       </tr>
                     @endif

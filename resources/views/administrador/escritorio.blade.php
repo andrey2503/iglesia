@@ -50,7 +50,8 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>AD</b>MIN</span>
+
+          <span class="logo-lg"><span class="glyphicon glyphicon-user"> <b>AD</b>MIN </span></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -61,7 +62,7 @@
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-             
+
               <!-- User Account: style can be found in dropdown.less -->
 
 
@@ -78,7 +79,7 @@
               <li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" >
                    <div class="div-content-font-control">
-                       
+
                         <div class="div-control div-control-minus">
                           <span class="glyphicon glyphicon-text-size"> </span><span class="glyphicon glyphicon-minus"></span>
                         </div>
@@ -89,17 +90,19 @@
 
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   <span class="glyphicon glyphicon-user"></span>
                   <span class="hidden-xs">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
+                   <span class="glyphicon glyphicon-user"></span>
                    <li class="user-header" style="height: 75px;">
                     <p>
                      {{ Auth::user()->name }}
                       <small>Administrador</small>
                     </p>
                   </li>
-                  
+
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
@@ -109,7 +112,7 @@
                       <a href="{{ url('admin/formActualizarDatos')}}" class="btn btn-default btn-flat">Cambiar datos</a>
                     </div>
                   </li>
-                  
+
                 </ul>
               </li>
             </ul>
@@ -120,23 +123,31 @@
       <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-          
-          
+
+
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
 
-            
-           
+
+<!-- Ussuarios -->
             <li>
               <a href="{{ URL::asset('/administrador') }}">
-              <i class="fa fa-dashboard"></i> <span>Escritorio</span> <i class="fa fa-angle-left pull-right"></i>
+              <i class="fa fa-user-circle-o"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
                  <small class="label pull-right bg-blue">
-                   <span class="glyphicon glyphicon-home"></span>
+                   <span class="glyphicon glyphicon-user"></span>
                  </small>
               </a>
             </li>
-            
+            <!-- Empleados -->
+            <li>
+              <a href="{{ URL::asset('/administrador') }}">
+              <i class="glyphicon glyphicon-list-alt"></i> <span>Empleados</span> <i class="fa fa-angle-left pull-right"></i>
+                 <small class="label pull-right bg-green">
+                   <span class="glyphicon glyphicon-list-alt"></span>
+                 </small>
+              </a>
+            </li>
              <!-- <li>
               <a href="{{ URL::asset('/nuevoUsuario') }}">
                 <i class="fa fa-plus-circle"></i> <span>Nuevo usuario</span>
@@ -146,7 +157,14 @@
               </a>
             </li> -->
 
-
+            <li>
+              <a href="{{ URL::asset('/administrador') }}">
+              <i class="glyphicon glyphicon-th-list"></i> <span>Logs</span> <i class="fa fa-angle-left pull-right"></i>
+                 <small class="label pull-right bg-blue">
+                   <span class="glyphicon glyphicon-th-list"></span>
+                 </small>
+              </a>
+            </li>
             <li>
               <a href="{{ URL::asset('/aout') }}">
                 <i class="fa fa-times-circle"></i> <span>cerrar sesión</span>
@@ -161,7 +179,7 @@
                                         <button type="submit">Salir</button>
             </form>
             </li> -->
-          
+
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -175,18 +193,18 @@
             Dashboard
             <small>Control panel</small>
           </h1>
-         
+
         </section>
 
         <!-- Main content -->
         <section class="content" style="padding-left: 40px;">
         @yield('content')
-       
-  
+
+
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-    
-     
+
+
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
@@ -204,7 +222,7 @@
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
 
-    
+
 
     <!-- Morris.js charts -->
     <script src="{{ URL::asset('plugins/raphael-min.js') }}"></script>
