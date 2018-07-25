@@ -17,7 +17,7 @@ class CreateLogsTable extends Migration
             $table->increments('id');
             $table->integer('fk_usuario')->unsigned();
             $table->string('nombre_tabla');
-            $table->integer('nombre_elemento');
+            $table->string('nombre_elemento');
             $table->string('accion');
             $table->date('fecha');
             $table->foreign('fk_usuario')->references('id')->on('usuarios');
