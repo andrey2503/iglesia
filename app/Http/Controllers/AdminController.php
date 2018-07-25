@@ -74,7 +74,7 @@ class AdminController extends Controller
             $log= new Logs();
             $log->fk_usuario= \Auth::user()->id;
             $log->nombre_tabla="usuarios";
-            $log->nombre_elemento= $request->nombre;
+            $log->nombre_elemento= $usuario->id;
             $log->accion="Agregar Usuario";
             $log->fecha=date ('y-m-d H:i:s');
             $log->save();
@@ -140,7 +140,7 @@ class AdminController extends Controller
           $log= new Logs();
           $log->fk_usuario= \Auth::user()->id;
           $log->nombre_tabla="usuarios";
-          $log->nombre_elemento= $request->nombre;
+          $log->nombre_elemento= $request->id;
           $log->accion="Actualizar Usuario";
           $log->fecha=date ('y-m-d H:i:s');
           $log->save();

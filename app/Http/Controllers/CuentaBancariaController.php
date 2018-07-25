@@ -62,7 +62,7 @@ class CuentaBancariaController extends Controller
         $log= new Logs();
         $log->fk_usuario= \Auth::user()->id;
         $log->nombre_tabla="cuenta_bancarias";
-        $log->nombre_elemento= $request->nombre;
+        $log->nombre_elemento= $cuenta->id;
         $log->accion="Agregar Cuenta Bancaria";
         $log->fecha=date ('y-m-d H:i:s');
         $log->save();
@@ -124,7 +124,7 @@ class CuentaBancariaController extends Controller
                 $log= new Logs();
                 $log->fk_usuario= \Auth::user()->id;
                 $log->nombre_tabla="cuenta_bancarias";
-                $log->nombre_elemento= $request->nombre;
+                $log->nombre_elemento= $request->id;
                 $log->accion="Actualizar Cuenta Bancaria";
                 $log->fecha=date ('y-m-d H:i:s');
                 $log->save();
