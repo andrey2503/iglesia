@@ -70,9 +70,11 @@ class CuentaBancariaController extends Controller
      * @param  \App\CuentaBancaria  $cuentaBancaria
      * @return \Illuminate\Http\Response
      */
-    public function show(CuentaBancaria $cuentaBancaria)
+    public function show($id)
     {
         //
+        $cuentas= CuentaBancaria::find($id);
+        return view('administrador.modificarCuentas')->with(['cuentas'=>$cuentas]);
     }
 
     /**
@@ -93,9 +95,28 @@ class CuentaBancariaController extends Controller
      * @param  \App\CuentaBancaria  $cuentaBancaria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CuentaBancaria $cuentaBancaria)
+    public function update(Request $request)
     {
-        //
+ // dd($request);
+      $this->validate($request,[
+          'nombre'=>'required',
+          'banco'=>'required',
+          'monto'=>'required'
+          ]);
+
+      $cuenta = CuentaBancaria::find($request->id);
+      $cuenta->nombre = $request->nombre;
+      $cuenta->tipo = $request->tipo;
+      $cuenta->moneda= $request->moneda;
+      $cuenta->banco= $request->banco;
+      $cuenta->monto=$request->monto;
+              // $user->state=$request->estado;
+
+              if($cuenta->save()){
+                  return redirect()->back()->with('message','Cuenta '.$request->cuenta.' Actualizada correctamente');
+              }else{
+                  return redirect('/modificarCuentas');
+              }
     }
 
     /**

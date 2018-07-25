@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/nuevaCuentaBancaria','CuentaBancariaController@create');
     Route::post('/nuevaCuentaBancaria','CuentaBancariaController@store');
     Route::get('/verCuenta/{id}','CuentaBancariaController@vercuenta');
+    Route::get('/modificarCuenta/{id}','CuentaBancariaController@show');
+    Route::post('/modificarCuenta','CuentaBancariaController@update');
     // fin cuenta bancaria
 
 
