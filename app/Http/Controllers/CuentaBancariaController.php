@@ -15,6 +15,10 @@ class CuentaBancariaController extends Controller
     public function index()
     {
         //
+        $cuentas= CuentaBancaria::all();
+// dd($cuentas);
+        return view('administrador.listaCuentaBancaria')->with(['cuentas'=>$cuentas]);
+
     }
 
     /**
@@ -25,6 +29,7 @@ class CuentaBancariaController extends Controller
     public function create()
     {
         //
+        return view ('administrador.nuevaCuentaBancaria');
     }
 
     /**
@@ -35,7 +40,33 @@ class CuentaBancariaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+          'nombre'=>'required',
+          'email'=>'required|unique:usuarios',
+          'idrol'=>'required',
+          'contrasena'=>'required',
+          'usuario'=>"required|unique:usuarios"
+          ]);
+      $usuario = new User();
+      $usuario->nombre = $request->nombre;
+      $usuario->usuario = $request->usuario;
+      $usuario->email= $request->email;
+      $usuario->telefono= $request->telefono;
+      $usuario->idrol=$request->idrol;
+      $usuario->password= Hash::make($request->contrasena);
+
+      if($usuario->save()){
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="usuarios";
+          $log->nombre_elemento= $usuario->id;
+          $log->accion="Agregar";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+          return redirect()->back()->with('message','Usuario '.$request->usuario.' creado correctamente');
+      }else{
+          return redirect('/listaCuentaBancaria');
+      }
     }
 
     /**

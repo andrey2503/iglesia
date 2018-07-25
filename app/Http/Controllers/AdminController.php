@@ -54,7 +54,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-    
+
         $this->validate($request,[
             'nombre'=>'required',
             'email'=>'required|unique:usuarios',
@@ -118,7 +118,7 @@ class AdminController extends Controller
      */
     public function update(Request $request)
     {
-      
+
         $this->validate($request,[
             'nombre'=>'required',
             'email'=>'required',
@@ -132,7 +132,7 @@ class AdminController extends Controller
         $user->idrol = $request->idrol;
         if($user->password!=$request->contrasena){
             $contrasena=$request->contrasena;
-            $user->password = Hash::make($contrasena);    
+            $user->password = Hash::make($contrasena);
         }
         // $user->state=$request->estado;
 
@@ -158,7 +158,7 @@ class AdminController extends Controller
         $usuario->delete();
 
     }
-    
+
     protected function getLogout()
     {
         $this->auth->logout();
@@ -170,7 +170,7 @@ class AdminController extends Controller
         $usuario= User::find($id);
         return view('administrador.verUsuarios')->with(['usuario'=>$usuario]);
     }
-    
 
-   
+
+
 }

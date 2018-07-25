@@ -133,7 +133,7 @@
 <!-- Ussuarios -->
             <li>
               <a href="{{ URL::asset('/administrador') }}">
-              <i class="fa fa-user-circle-o"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
+              <i class="glyphicon glyphicon-user"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
                  <small class="label pull-right bg-blue">
                    <span class="glyphicon glyphicon-user"></span>
                  </small>
@@ -145,6 +145,15 @@
               <i class="glyphicon glyphicon-list-alt"></i> <span>Empleados</span> <i class="fa fa-angle-left pull-right"></i>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-list-alt"></span>
+                 </small>
+              </a>
+            </li>
+
+            <li>
+              <a href="{{ URL::asset('/listaCuentaBancaria') }}">
+              <i class="glyphicon glyphicon-usd"></i> <span>Cuentas Bancarias</span> <i class="fa fa-angle-left pull-right"></i>
+                 <small class="label pull-right bg-orange">
+                   <span class="glyphicon glyphicon-usd"></span>
                  </small>
               </a>
             </li>
@@ -167,7 +176,7 @@
             </li>
             <li>
               <a href="{{ URL::asset('/aout') }}">
-                <i class="fa fa-times-circle"></i> <span>cerrar sesión</span>
+                <i class="glyphicon glyphicon-off"></i> <span>cerrar sesión</span><i class="fa fa-angle-left pull-right"></i>
                  <small class="label pull-right bg-red">
                     <span class="glyphicon glyphicon-off"></span>
                  </small>

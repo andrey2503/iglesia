@@ -14,7 +14,7 @@
 Auth::routes();
 
 //rutas accessibles slo si el usuario no se ha logueado
-    
+
   Route::post('login', ['as' =>'login', 'uses' => 'Auth\LoginController@postLogin']);
       Route::get('/', function () {
         return view('auth.login');
@@ -24,8 +24,8 @@ Auth::routes();
       });
   Route::get('/user', 'Auth\LoginController@iniciarUsuarioAdmin');
   Route::get('/salir', 'Auth\LoginController@getLogout');
-  
-  
+
+
 
 
 Route::group(['middleware' => ['auth']], function () {
@@ -38,10 +38,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/nuevoUsuario','AdminController@store');
     Route::get('/verUsuario/{id}','AdminController@verusuario');
     Route::post('/eliminarUsuario','AdminController@destroy');
-    
-    
-    
-    
+    Route::get('/listaCuentaBancaria','CuentaBancariaController@index');
+    Route::post('/listaCuentaBancaria','CuentaBancariaController@store');
+
+
+
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');
@@ -53,9 +54,9 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::post('/modificarUsuario','AdminController@update');
     Route::get('/lout', 'LectorController@Logout');
 
-    
-    
-    
+
+
+
 });
 
 
