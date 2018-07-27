@@ -157,6 +157,15 @@
                  </small>
               </a>
             </li>
+
+            <li>
+              <a href="{{ URL::asset('/listaRubros') }}">
+              <i class="glyphicon glyphicon-tag"></i> <span>Rubros</span> <i class="fa fa-angle-left pull-right"></i>
+                 <small class="label pull-right bg-blue">
+                   <span class="glyphicon glyphicon-tag"></span>
+                 </small>
+              </a>
+            </li>
              <!-- <li>
               <a href="{{ URL::asset('/nuevoUsuario') }}">
                 <i class="fa fa-plus-circle"></i> <span>Nuevo usuario</span>

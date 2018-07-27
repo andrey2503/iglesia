@@ -48,7 +48,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/modificarCuenta','CuentaBancariaController@update');
     Route::post('/eliminarCuenta','CuentaBancariaController@destroy');
     // fin cuenta bancaria
-
+    //rubros
+    Route::get('/listaRubros','RubroController@index');
+    Route::get('/nuevoRubro','RubroController@create');
+    Route::post('/nuevoRubro','RubroController@store');
+    //fin rubros
 
 
     // digitador

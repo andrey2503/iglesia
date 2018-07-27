@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Rubro;
 use Illuminate\Http\Request;
-
+use Illuminate\Contracts\Auth\Guard;
+use Session;
+use App\Logs;
 class RubroController extends Controller
 {
     /**
@@ -15,6 +17,8 @@ class RubroController extends Controller
     public function index()
     {
         //
+        $rubros= Rubro::all();
+        return view('administrador.rubros')->with(['rubros'=>$rubros]);
     }
 
     /**
@@ -25,6 +29,7 @@ class RubroController extends Controller
     public function create()
     {
         //
+            return view ('administrador.nuevoRubro');
     }
 
     /**
@@ -36,6 +41,26 @@ class RubroController extends Controller
     public function store(Request $request)
     {
         //
+                $this->validate($request,[
+                    'nombre'=>'required|unique:usuarios',
+                    'descripcion'=>'required'
+                    ]);
+                $rubro = new Rubro();
+                $rubro->nombre = $request->nombre;
+                $rubro->descripcion = $request->descripcion;
+
+                if($rubro->save()){
+                    $log= new Logs();
+                    $log->fk_usuario= \Auth::user()->id;
+                    $log->nombre_tabla="rubros";
+                    $log->nombre_elemento= $rubro->id;
+                    $log->accion="Agregar RUbro";
+                    $log->fecha=date ('y-m-d H:i:s');
+                    $log->save();
+                    return redirect()->back()->with('message','Rubro '.$request->nombre.' creado correctamente');
+                }else{
+                    return redirect('/nuevoRubro');
+                }
     }
 
     /**
