@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nombre', 'correo','telefono', 'idrol', 'usuario','password',
+        'nombre', 'correo','telefono', 'idrol', 'usuario','password','fk_usuario',
     ];
 
     /**
@@ -28,4 +28,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     protected $dates = ['deleted_at'];
+
+    public function Logs()
+    {
+        return $this->hasMany('App\Logs','fk_usuario');
+    }
+
+    // public function Logs()
+    // {
+    //     return $this->belongsToMany('App\Logs','fk_usuario');
+    // }
 }

@@ -192,7 +192,7 @@ class AdminController extends Controller
     {
         //
         $logs= Logs::all();
-        // dd($logs);
+        
         return view('administrador.logs')->with(['logs'=>$logs]);
     }
 
