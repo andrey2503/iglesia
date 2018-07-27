@@ -54,7 +54,7 @@ class RubroController extends Controller
                     $log->fk_usuario= \Auth::user()->id;
                     $log->nombre_tabla="rubros";
                     $log->nombre_elemento= $rubro->id;
-                    $log->accion="Agregar RUbro";
+                    $log->accion="Agregar Rubro";
                     $log->fecha=date ('y-m-d H:i:s');
                     $log->save();
                     return redirect()->back()->with('message','Rubro '.$request->nombre.' creado correctamente');
@@ -69,9 +69,11 @@ class RubroController extends Controller
      * @param  \App\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function show(Rubro $rubro)
+    public function show($id)
     {
         //
+        $rubro= Rubro::find($id);
+        return view('administrador.modificarRubro')->with(['rubro'=>$rubro]);
     }
 
     /**
@@ -80,7 +82,7 @@ class RubroController extends Controller
      * @param  \App\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rubro $rubro)
+    public function edit(Request $request)
     {
         //
     }
@@ -95,6 +97,27 @@ class RubroController extends Controller
     public function update(Request $request, Rubro $rubro)
     {
         //
+        // dd($request);
+        $this->validate($request,[
+            'nombre'=>'required|unique:usuarios',
+            'descripcion'=>'required'
+            ]);
+        $rubro = Rubro::find($request->id);
+        $rubro->nombre = $request->nombre;
+        $rubro->descripcion = $request->descripcion;
+
+        if($rubro->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="rubros";
+            $log->nombre_elemento= $rubro->id;
+            $log->accion="Modificar Rubro";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Rubro '.$request->nombre.' editado correctamente');
+        }else{
+            return redirect('/modificarRubro');
+        }
     }
 
     /**
@@ -103,8 +126,26 @@ class RubroController extends Controller
      * @param  \App\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rubro $rubro)
+    public function destroy(Request $request)
     {
         //
+        $rubro=Rubro::find($request->id);
+        $rubro->delete();
+        if ($rubro->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="usuarios";
+          $log->nombre_elemento= $request->id;
+          $log->accion="Eliminar Rubro";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect('/listaRubros');
+        }
+    }
+
+    public function verrubro($id){
+        $rubro= Rubro::find($id);
+        // dd($rubro);
+        return view('administrador.verRubros')->with(['rubro'=>$rubro]);
     }
 }

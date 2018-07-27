@@ -52,6 +52,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/listaRubros','RubroController@index');
     Route::get('/nuevoRubro','RubroController@create');
     Route::post('/nuevoRubro','RubroController@store');
+    Route::get('/verRubro/{id}','RubroController@verrubro');
+    Route::get('/modificarRubro/{id}','RubroController@show');
+    Route::post('/modificarRubro','RubroController@update');
+    Route::post('/eliminarRubro','RubroController@destroy');
     //fin rubros
 
 
