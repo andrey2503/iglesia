@@ -169,8 +169,24 @@
           <li>
             <a href="{{ URL::asset('/listaPuestos') }}">
               <i class="glyphicon glyphicon-bookmark"></i> <span>Puestos</span> <i class="fa fa-angle-left pull-right"></i>
-              <small class="label pull-right bg-blue">
+              <small class="label pull-right bg-gray">
                 <span class="glyphicon glyphicon-bookmark"></span>
+              </small>
+            </a>
+          </li>
+          <li>
+            <a href="{{ URL::asset('/listaCuentasPagar') }}">
+              <i class="glyphicon glyphicon-thumbs-up"></i> <span>Cuentas por Cobrar</span> <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-green">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+              </small>
+            </a>
+          </li>
+          <li>
+            <a href="{{ URL::asset('/listaCuentasCobrar') }}">
+              <i class="glyphicon glyphicon-thumbs-down"></i> <span>Cuentas por Pagar</span> <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-purple">
+                <span class="glyphicon glyphicon-thumbs-down"></span>
               </small>
             </a>
           </li>
