@@ -42,7 +42,7 @@ class RubroController extends Controller
     {
         //
                 $this->validate($request,[
-                    'nombre'=>'required|unique:usuarios',
+                    'nombre'=>'required|unique:rubros',
                     'descripcion'=>'required'
                     ]);
                 $rubro = new Rubro();
@@ -99,7 +99,7 @@ class RubroController extends Controller
         //
         // dd($request);
         $this->validate($request,[
-            'nombre'=>'required|unique:usuarios',
+            'nombre'=>'required',
             'descripcion'=>'required'
             ]);
         $rubro = Rubro::find($request->id);
@@ -134,7 +134,7 @@ class RubroController extends Controller
         if ($rubro->delete()) {
           $log= new Logs();
           $log->fk_usuario= \Auth::user()->id;
-          $log->nombre_tabla="usuarios";
+          $log->nombre_tabla="rubros";
           $log->nombre_elemento= $request->id;
           $log->accion="Eliminar Rubro";
           $log->fecha=date ('y-m-d H:i:s');

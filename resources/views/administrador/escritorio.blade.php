@@ -168,9 +168,9 @@
           </li>
           <li>
             <a href="{{ URL::asset('/listaPuestos') }}">
-              <i class="glyphicon glyphicon-tag"></i> <span>Puestos</span> <i class="fa fa-angle-left pull-right"></i>
+              <i class="glyphicon glyphicon-bookmark"></i> <span>Puestos</span> <i class="fa fa-angle-left pull-right"></i>
               <small class="label pull-right bg-blue">
-                <span class="glyphicon glyphicon-tag"></span>
+                <span class="glyphicon glyphicon-bookmark"></span>
               </small>
             </a>
           </li>

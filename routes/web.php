@@ -57,7 +57,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/modificarRubro','RubroController@update');
     Route::post('/eliminarRubro','RubroController@destroy');
     //fin rubros
-
+    //puestos
+    Route::get('/listaPuestos','PuestoController@index');
+    Route::get('/nuevoPuesto','PuestoController@create');
+    Route::post('/nuevoPuesto','PuestoController@store');
+    Route::get('/verPuesto/{id}','PuestoController@verPuesto');
+    Route::get('/modificarPuesto/{id}','PuestoController@show');
+    Route::post('/modificarPuesto','PuestoController@update');
+    Route::post('/eliminarPuesto','PuestoController@destroy');
+    //fin puestos
 
     // digitador
     Route::get('/digitador','Digitador@index');
