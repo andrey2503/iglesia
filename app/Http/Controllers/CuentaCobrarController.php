@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\CuentaCobrar;
 use Illuminate\Http\Request;
-
+use Illuminate\Contracts\Auth\Guard;
+use Session;
+use App\User;
+use App\Rubro;
+use App\Logs;
 class CuentaCobrarController extends Controller
 {
     /**
@@ -15,6 +19,8 @@ class CuentaCobrarController extends Controller
     public function index()
     {
         //
+        $cuentasCobrar= CuentaCobrar::all();
+        return view('administrador.listaCuentaPC')->with(['cuentasCobrar'=>$cuentasCobrar]);
     }
 
     /**
@@ -25,6 +31,8 @@ class CuentaCobrarController extends Controller
     public function create()
     {
         //
+        $rubros= Rubro::all();
+        return view('administrador.nuevaCuentaPC')->with(['rubros'=>$rubros]);
     }
 
     /**
@@ -36,6 +44,33 @@ class CuentaCobrarController extends Controller
     public function store(Request $request)
     {
         //
+
+                $this->validate($request,[
+                    'nombre'=>'required',
+                    'identificacion'=>'required|unique:cuenta_cobrars',
+                    'rubro'=>'required',
+                    'moneda'=>'required',
+                    'monto'=>"required"
+                    ]);
+                $cuentasCobrar = new CuentaCobrar();
+                $cuentasCobrar->nombre = $request->nombre;
+                $cuentasCobrar->identificacion = $request->identificacion;
+                $cuentasCobrar->fk_rubro= $request->rubro;
+                $cuentasCobrar->moneda= $request->moneda;
+                $cuentasCobrar->monto=$request->monto;
+
+                if($cuentasCobrar->save()){
+                    $log= new Logs();
+                    $log->fk_usuario= \Auth::user()->id;
+                    $log->nombre_tabla="cuenta_cobrars";
+                    $log->nombre_elemento= $cuentasCobrar->id;
+                    $log->accion="Agregar Cuenta por Cobrar";
+                    $log->fecha=date ('y-m-d H:i:s');
+                    $log->save();
+                    return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creado correctamente');
+                }else{
+                    return redirect('administrador.nuevaCuentaPC');
+                }
     }
 
     /**
@@ -81,5 +116,9 @@ class CuentaCobrarController extends Controller
     public function destroy(CuentaCobrar $cuentaCobrar)
     {
         //
+    }
+    public function verCP($id){
+        $cuentasCobrar= CuentaCobrar::find($id);
+        return view('administrador.verPC')->with(['cuentasCobrar'=>$cuentasCobrar]);
     }
 }

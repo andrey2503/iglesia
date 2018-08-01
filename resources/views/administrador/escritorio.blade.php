@@ -175,7 +175,7 @@
             </a>
           </li>
           <li>
-            <a href="{{ URL::asset('/listaCuentasPagar') }}">
+            <a href="{{ URL::asset('/listaCuentaPC') }}">
               <i class="glyphicon glyphicon-thumbs-up"></i> <span>Cuentas por Cobrar</span> <i class="fa fa-angle-left pull-right"></i>
               <small class="label pull-right bg-green">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
@@ -183,7 +183,7 @@
             </a>
           </li>
           <li>
-            <a href="{{ URL::asset('/listaCuentasCobrar') }}">
+            <a href="{{ URL::asset('/listaCuentaPP') }}">
               <i class="glyphicon glyphicon-thumbs-down"></i> <span>Cuentas por Pagar</span> <i class="fa fa-angle-left pull-right"></i>
               <small class="label pull-right bg-purple">
                 <span class="glyphicon glyphicon-thumbs-down"></span>

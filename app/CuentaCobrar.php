@@ -3,8 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class CuentaCobrar extends Model
 {
+  use Notifiable;
+  use SoftDeletes;
+  protected $table="cuenta_cobrars";
     //
+
+    protected $fillable = [
+        'nombre', 'identificacion','moneda', 'monto', 'fk_rubro',
+    ];
+    protected $dates = ['deleted_at'];
 }
