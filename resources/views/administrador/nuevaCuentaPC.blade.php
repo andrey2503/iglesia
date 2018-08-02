@@ -23,13 +23,7 @@
                 @endif
               </div>
 
-              <div class="form-group">
-                <label for="email">Identificacion</label>
-                <input type="text" class="form-control" name="identificacion" placeholder="Identificacion">
-                @if($errors->has('identificacion'))
-                  <span style="color: red;">{{ $errors->first('identificacion') }}</span>
-                @endif
-              </div>
+
 
                <div class="form-group">
                 <label for="user">Rubro</label>
@@ -65,7 +59,7 @@
               </div>
 
         </div>
-        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Cuenta</button>
+        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Cuenta por Cobrar</button>
       </form>
       </div><!-- /.box -->
 </div>

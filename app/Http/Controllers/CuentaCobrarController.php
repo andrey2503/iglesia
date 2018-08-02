@@ -47,14 +47,12 @@ class CuentaCobrarController extends Controller
 
                 $this->validate($request,[
                     'nombre'=>'required',
-                    'identificacion'=>'required|unique:cuenta_cobrars',
                     'rubro'=>'required',
                     'moneda'=>'required',
                     'monto'=>"required"
                     ]);
                 $cuentasCobrar = new CuentaCobrar();
                 $cuentasCobrar->nombre = $request->nombre;
-                $cuentasCobrar->identificacion = $request->identificacion;
                 $cuentasCobrar->fk_rubro= $request->rubro;
                 $cuentasCobrar->moneda= $request->moneda;
                 $cuentasCobrar->monto=$request->monto;

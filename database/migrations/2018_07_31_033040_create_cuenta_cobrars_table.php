@@ -16,7 +16,6 @@ class CreateCuentaCobrarsTable extends Migration
         Schema::create('cuenta_cobrars', function (Blueprint $table) {
           $table->increments('id');
           $table->string('nombre');
-          $table->string('identificacion')->unique();
           $table->string('moneda');
           $table->decimal('monto', 18, 2);
           $table->integer('fk_rubro')->unsigned();
