@@ -75,6 +75,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/modificarPC','CuentaCobrarController@update');
     Route::post('/eliminarCP','CuentaCobrarController@destroy');
     //fin cuenta por cobrar
+    //cuenta por pagar
+    Route::get('/listaCuentaPP','CuentaPagarController@index');
+    // Route::get('/nuevaCuentaPC','CuentaCobrarController@create');
+    // Route::post('/nuevaCuentaPC','CuentaCobrarController@store');
+    // Route::get('/verPC/{id}','CuentaCobrarController@verCP');
+    // Route::get('/modificarPC/{id}','CuentaCobrarController@show');
+    // Route::post('/modificarPC','CuentaCobrarController@update');
+    // Route::post('/eliminarCP','CuentaCobrarController@destroy');
+    //fin cuenta por pagar
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');

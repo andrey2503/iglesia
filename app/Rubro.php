@@ -23,6 +23,9 @@ class Rubro extends Model
     {
         return $this->hasMany('App\Rubro','fk_rubro');
     }
-
+    public function CuentaPagar()
+    {
+        return $this->hasMany('App\Rubro','fk_rubro');
+    }
 
 }

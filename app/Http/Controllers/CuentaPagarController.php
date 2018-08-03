@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\CuentaPagar;
 use Illuminate\Http\Request;
-
+use Illuminate\Contracts\Auth\Guard;
+use Session;
+use App\User;
+use App\Rubro;
+use App\Logs;
 class CuentaPagarController extends Controller
 {
     /**
@@ -15,6 +19,8 @@ class CuentaPagarController extends Controller
     public function index()
     {
         //
+        $cuentasPagar= CuentaPagar::all();
+        return view('administrador.listaCuentaPP')->with(['cuentasPagar'=>$cuentasPagar]);
     }
 
     /**
