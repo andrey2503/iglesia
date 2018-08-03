@@ -77,9 +77,12 @@ class CuentaCobrarController extends Controller
      * @param  \App\CuentaCobrar  $cuentaCobrar
      * @return \Illuminate\Http\Response
      */
-    public function show(CuentaCobrar $cuentaCobrar)
+    public function show($id)
     {
         //
+        $rubros= Rubro::all();
+        $cuentasCobrar=CuentaCobrar::find($id);
+        return view('administrador.modificarPC')->with(['cuentasCobrar'=>$cuentasCobrar,'rubros'=>$rubros]);
     }
 
     /**
@@ -100,9 +103,35 @@ class CuentaCobrarController extends Controller
      * @param  \App\CuentaCobrar  $cuentaCobrar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CuentaCobrar $cuentaCobrar)
+    public function update(Request $request)
     {
         //
+
+                        $this->validate($request,[
+                            'nombre'=>'required',
+                            'rubro'=>'required',
+                            'moneda'=>'required',
+                            'monto'=>"required"
+                            ]);
+
+                        $cuentasCobrar = CuentaCobrar::find($request->id);
+                        $cuentasCobrar->nombre = $request->nombre;
+                        $cuentasCobrar->fk_rubro= $request->rubro;
+                        $cuentasCobrar->moneda= $request->moneda;
+                        $cuentasCobrar->monto=$request->monto;
+
+                        if($cuentasCobrar->save()){
+                            $log= new Logs();
+                            $log->fk_usuario= \Auth::user()->id;
+                            $log->nombre_tabla="cuenta_cobrars";
+                            $log->nombre_elemento= $request->id;
+                            $log->accion="Modificar Cuenta por Cobrar";
+                            $log->fecha=date ('y-m-d H:i:s');
+                            $log->save();
+                            return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' Modificado correctamente');
+                        }else{
+                            return redirect('administrador.modificarPC');
+                        }
     }
 
     /**
