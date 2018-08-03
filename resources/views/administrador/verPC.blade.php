@@ -4,7 +4,7 @@
 <div class="container row col-md-8 col-md-offset-2 ">
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
-                  <h3 class="box-title"> Ver Cuenta por Cobrar</h3>
+                  <h3 class="box-title"> Ver Cuenta por Cbrar</h3>
                   @if(session()->has('message'))
                       <div class="alert alert-success">
                           {{ session()->get('message') }}
@@ -17,7 +17,11 @@
                 <input type="text" class="form-control" name="nombre" value="{{ $cuentasCobrar->nombre }}" disabled="true">
               </div>
 
+              <div class="form-group">
+                <label for="email">Identificacion</label>
+                <input type="email" class="form-control" name="email" value="0{{ $cuentasCobrar->id }}PC" disabled="true">
 
+              </div>
 
                <div class="form-group">
                 <label for="usuario">Rubro</label>

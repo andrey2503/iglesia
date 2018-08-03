@@ -111,10 +111,23 @@ class CuentaCobrarController extends Controller
      * @param  \App\CuentaCobrar  $cuentaCobrar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CuentaCobrar $cuentaCobrar)
+    public function destroy(Request $request)
     {
         //
-    }
+        // dd($request);
+        $cuentasCobrar=CuentaCobrar::find($request->id);
+        $cuentasCobrar->delete();
+        if ($cuentasCobrar->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="cuenta_cobrars";
+          $log->nombre_elemento= $request->id;
+          $log->accion="Eliminar Cuenta por Cobrar";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect('listaCuentaPC');
+        }
+      }
     public function verCP($id){
         $cuentasCobrar= CuentaCobrar::find($id);
         return view('administrador.verPC')->with(['cuentasCobrar'=>$cuentasCobrar]);

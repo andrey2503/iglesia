@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/verPC/{id}','CuentaCobrarController@verCP');
     // Route::get('/modificarPuesto/{id}','PuestoController@show');
     // Route::post('/modificarPuesto','PuestoController@update');
-    // Route::post('/eliminarPuesto','PuestoController@destroy');
+    Route::post('/eliminarCP','CuentaCobrarController@destroy');
     //fin cuenta por cobrar
     // digitador
     Route::get('/digitador','Digitador@index');
