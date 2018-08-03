@@ -17,4 +17,12 @@ class CuentaCobrar extends Model
         'nombre', 'identificacion','moneda', 'monto', 'fk_rubro',
     ];
     protected $dates = ['deleted_at'];
+
+    public function rubro()
+    {
+        return $this->hasOne('App\Rubro','id','fk_rubro');
+    }
+
+    
+
 }

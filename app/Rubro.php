@@ -18,4 +18,11 @@ class Rubro extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function CuentaCobrar()
+    {
+        return $this->hasMany('App\Rubro','fk_rubro');
+    }
+
+
 }

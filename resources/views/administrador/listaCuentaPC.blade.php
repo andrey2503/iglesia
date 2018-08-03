@@ -26,7 +26,7 @@
                       <tr>
                         <td>{{ $cpc->nombre }}</td>
                         <td>0{{ $cpc->id }}PC</td>
-                        <td>{{ $cpc->fk_rubro }}</td>
+                        <td>{{ $cpc->rubro->nombre }}</td>
                         <td>{{ $cpc->monto }}</td>
                           <td>{{ $cpc->moneda }}</td>
                         <td>

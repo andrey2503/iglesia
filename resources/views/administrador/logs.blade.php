@@ -21,8 +21,6 @@
 
                       <tr>
                       <td>{{ $l->usuario->nombre }}</td>
-                      
-                     
                         <!-- <td>{{ $l->id }}</td> -->
                         <td>{{ $l->nombre_tabla }}</td>
                         <td>{{ $l->nombre_elemento }}</td>
