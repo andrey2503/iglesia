@@ -16,7 +16,7 @@
                 <label for="nombre">Nombre</label>
                 <input type="text" class="form-control" name="nombre" value="{{ $cuentasCobrar->nombre }}" disabled="true">
               </div>
-
+              
               <div class="form-group">
                 <label for="email">Identificacion</label>
                 <input type="email" class="form-control" name="email" value="0{{ $cuentasCobrar->id }}PC" disabled="true">

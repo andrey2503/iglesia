@@ -15,6 +15,14 @@ class CreateEmpleadosTable extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('estado');
+            $table->decimal('monto', 18, 2);
+            $table->date('fecha');
+            $table->string('cedula');
+            $table->string('nombre');
+            $table->string('telefono');
+            $table->integer('fk_puesto')->unsigned();
+            $table->foreign('fk_puesto')->references('id')->on('puestos');
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
-
+  
   <a href="{{ URL::asset('/nuevaCuentaBancaria') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Cuenta Bancaria
@@ -20,9 +20,22 @@
                   <th>Acción</th>
                 </thead>
                 <tbody>
+                  <!-- @define $i = 1 -->
+                  @php
+                     $i=0;
+                  @endphp
                   @if(isset($cuentas))
                     @foreach($cuentas as $c)
-
+                    @php
+                    $i =   $c->monto  + $i
+                    @endphp
+                    valor {{
+                      $c->monto
+                    }}
+                    = {{
+                      $i
+                    }}
+                    
                       <tr>
                         <td>{{ $c->nombre }}</td>
                         <!-- <td>{{ $c->user }}</td> -->
