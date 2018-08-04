@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
-
+<h3>Usuarios</h3>
   <a href="{{ URL::asset('/nuevoUsuario') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar

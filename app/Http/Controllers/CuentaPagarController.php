@@ -31,6 +31,8 @@ class CuentaPagarController extends Controller
     public function create()
     {
         //
+        $rubros= Rubro::all();
+        return view('administrador.nuevaCuentaPP')->with(['rubros'=>$rubros]);
     }
 
     /**
@@ -42,6 +44,30 @@ class CuentaPagarController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'nombre'=>'required',
+            'rubro'=>'required',
+            'moneda'=>'required',
+            'monto'=>"required"
+            ]);
+        $cuentasPagar= new CuentaPagar();
+        $cuentasPagar->nombre = $request->nombre;
+        $cuentasPagar->fk_rubro= $request->rubro;
+        $cuentasPagar->moneda= $request->moneda;
+        $cuentasPagar->monto=$request->monto;
+
+        if($cuentasPagar->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="cuenta_pagars";
+            $log->nombre_elemento= $cuentasPagar->id;
+            $log->accion="Agregar Cuenta por Pagar";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Cuenta por Pagar '.$cuentasPagar->nombre.' creado correctamente');
+        }else{
+            return redirect('administrador.nuevaCuentaPP');
+        }
     }
 
     /**

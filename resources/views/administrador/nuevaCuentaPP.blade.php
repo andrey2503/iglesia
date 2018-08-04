@@ -5,14 +5,14 @@
 <div class="container row col-md-8 col-md-offset-2 ">
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
-                  <h3 class="box-title"> Nueva Cuenta Bancaria</h3>
+                  <h3 class="box-title"> Nueva Cuenta por Pagar</h3>
                   @if(session()->has('message'))
                       <div class="alert alert-success">
                           {{ session()->get('message') }}
                       </div>
                   @endif
       </div><!-- /.box-header -->
-      <form  role="form"   method="post"  action="{{ url('nuevaCuentaBancaria') }}" class="form-horizontal form_entrada" >
+      <form  role="form"   method="post"  action="{{ url('nuevaCuentaPP') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
         <div class="box-body">
             <div class="form-group">
@@ -23,22 +23,20 @@
                 @endif
               </div>
 
-              <div class="form-group">
-                <label for="email">Banco</label>
-                <input type="text" class="form-control" name="banco" placeholder="Banco">
-                @if($errors->has('banco'))
-                  <span style="color: red;">{{ $errors->first('banco') }}</span>
-                @endif
-              </div>
+
 
                <div class="form-group">
-                <label for="user">Tipo de Cuenta</label>
-                <select class="form-control" name="tipo">
-                  <option value="Corriente">Corriente</option>
-                    <option value="Ahorros">Ahorros</option>
+                <label for="user">Rubro</label>
+                <select class="form-control" name="rubro">
+                  @if(isset($rubros))
+                    @foreach($rubros as $r)
+                  <option value="{{ $r->id }}">{{ $r->nombre }}</option>
+
+                    @endforeach
+                  @endif
                 </select>
-                @if($errors->has('tipo'))
-                  <span style="color: red;">{{ $errors->first('tipo') }}</span>
+                @if($errors->has('rubro'))
+                  <span style="color: red;">{{ $errors->first('rubro') }}</span>
                 @endif
               </div>
               <div class="form-group">
@@ -59,17 +57,10 @@
                  <span style="color: red;">{{ $errors->first('monto') }}</span>
                @endif
               </div>
-              <div class="form-group">
-                <label for="telefono">Número de Cuenta</label>
-                <input type="text" class="form-control" name="cuenta" placeholder="Número de Cuenta">
-                @if($errors->has('cuenta'))
-                  <span style="color: red;">{{ $errors->first('cuenta') }}</span>
-                @endif
-              </div>
 
         </div>
-        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Cuenta</button>
-        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaCuentaBancaria') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
+        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Cuenta por Pagar</button>
+        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaCuentaPP') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
       </form>
       </div><!-- /.box -->
 </div>
