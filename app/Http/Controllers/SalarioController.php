@@ -111,9 +111,22 @@ class SalarioController extends Controller
      * @param  \App\Salario  $salario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Salario $salario)
+    public function destroy(Request $request)
     {
         //
+        // dd($request);
+        $salario=Salario::find($request->id);
+        $salario->delete();
+        if ($salario->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="salarios";
+          $log->nombre_elemento= $request->id;
+          $log->accion="Eliminar Salario";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect('listaSalarios');
+        }
     }
 
     public function verSalario($id){

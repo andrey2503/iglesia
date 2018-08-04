@@ -91,7 +91,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/verSalario/{id}','SalarioController@verSalario');
     // Route::get('/modificarSalario/{id}','SalarioController@show');
     // Route::post('/modificarSalario','SalarioController@update');
-    // Route::post('/eliminarSalario','SalarioController@destroy');
+    Route::post('/eliminarSalario','SalarioController@destroy');
     //fin salarios
     // digitador
     Route::get('/digitador','Digitador@index');

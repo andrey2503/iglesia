@@ -17,6 +17,7 @@
                   <th>Moneda</th>
                   <th>S. Nominal</th>
                   <th>Obligaciones</th>
+                  <th>S. Neto</th>
                   <th>Acción</th>
                 </thead>
                 <tbody>
@@ -29,6 +30,7 @@
                         <td>{{ $s->moneda }}</td>
                         <td>{{ $s->salarioNominal }}</td>
                         <td>{{ $s->obligaciones }}</td>
+                        <td>{{ $s->salarioNeto }}</td>
 
                         <td>
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarSalario') }}/{{$s->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
