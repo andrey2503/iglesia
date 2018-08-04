@@ -151,9 +151,9 @@
 
           <li>
             <a href="{{ URL::asset('/listaCuentaBancaria') }}">
-              <i class="glyphicon glyphicon-usd"></i> <span>Cuentas Bancarias</span> <i class="fa fa-angle-left pull-right"></i>
+              <i class="glyphicon glyphicon-credit-card"></i> <span>Cuentas Bancarias</span> <i class="fa fa-angle-left pull-right"></i>
               <small class="label pull-right bg-orange">
-                <span class="glyphicon glyphicon-usd"></span>
+                <span class="glyphicon glyphicon-credit-card"></span>
               </small>
             </a>
           </li>
@@ -191,13 +191,26 @@
             </a>
           </li>
           <li>
-            <a href="{{ URL::asset('/listaCuentaPP') }}">
-              <i class="glyphicon glyphicon-apple"></i> <span>Soda</span> <i class="fa fa-angle-left pull-right"></i>
-              <small class="label pull-right bg-red">
-                <span class="glyphicon glyphicon-apple"></span>
+            <a href="{{ URL::asset('/listaSalarios') }}">
+              <i class="glyphicon glyphicon-usd"></i> <span>Salarios</span> <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-purple">
+                <span class="glyphicon glyphicon-usd"></span>
               </small>
             </a>
           </li>
+
+      <li class="active treeview">
+        <a href="#">
+            <i class="glyphicon glyphicon-apple"></i><span>Soda</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li ><a href="#"><i class="glyphicon glyphicon-download"></i> Gastos</a></li>
+          <li><a href="#"><i class="glyphicon glyphicon-upload"></i> Ingresos</a></li>
+        </ul>
+      </li>
           <!-- <li>
           <a href="{{ URL::asset('/nuevoUsuario') }}">
           <i class="fa fa-plus-circle"></i> <span>Nuevo usuario</span>
