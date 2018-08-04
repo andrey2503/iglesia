@@ -88,10 +88,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/listaSalarios','SalarioController@index');
     Route::get('/nuevoSalario','SalarioController@create');
     Route::post('/nuevoSalario','SalarioController@store');
-    // Route::get('/verPP/{id}','SalarioController@verPP');
-    // Route::get('/modificarPP/{id}','SalarioController@show');
-    // Route::post('/modificarPP','SalarioController@update');
-    // Route::post('/eliminarPP','SalarioController@destroy');
+    Route::get('/verSalario/{id}','SalarioController@verSalario');
+    // Route::get('/modificarSalario/{id}','SalarioController@show');
+    // Route::post('/modificarSalario','SalarioController@update');
+    // Route::post('/eliminarSalario','SalarioController@destroy');
     //fin salarios
     // digitador
     Route::get('/digitador','Digitador@index');

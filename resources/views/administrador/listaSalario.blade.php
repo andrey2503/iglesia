@@ -31,8 +31,8 @@
                         <td>{{ $s->obligaciones }}</td>
 
                         <td>
-                         <a class="btn btn-primary btn-md" href="{{ url('/modificarCuenta') }}/{{$s->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
-                         <a class="btn btn-success btn-md" href="{{ url('/verCuenta') }}/{{$s->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                         <a class="btn btn-primary btn-md" href="{{ url('/modificarSalario') }}/{{$s->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
+                         <a class="btn btn-success btn-md" href="{{ url('/verSalario') }}/{{$s->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
                          <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$s->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
                         </td>
                       </tr>
@@ -59,7 +59,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-        <form  action="{{ url('eliminarCuenta') }}" method="post">
+        <form  action="{{ url('eliminarSalario') }}" method="post">
         {{ csrf_field() }}
         <input id="rutaEliminar" type="hidden"  name="id">
         <button type="submit" href="#" class="btn btn-danger"> <span class="glyphicon glyphicon-trash"></span>   Eliminar</button>

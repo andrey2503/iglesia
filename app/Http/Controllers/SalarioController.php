@@ -115,4 +115,9 @@ class SalarioController extends Controller
     {
         //
     }
+
+    public function verSalario($id){
+        $salario= Salario::find($id);
+        return view('administrador.verSalario')->with(['salario'=>$salario]);
+    }
 }
