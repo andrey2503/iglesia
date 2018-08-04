@@ -84,6 +84,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/modificarPP','CuentaPagarController@update');
     Route::post('/eliminarPP','CuentaPagarController@destroy');
     //fin cuenta por pagar
+    //salarios
+    Route::get('/listaSalarios','SalarioController@index');
+    Route::get('/nuevoSalario','SalarioController@create');
+    Route::post('/nuevoSalario','SalarioController@store');
+    // Route::get('/verPP/{id}','SalarioController@verPP');
+    // Route::get('/modificarPP/{id}','SalarioController@show');
+    // Route::post('/modificarPP','SalarioController@update');
+    // Route::post('/eliminarPP','SalarioController@destroy');
+    //fin salarios
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');

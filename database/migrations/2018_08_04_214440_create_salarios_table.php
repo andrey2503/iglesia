@@ -16,9 +16,9 @@ class CreateSalariosTable extends Migration
         Schema::create('salarios', function (Blueprint $table) {
             $table->increments('id');
             $table->string('moneda');
-            $table->string('salarioNominal');
-            $table->string('obligaciones');
-            $table->string('salarioNeto');//salario nominal - obligaaciones
+            $table->decimal('salarioNominal', 18, 2);
+            $table->decimal('obligaciones', 18, 2);
+            $table->decimal('salarioNeto', 18, 2);//salario nominal - obligaaciones
             $table->integer('fk_puesto')->unsigned();
             $table->foreign('fk_puesto')->references('id')->on('puestos');
             $table->softDeletes();

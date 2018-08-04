@@ -19,4 +19,8 @@ class Puesto extends Model
 
     protected $dates = ['deleted_at'];
     //
+    public function Salario()
+    {
+        return $this->hasMany('App\Salario','fk_puesto');
+    }
 }

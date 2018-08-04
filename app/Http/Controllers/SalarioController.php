@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Salario;
 use Illuminate\Http\Request;
-
+use Illuminate\Contracts\Auth\Guard;
+use Session;
+use App\User;
+use App\Puesto;
+use App\Logs;
 class SalarioController extends Controller
 {
     /**
@@ -15,6 +19,8 @@ class SalarioController extends Controller
     public function index()
     {
         //
+        $salarios= Salario::all();
+        return view('administrador.listaSalario')->with(['salarios'=>$salarios]);
     }
 
     /**
@@ -25,6 +31,8 @@ class SalarioController extends Controller
     public function create()
     {
         //
+        $puestos= Puesto::all();
+        return view('administrador.nuevoSalario')->with(['puestos'=>$puestos]);
     }
 
     /**
@@ -36,6 +44,31 @@ class SalarioController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'nombre'=>'puesto',
+            'salarioNominal'=>'required',
+            'moneda'=>'required',
+            'obligaciones'=>"required"
+            ]);
+        $salarios = new Salario();
+        $salarios->fk_puesto = $request->puesto;
+        $salarios->moneda= $request->moneda;
+        $salarios->salarioNominal= $request->salarioNominal;
+        $salarios->obligaciones=$request->obligaciones;
+        $salarios->salarioNeto=($request->salarioNominal-$request->obligaciones);
+
+        if($salarios->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="salarios";
+            $log->nombre_elemento= $salarios->id;
+            $log->accion="Agregar Salario";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Salario creado correctamente');
+        }else{
+            return redirect('administrador.nuevoSalario');
+        }
     }
 
     /**
