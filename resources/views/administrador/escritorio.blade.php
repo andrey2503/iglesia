@@ -190,6 +190,14 @@
               </small>
             </a>
           </li>
+          <li>
+            <a href="{{ URL::asset('/listaCuentaPP') }}">
+              <i class="glyphicon glyphicon-apple"></i> <span>Soda</span> <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-red">
+                <span class="glyphicon glyphicon-apple"></span>
+              </small>
+            </a>
+          </li>
           <!-- <li>
           <a href="{{ URL::asset('/nuevoUsuario') }}">
           <i class="fa fa-plus-circle"></i> <span>Nuevo usuario</span>
