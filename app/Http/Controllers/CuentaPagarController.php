@@ -110,8 +110,24 @@ class CuentaPagarController extends Controller
      * @param  \App\CuentaPagar  $cuentaPagar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CuentaPagar $cuentaPagar)
+    public function destroy(Request $request)
     {
         //
+        $cuentasPagar=CuentaPagar::find($request->id);
+        $cuentasPagar->delete();
+        if ($cuentasPagar->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="cuenta_pagars";
+          $log->nombre_elemento= $request->id;
+          $log->accion="Eliminar Cuenta por Pagar";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect('listaCuentaPP');
+        }
+    }
+    public function verPP($id){
+        $cuentasPagar= CuentaPagar::find($id);
+        return view('administrador.verPP')->with(['cuentasPagar'=>$cuentasPagar]);
     }
 }
