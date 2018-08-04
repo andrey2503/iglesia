@@ -80,8 +80,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/nuevaCuentaPP','CuentaPagarController@create');
     Route::post('/nuevaCuentaPP','CuentaPagarController@store');
     Route::get('/verPP/{id}','CuentaPagarController@verPP');
-    // Route::get('/modificarPC/{id}','CuentaCobrarController@show');
-    // Route::post('/modificarPC','CuentaCobrarController@update');
+    Route::get('/modificarPP/{id}','CuentaPagarController@show');
+    Route::post('/modificarPP','CuentaPagarController@update');
     Route::post('/eliminarPP','CuentaPagarController@destroy');
     //fin cuenta por pagar
     // digitador

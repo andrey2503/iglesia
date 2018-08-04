@@ -47,9 +47,9 @@
                 @endif
               </div>
 
-
+<div class="form-group">
               <select name="idrol"class="form-control" >
-               
+
                 @if($usuario->idrol==3)
                   <option value="3" selected>Lector</option>
                   <option value="2" >Digitador</option>
@@ -58,7 +58,7 @@
                   <option value="3" >Lector</option>
                   <option value="2" selected>Digitador</option>
                   <option value="1" >Administrador</option>
-                @elseif($usuario->idrol==1) 
+                @elseif($usuario->idrol==1)
                   <option value="3" >Lector</option>
                   <option value="2" >Digitador</option>
                   <option value="1" selected>Administrador</option>
@@ -74,9 +74,10 @@
                   <option value="1" >Activo</option>
                @endif
               </select>
-
+</div>
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Actualizar usuario</button>
+        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/administrador') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
       </form>
       </div><!-- /.box -->
 </div>

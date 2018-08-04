@@ -56,7 +56,7 @@
                 @endif
               </div>
 
-
+  <div class="form-group">
               <select name="idrol"class="form-control">
                   <option value="3">Lector</option>
                   <option value="2">Digitador</option>
@@ -65,7 +65,7 @@
               @if($errors->has('idrol'))
                   <span style="color: red;">{{ $errors->first('idrol') }}</span>
                 @endif
-
+  </div>
                <!-- <select name="estado"class="form-control">
                   <option value="0">Inactivo</option>
                   <option value="1">Activo</option>
