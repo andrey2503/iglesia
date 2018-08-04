@@ -7,6 +7,8 @@
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Cuenta Bancaria
   </a>
+  <!-- Trigger the modal with a button -->
+<a type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#totalCuentas" style="margin-top: 24px;"><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> Total Cuentas Bancarias</a>
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
             <div class="table-responsive">
@@ -21,20 +23,10 @@
                 </thead>
                 <tbody>
                   <!-- @define $i = 1 -->
-                  @php
-                     $i=0;
-                  @endphp
+
                   @if(isset($cuentas))
                     @foreach($cuentas as $c)
-                    @php
-                    $i =   $c->monto  + $i
-                    @endphp
-                    valor {{
-                      $c->monto
-                    }}
-                    = {{
-                      $i
-                    }}
+
 
                       <tr>
                         <td>{{ $c->nombre }}</td>
@@ -57,6 +49,61 @@
               </table>
             </div>
           </div>
+</div>
+
+<!-- Modal total -->
+<div id="totalCuentas" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Total Cuentas Bancarias</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"># Cuenta</th>
+        <th scope="col">Banco</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Moneda</th>
+        <th scope="col">Monto</th>
+      </tr>
+    </thead>
+    <tbody>
+      @php $i=0;
+      @endphp
+      @if(isset($cuentas))
+        @foreach($cuentas as $c)
+        @php
+        $i =   $c->monto  + $i
+        @endphp
+      <tr>
+        <th scope="row">{{ $c->cuenta }}</th>
+        <td>{{$c->banco}}</td>
+        <td>{{ $c->tipo }}</td>
+        <td>{{ $c->moneda }}</td>
+        <td>{{ $c->monto }}</td>
+      </tr>
+      @endforeach
+    @endif
+    </tbody>
+  </table>
+  <table class="table table-striped">
+<tr>
+  <td ><strong>Total Cuentas Bancarias: </strong> </td>
+  <td>{{ $i  }}.00</td>
+</tr>
+  </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog"  id="myModal">
