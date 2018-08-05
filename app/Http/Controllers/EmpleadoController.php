@@ -60,7 +60,7 @@ class EmpleadoController extends Controller
         $empleado->estado=$request->estado;
         if($empleado->save())
         {
-            return redirect()->back()->with('message','Rubro '.$request->nombre.' creado correctamente');
+            return redirect()->back()->with('message','Empleado '.$request->nombre.' creado correctamente');
         }else{
             return redirect('/nuevoRubro');
         }
@@ -84,9 +84,12 @@ class EmpleadoController extends Controller
      * @param  \App\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleado $empleado)
+    public function edit($id)
     {
         //
+        $empleado= Empleado::find($id);
+        $puestos=Puesto::all();
+        return view('administrador.modificarEmpleado')->with(['empleado'=>$empleado,'puestos'=>$puestos]);
     }
 
     /**
@@ -96,8 +99,22 @@ class EmpleadoController extends Controller
      * @param  \App\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empleado $empleado)
+    public function update(Request $request,$id)
     {
+        $empleado= Empleado::find($id);
+        $empleado->nombre=$request->nombre;
+        $empleado->cedula=$request->cedula;
+        $empleado->telefono=$request->telefono;
+        $empleado->monto=$request->monto;
+        $empleado->fk_puesto=$request->puesto;
+        $empleado->estado=$request->estado;
+        if($empleado->save())
+        {
+            return redirect()->back()->with('message','Empleado '.$request->nombre.' actualizado correctamente');
+        }else{
+            return redirect('/nuevoEmpleado');
+        }
+        
         //
     }
 
