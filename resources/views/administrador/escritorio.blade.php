@@ -202,7 +202,7 @@
       <li class="active treeview">
         <a href="#">
             <i class="glyphicon glyphicon-apple"></i><span>Soda</span>
-        <i class="fa fa-angle-left pull-right"></i>
+          <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
