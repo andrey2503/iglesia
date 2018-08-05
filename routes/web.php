@@ -104,7 +104,12 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::post('/modificarUsuario','AdminController@update');
     Route::get('/lout', 'LectorController@Logout');
 
-
+    //empleados
+    Route::get('/empleados','EmpleadoController@index');
+    Route::get('/nuevoEmpleado','EmpleadoController@create');
+    Route::post('/nuevoEmpleado','EmpleadoController@store');
+    
+    
 
 
 });

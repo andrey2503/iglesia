@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Empleado;
 use Illuminate\Http\Request;
-
+use Illuminate\Contracts\Auth\Guard;
+use Session;
+use App\Logs;
+use App\Puesto;
 class EmpleadoController extends Controller
 {
+    
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+        $this->middleware(['auth','administrador'])->except('logout');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +24,8 @@ class EmpleadoController extends Controller
     public function index()
     {
         //
+        $empleados= Empleado::all();
+        return view('administrador.listaEmpleado')->with(['empleados'=>$empleados]);
     }
 
     /**
@@ -25,6 +36,9 @@ class EmpleadoController extends Controller
     public function create()
     {
         //
+        $puestos=Puesto::all();
+        return view('administrador.nuevoEmpleado')->with(['puestos'=>$puestos]);
+
     }
 
     /**
@@ -36,7 +50,22 @@ class EmpleadoController extends Controller
     public function store(Request $request)
     {
         //
-    }
+        $empleado= new Empleado();
+        $empleado->nombre=$request->nombre;
+        $empleado->cedula=$request->cedula;
+        $empleado->telefono=$request->telefono;
+        $empleado->monto=$request->monto;
+        $empleado->fecha=$request->fecha;
+        $empleado->fk_puesto=$request->puesto;
+        $empleado->estado=$request->estado;
+        if($empleado->save())
+        {
+            return redirect()->back()->with('message','Rubro '.$request->nombre.' creado correctamente');
+        }else{
+            return redirect('/nuevoRubro');
+        }
+        
+    }// fin de stoer
 
     /**
      * Display the specified resource.

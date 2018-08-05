@@ -141,7 +141,7 @@
           </li>
           <!-- Empleados -->
           <li>
-            <a href="{{ URL::asset('/administrador') }}">
+            <a href="{{ URL::asset('/empleados') }}">
               <i class="glyphicon glyphicon-list-alt"></i> <span>Empleados</span> <i class="fa fa-angle-left pull-right"></i>
               <small class="label pull-right bg-green">
                 <span class="glyphicon glyphicon-list-alt"></span>
