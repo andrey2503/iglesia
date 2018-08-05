@@ -57,7 +57,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-        <form  action="{{ url('eliminarEmpleado') }}" method="post">
+        <form  action="{{ url('eliminarEmpleado') }}" method="post" id="eliminar">
         {{ csrf_field() }}
         <input id="rutaEliminar" type="hidden"  name="id">
         <button type="submit" href="#" class="btn btn-danger"> <span class="glyphicon glyphicon-trash"></span>   Eliminar</button>
