@@ -83,7 +83,7 @@
 
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear empleado</button>
-        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/administrador') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
+        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/empleados') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
 
       </form>
       </div><!-- /.box -->
