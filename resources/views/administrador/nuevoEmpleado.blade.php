@@ -73,7 +73,7 @@
               <div class="form-group">
               <label for="estado">Estado</label>
                 <select name="estado"class="form-control">
-                  <option value="0">Inactico</option>
+                  <option value="0">Inactivo</option>
                   <option value="1">Activo</option>
                 </select>
               @if($errors->has('estado'))
