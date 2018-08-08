@@ -16,10 +16,14 @@
 
 .login-page{
 	background-image: url(../img/bg-login.jpg);
-	background-size: cover; 
+	background-size: cover;
 }
 
 .div-content-font-control{
 	display: inline-flex;
 }
-
+#eliminar{
+	width: 86% !important;
+    height: 0% !important;
+    margin-top: -34px !important;
+}
