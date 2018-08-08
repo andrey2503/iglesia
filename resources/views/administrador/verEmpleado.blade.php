@@ -12,7 +12,7 @@
                       </div>
                   @endif
       </div><!-- /.box-header -->
-      <form  role="form"   method="post"  action="{{ url('actualizarEmpleado') }}/{{$empleado->id}}" class="form-horizontal form_entrada" >
+      <form  role="form"   method="post"  action="#" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
         <div class="box-body">
             <div class="form-group">
@@ -47,6 +47,14 @@
                 @endif
               </div>
 
+              <div class="form-group">
+                <label for="fecha">Fecha ingreso</label>
+                <input type="date" class="form-control" value="{{$empleado->fecha}}"  name="fecha" placeholder="YYYY-MM-DD" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" title="Enter a date in this formart YYYY-MM-DD"/>
+                <!-- <input type="date" class="form-control" name="fecha" format="yyyy-mm-dd" value="2017-06-01" placeholder="fecha"> -->
+                @if($errors->has('fecha'))
+                  <span style="color: red;">{{ $errors->first('fecha') }}</span>
+                @endif
+              </div>
 
               <div class="form-group">
               <label for="contrasena">Puesto</label>
@@ -83,7 +91,6 @@
             </div>
 
         </div>
-        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Actualizar empleado</button>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/empleados') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
 
       </form>

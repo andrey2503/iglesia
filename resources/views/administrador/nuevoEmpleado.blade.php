@@ -39,13 +39,6 @@
                 @endif
               </div>
 
-              <div class="form-group">
-                <label for="monto">Monto</label>
-                <input type="number" class="form-control" name="monto" placeholder="Monto">
-                @if($errors->has('monto'))
-                  <span style="color: red;">{{ $errors->first('monto') }}</span>
-                @endif
-              </div>
 
               <div class="form-group">
                 <label for="fecha">Fecha ingreso</label>

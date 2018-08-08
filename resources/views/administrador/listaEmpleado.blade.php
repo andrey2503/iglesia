@@ -28,7 +28,11 @@
                         <td>{{ $e->cedula }}</td>
                         <td>{{ $e->telefono }}</td>
                         <td>{{ $e->fk_puesto }}</td>
-                        <td>{{ $e->estado }}</td>
+                        @if($e->estado==1)
+                        <td>activo</td>
+                        @else
+                        <td> inactivo</td>
+                        @endif
                         <td>{{ $e->monto }}</td>
 
                         <td>

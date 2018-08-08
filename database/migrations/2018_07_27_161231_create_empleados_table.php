@@ -23,6 +23,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('telefono');
             $table->integer('fk_puesto')->unsigned();
             $table->foreign('fk_puesto')->references('id')->on('puestos');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

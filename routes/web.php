@@ -107,11 +107,11 @@ Route::group(['middleware' => ['auth']], function () {
     //empleados
     Route::get('/empleados','EmpleadoController@index');
     Route::get('/nuevoEmpleado','EmpleadoController@create');
+    Route::get('/verEmpleado/{id}','EmpleadoController@show');
     Route::get('/modificarEmpleado/{id}','EmpleadoController@edit');
     Route::post('/nuevoEmpleado','EmpleadoController@store');
     Route::post('/actualizarEmpleado/{id}','EmpleadoController@update');
-    
-    
+    Route::post('/eliminarEmpleado','EmpleadoController@destroy');
 
 
 });

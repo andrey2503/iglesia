@@ -50,11 +50,20 @@ class EmpleadoController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'nombre'=>'required',
+            'cedula'=>'required',
+            'telefono'=>'required',
+            'fecha'=>"required",
+            'puesto'=>"required",
+            'estado'=>"required"
+            ]);
+
         $empleado= new Empleado();
         $empleado->nombre=$request->nombre;
         $empleado->cedula=$request->cedula;
         $empleado->telefono=$request->telefono;
-        $empleado->monto=$request->monto;
+        $empleado->monto=0;
         $empleado->fecha=$request->fecha;
         $empleado->fk_puesto=$request->puesto;
         $empleado->estado=$request->estado;
@@ -73,9 +82,12 @@ class EmpleadoController extends Controller
      * @param  \App\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function show(Empleado $empleado)
+    public function show($id)
     {
-        //
+           $empleado= Empleado::find($id);
+        $puestos=Puesto::all();
+        return view('administrador.verEmpleado')->with(['empleado'=>$empleado,'puestos'=>$puestos]);
+   
     }
 
     /**
@@ -101,11 +113,17 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request,$id)
     {
+        $this->validate($request,[
+            'nombre'=>'required',
+            'cedula'=>'required',
+            'telefono'=>'required',
+            'puesto'=>"required",
+            'estado'=>"required"
+            ]);
         $empleado= Empleado::find($id);
         $empleado->nombre=$request->nombre;
         $empleado->cedula=$request->cedula;
         $empleado->telefono=$request->telefono;
-        $empleado->monto=$request->monto;
         $empleado->fk_puesto=$request->puesto;
         $empleado->estado=$request->estado;
         if($empleado->save())
@@ -124,8 +142,20 @@ class EmpleadoController extends Controller
      * @param  \App\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empleado $empleado)
+    public function destroy(Request $request)
     {
         //
+        $empleado=Empleado::find($request->id);
+        // $empleado->delete();
+        if ($empleado->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="empleados";
+          $log->nombre_elemento= $request->id;
+          $log->accion="Eliminar empleado";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect('/empleados');
+        }
     }
 }
