@@ -85,18 +85,24 @@
         <td>{{$c->banco}}</td>
         <td>{{ $c->tipo }}</td>
         <td>{{ $c->moneda }}</td>
-        <td>{{ $c->monto }}</td>
+        @if($c->moneda == "Dolares")
+        <td>${{ $c->monto }}</td>
+        @endif
+        @if($c->moneda == "Colones")
+        <td>₡{{ $c->monto }}</td>
+        @endif
+        <!-- verificar tipo moneda -->
       </tr>
       @endforeach
     @endif
     </tbody>
   </table>
-  <table class="table table-striped">
+  <!-- <table class="table table-striped">
 <tr>
   <td ><strong>Total Cuentas Bancarias: </strong> </td>
   <td>{{ $i  }}.00</td>
 </tr>
-  </table>
+  </table> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
