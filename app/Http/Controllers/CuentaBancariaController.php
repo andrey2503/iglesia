@@ -46,7 +46,6 @@ class CuentaBancariaController extends Controller
       $this->validate($request,[
           'nombre'=>'required',
           'banco'=>'required',
-          'monto'=>'required',
           'cuenta'=>"required|unique:cuenta_bancarias"
           ]);
 
@@ -55,7 +54,7 @@ class CuentaBancariaController extends Controller
       $cuenta->tipo = $request->tipo;
       $cuenta->moneda= $request->moneda;
       $cuenta->banco= $request->banco;
-      $cuenta->monto=$request->monto;
+      $cuenta->monto=0;
       $cuenta->cuenta=$request->cuenta;
 
       if($cuenta->save()){
@@ -109,7 +108,6 @@ class CuentaBancariaController extends Controller
       $this->validate($request,[
           'nombre'=>'required',
           'banco'=>'required',
-          'monto'=>'required'
           ]);
 
       $cuenta = CuentaBancaria::find($request->id);
@@ -117,7 +115,6 @@ class CuentaBancariaController extends Controller
       $cuenta->tipo = $request->tipo;
       $cuenta->moneda= $request->moneda;
       $cuenta->banco= $request->banco;
-      $cuenta->monto=$request->monto;
               // $user->state=$request->estado;
 
               if($cuenta->save()){

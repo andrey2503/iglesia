@@ -52,13 +52,7 @@
                  <span style="color: red;">{{ $errors->first('moneda') }}</span>
                @endif
               </div>
-              <div class="form-group">
-               <label for="user">Monto</label>
-               <input type="number" step="any" class="form-control" name="monto" placeholder="Monto">
-               @if($errors->has('monto'))
-                 <span style="color: red;">{{ $errors->first('monto') }}</span>
-               @endif
-              </div>
+              
               <div class="form-group">
                 <label for="telefono">Número de Cuenta</label>
                 <input type="text" class="form-control" name="cuenta" placeholder="Número de Cuenta">
