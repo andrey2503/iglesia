@@ -72,9 +72,12 @@ class SalidaSodaController extends Controller
      * @param  \App\SalidaSoda  $salidaSoda
      * @return \Illuminate\Http\Response
      */
-    public function show(SalidaSoda $salidaSoda)
+    public function show($id)
     {
         //
+        $gruposSoda= AdministradorSoda::all();
+        $salidasSoda= SalidaSoda::find($id);
+        return view('administrador.modificarSalidasSoda')->with(['salidasSoda'=>$salidasSoda,'gruposSoda'=>$gruposSoda]);
     }
 
     /**
@@ -83,7 +86,7 @@ class SalidaSodaController extends Controller
      * @param  \App\SalidaSoda  $salidaSoda
      * @return \Illuminate\Http\Response
      */
-    public function edit(SalidaSoda $salidaSoda)
+    public function edit($id)
     {
         //
     }
@@ -95,9 +98,30 @@ class SalidaSodaController extends Controller
      * @param  \App\SalidaSoda  $salidaSoda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SalidaSoda $salidaSoda)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request,[
+            'grupo'=>'required',
+            'descripcion'=>'required',
+            'monto'=>'required',
+            ]);
+        $salidasSoda = SalidaSoda::find($request->id);
+        $salidasSoda->fk_grupo = $request->grupo;
+        $salidasSoda->descripcion = $request->descripcion;
+        $salidasSoda->monto= $request->monto;
+
+        if($salidasSoda->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="salida_sodas";
+            $log->nombre_elemento= $salidasSoda->id;
+            $log->accion="actualizar Salida Soda";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Salida para '.$request->descripcion.' actualizada correctamente');
+        }else{
+            return redirect('/administrador.listaSalidasSoda');
+        }
     }
 
     /**
@@ -119,7 +143,7 @@ class SalidaSodaController extends Controller
           $log->accion="Eliminar salida Soda";
           $log->fecha=date ('y-m-d H:i:s');
           $log->save();
-            return redirect('/listaEntradasSoda');
+            return redirect('/listaSalidasSoda');
         }
     }// fin de destroy
 

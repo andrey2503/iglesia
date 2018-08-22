@@ -117,8 +117,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/nuevaSalidaSoda','SalidaSodaController@create');
     Route::post('/nuevaSalidaSoda','SalidaSodaController@store');
     Route::get('/verSalidaSoda/{id}','SalidaSodaController@verSalidasSoda');
-    // Route::get('/modificarGrupoSoda/{id}','SalidaSodaController@show');
-    // Route::post('/modificarGruposSoda','SalidaSodaController@update');
+    Route::get('/modificarSalidaSoda/{id}','SalidaSodaController@show');
+    Route::post('/modificarSalidaSoda','SalidaSodaController@update');
     // Route::post('/eliminarGrupoSoda','SalidaSodaController@destroy');
     //fin salidas Soda
 
