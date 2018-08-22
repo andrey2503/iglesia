@@ -95,9 +95,9 @@ Route::group(['middleware' => ['auth']], function () {
     //fin salarios
     //grupos Soda
     Route::get('/listaGruposSoda','AdministradorSodaController@index');
-     Route::get('/nuevoGrupoSoda','AdministradorSodaController@create');
-     Route::post('/nuevoGruposSoda','AdministradorSodaController@store');
-     Route::get('/verGrupoSoda/{id}','AdministradorSodaController@verGrupoSoda');
+    Route::get('/nuevoGrupoSoda','AdministradorSodaController@create');
+    Route::post('/nuevoGruposSoda','AdministradorSodaController@store');
+    Route::get('/verGrupoSoda/{id}','AdministradorSodaController@verGrupoSoda');
     Route::get('/modificarGrupoSoda/{id}','AdministradorSodaController@show');
     Route::post('/modificarGruposSoda','AdministradorSodaController@update');
     // Route::post('/eliminarSalario','SalarioController@destroy');
