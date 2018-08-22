@@ -14,7 +14,8 @@ class SalidaSodaController extends Controller
      */
     public function index()
     {
-        //
+        $salidasSoda= SalidaSoda::all();
+        return view('administrador.listaSalidasSoda')->with(['salidasSoda'=>$salidasSoda]);
     }
 
     /**
