@@ -160,7 +160,7 @@
 
           <li>
             <a href="{{ URL::asset('/listaRubros') }}">
-              <i class="glyphicon glyphicon-tag"></i> <span>Rubros</span> <i class="fa fa-angle-left pull-right"></i>
+              <i class="glyphicon glyphicon-flag"></i> <span>Rubros</span> <i class="fa fa-angle-left pull-right"></i>
               <small class="label pull-right bg-blue">
                 <span class="glyphicon glyphicon-tag"></span>
               </small>
@@ -207,7 +207,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li ><a href="{{ URL::asset('/listaGruposSoda') }}"><i class="glyphicon glyphicon-heart-empty"></i> Grupos</a></li>
+          <li ><a href="{{ URL::asset('/listaGruposSoda') }}"><i class="glyphicon glyphicon-tags"></i> Grupos</a></li>
           <li ><a href="#"><i class="glyphicon glyphicon-download"></i> Gastos</a></li>
           <li><a href="#"><i class="glyphicon glyphicon-upload"></i> Ingresos</a></li>
         </ul>
