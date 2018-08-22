@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\EntradaSoda;
 use Illuminate\Http\Request;
-
+use App\Logs;
+use App\AdministradorSoda;
 class EntradaSodaController extends Controller
 {
     /**
@@ -15,6 +16,9 @@ class EntradaSodaController extends Controller
     public function index()
     {
         //
+        $entradasSoda= EntradaSoda::all();
+// dd($cuentas);
+        return view('administrador.listaEntradasSoda')->with(['entradasSoda'=>$entradasSoda]);
     }
 
     /**

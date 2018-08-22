@@ -102,6 +102,26 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/modificarGruposSoda','AdministradorSodaController@update');
     Route::post('/eliminarGrupoSoda','AdministradorSodaController@destroy');
     //fin grupos Soda
+    //entradas Soda
+    Route::get('/listaEntradasSoda','EntradaSodaController@index');
+    // Route::get('/nuevoGrupoSoda','EntradaSodaController@create');
+    // Route::post('/nuevoGruposSoda','EntradaSodaController@store');
+    // Route::get('/verGrupoSoda/{id}','EntradaSodaController@verGrupoSoda');
+    // Route::get('/modificarGrupoSoda/{id}','EntradaSodaController@show');
+    // Route::post('/modificarGruposSoda','EntradaSodaController@update');
+    // Route::post('/eliminarGrupoSoda','EntradaSodaController@destroy');
+    //fin entradas Soda
+
+    //salidas Soda
+    Route::get('/listaSalidasSoda','SalidaSodaController@index');
+    // Route::get('/nuevoGrupoSoda','SalidaSodaController@create');
+    // Route::post('/nuevoGruposSoda','SalidaSodaController@store');
+    // Route::get('/verGrupoSoda/{id}','SalidaSodaController@verGrupoSoda');
+    // Route::get('/modificarGrupoSoda/{id}','SalidaSodaController@show');
+    // Route::post('/modificarGruposSoda','SalidaSodaController@update');
+    // Route::post('/eliminarGrupoSoda','SalidaSodaController@destroy');
+    //fin salidas Soda
+
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');

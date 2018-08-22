@@ -206,10 +206,10 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">
+        <ul class="treeview-menu">listaEntradasSoda
           <li ><a href="{{ URL::asset('/listaGruposSoda') }}"><i class="glyphicon glyphicon-tags"></i> Grupos</a></li>
-          <li ><a href="#"><i class="glyphicon glyphicon-download"></i> Gastos</a></li>
-          <li><a href="#"><i class="glyphicon glyphicon-upload"></i> Ingresos</a></li>
+          <li ><a href="{{ URL::asset('/listaEntradasSoda') }}"><i class="glyphicon glyphicon-upload"></i> Ingresos</a></li>
+          <li><a href="#"><i class="glyphicon glyphicon-download"></i> Gastos</a></li>
         </ul>
       </li>
           <!-- <li>
