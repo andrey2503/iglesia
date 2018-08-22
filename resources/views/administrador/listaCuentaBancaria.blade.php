@@ -86,10 +86,13 @@
         <td>{{ $c->tipo }}</td>
         <td>{{ $c->moneda }}</td>
         @if($c->moneda == "Dolares")
-        <td>${{ $c->monto }}</td>
+        <td>$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
         @if($c->moneda == "Colones")
-        <td>₡{{ $c->monto }}</td>
+        <td>₡ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+        @endif
+        @if($c->moneda == "Euros")
+        <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
         <!-- verificar tipo moneda -->
       </tr>
