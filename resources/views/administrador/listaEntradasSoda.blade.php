@@ -3,7 +3,7 @@
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
   <h3>Entradas para la Soda</h3>
-  <a href="{{ URL::asset('/nuevaEntradaSoda') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
+  <a href="{{ URL::asset('/nuevaEntradasSoda') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Entrada
   </a>
@@ -33,7 +33,7 @@
 
                         <td>
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarEntradaSoda') }}/{{$es->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
-                         <a class="btn btn-success btn-md" href="{{ url('/verEntradaSoda') }}/{{$es->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                         <a class="btn btn-success btn-md" href="{{ url('/verEntradasSoda') }}/{{$es->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
                          <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$es->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
                         </td>
                       </tr>
@@ -59,7 +59,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-        <form  action="{{ url('eliminarEntradaSoda') }}" method="post" id="eliminar">
+        <form  action="{{ url('eliminarEntradasSoda') }}" method="post" id="eliminar">
         {{ csrf_field() }}
         <input id="rutaEliminar" type="hidden"  name="id">
         <button type="submit" href="#" class="btn btn-danger"> <span class="glyphicon glyphicon-trash"></span>   Eliminar</button>

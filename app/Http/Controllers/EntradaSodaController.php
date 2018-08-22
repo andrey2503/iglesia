@@ -28,7 +28,9 @@ class EntradaSodaController extends Controller
      */
     public function create()
     {
-        //
+        //$gruposSoda
+        $gruposSoda= AdministradorSoda::all();
+          return view ('administrador.nuevaEntradasSoda')->with(['gruposSoda'=>$gruposSoda]);
     }
 
     /**
@@ -40,6 +42,29 @@ class EntradaSodaController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'grupo'=>'required',
+            'descripcion'=>'required',
+            'monto'=>'required',
+            ]);
+        $entradasSoda = new EntradaSoda();
+        $entradasSoda->fk_grupo = $request->grupo;
+        $entradasSoda->descripcion = $request->descripcion;
+        $entradasSoda->monto= $request->monto;
+
+
+        if($entradasSoda->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="entrada_sodas";
+            $log->nombre_elemento= $entradasSoda->id;
+            $log->accion="Agregar Entrada Soda";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Entrada para '.$request->descripcion.' creada correctamente');
+        }else{
+            return redirect('/administrador.nuevaEntradasSoda');
+        }
     }
 
     /**
@@ -82,8 +107,25 @@ class EntradaSodaController extends Controller
      * @param  \App\EntradaSoda  $entradaSoda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EntradaSoda $entradaSoda)
+    public function destroy(Request $request)
     {
         //
+        $entradasSoda=EntradaSoda::find($request->id);
+        $entradasSoda->delete();
+        if ($entradasSoda->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="entrada_sodas";
+          $log->nombre_elemento= $entradasSoda->id;
+          $log->accion="Eliminar Entrada Soda";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect('/listaEntradasSoda');
+        }
+    }
+
+    public function verEntradasSoda($id){
+        $entradasSoda= EntradaSoda::find($id);
+        return view('administrador.verEntradasSoda')->with(['entradasSoda'=>$entradasSoda]);
     }
 }

@@ -104,12 +104,12 @@ Route::group(['middleware' => ['auth']], function () {
     //fin grupos Soda
     //entradas Soda
     Route::get('/listaEntradasSoda','EntradaSodaController@index');
-    // Route::get('/nuevoGrupoSoda','EntradaSodaController@create');
-    // Route::post('/nuevoGruposSoda','EntradaSodaController@store');
-    // Route::get('/verGrupoSoda/{id}','EntradaSodaController@verGrupoSoda');
-    // Route::get('/modificarGrupoSoda/{id}','EntradaSodaController@show');
-    // Route::post('/modificarGruposSoda','EntradaSodaController@update');
-    // Route::post('/eliminarGrupoSoda','EntradaSodaController@destroy');
+    Route::get('/nuevaEntradasSoda','EntradaSodaController@create');
+    Route::post('/nuevaEntradasSoda','EntradaSodaController@store');
+     Route::get('/verEntradasSoda/{id}','EntradaSodaController@verEntradasSoda');
+    // Route::get('/modificarEntradasSoda/{id}','EntradaSodaController@show');
+    // Route::post('/modificarEntradasSoda','EntradaSodaController@update');
+     Route::post('/eliminarEntradasSoda','EntradaSodaController@destroy');
     //fin entradas Soda
 
     //salidas Soda
