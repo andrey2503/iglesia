@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AdministradorSoda;
 use Illuminate\Http\Request;
-
+use App\Logs;
 class AdministradorSodaController extends Controller
 {
     /**
@@ -15,6 +15,9 @@ class AdministradorSodaController extends Controller
     public function index()
     {
         //
+        $gruposSoda= AdministradorSoda::all();
+// dd($cuentas);
+        return view('administrador.listaGruposSoda')->with(['gruposSoda'=>$gruposSoda]);
     }
 
     /**

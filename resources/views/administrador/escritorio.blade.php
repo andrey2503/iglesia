@@ -200,13 +200,14 @@
           </li>
 
       <li class="active treeview">
-        <a href="#">
+        <a href="">
             <i class="glyphicon glyphicon-apple"></i><span>Soda</span>
          <i class="fa fa-angle-left pull-right"></i>
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
+          <li ><a href="{{ URL::asset('/listaGruposSoda') }}"><i class="glyphicon glyphicon-heart-empty"></i> Grupos</a></li>
           <li ><a href="#"><i class="glyphicon glyphicon-download"></i> Gastos</a></li>
           <li><a href="#"><i class="glyphicon glyphicon-upload"></i> Ingresos</a></li>
         </ul>
