@@ -15,6 +15,11 @@ class CreateAdministradorSodasTable extends Migration
     {
         Schema::create('administrador_sodas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombreGrupo');
+            $table->date('fechaInicio');
+            $table->date('fechaFin');
+            $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

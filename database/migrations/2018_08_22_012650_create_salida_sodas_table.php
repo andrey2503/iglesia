@@ -14,8 +14,14 @@ class CreateSalidaSodasTable extends Migration
     public function up()
     {
         Schema::create('salida_sodas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+          $table->increments('id');
+          $table->string('descripcion');
+          $table->decimal('monto', 18, 2);
+          $table->integer('fk_grupo')->unsigned();
+          $table->foreign('fk_grupo')->references('id')->on('administrador_sodas');
+          $table->rememberToken();
+          $table->softDeletes();
+          $table->timestamps();
         });
     }
 
