@@ -3,7 +3,7 @@
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
   <h3>Grupos para la Soda</h3>
-  <a href="{{ URL::asset('/nuevaGrupoSoda') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
+  <a href="{{ URL::asset('/nuevoGrupoSoda') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Grupo
   </a>

@@ -28,6 +28,7 @@ class AdministradorSodaController extends Controller
     public function create()
     {
         //
+          return view ('administrador.nuevoGruposSoda');
     }
 
     /**
@@ -39,6 +40,29 @@ class AdministradorSodaController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'nombreGrupo'=>'required',
+            'fechaInicio'=>'required',
+            'fechaFin'=>'required',
+            ]);
+        $gruposSoda = new AdministradorSoda();
+        $gruposSoda->nombreGrupo = $request->nombreGrupo;
+        $gruposSoda->fechaInicio = $request->fechaInicio;
+        $gruposSoda->fechaFin= $request->fechaFin;
+
+
+        if($gruposSoda->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="administrador_sodas";
+            $log->nombre_elemento= $gruposSoda->id;
+            $log->accion="Agregar Grupo Soda";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Usuario '.$request->nombreGrupo.' creado correctamente');
+        }else{
+            return redirect('/administrador.nuevoGruposSoda');
+        }
     }
 
     /**
