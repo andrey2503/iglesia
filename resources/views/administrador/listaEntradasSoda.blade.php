@@ -27,7 +27,7 @@
 
 
                       <tr>
-                        <td>{{ $es->EntradaSoda->nombreGrupo }}</td>
+                        <td>{{ $es->AdministradorSoda->nombreGrupo }}</td>
                         <td>{{ $es->descripcion }}</td>
                         <td>{{ $es->monto }}</td>
 
