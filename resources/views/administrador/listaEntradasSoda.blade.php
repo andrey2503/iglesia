@@ -28,7 +28,6 @@
 
                       <tr>
                         <td>{{ $es->EntradaSoda->nombreGrupo }}</td>
-                        <!-- <td>{{ $es->user }}</td> -->
                         <td>{{ $es->fechaInicio }}</td>
                         <td>{{ $es->fechaFin }}</td>
 
