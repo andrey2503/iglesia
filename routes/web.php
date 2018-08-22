@@ -114,9 +114,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     //salidas Soda
     Route::get('/listaSalidasSoda','SalidaSodaController@index');
-    // Route::get('/nuevoGrupoSoda','SalidaSodaController@create');
-    // Route::post('/nuevoGruposSoda','SalidaSodaController@store');
-    // Route::get('/verGrupoSoda/{id}','SalidaSodaController@verGrupoSoda');
+    Route::get('/nuevaSalidaSoda','SalidaSodaController@create');
+    Route::post('/nuevaSalidaSoda','SalidaSodaController@store');
+    Route::get('/verSalidaSoda/{id}','SalidaSodaController@verSalidasSoda');
     // Route::get('/modificarGrupoSoda/{id}','SalidaSodaController@show');
     // Route::post('/modificarGruposSoda','SalidaSodaController@update');
     // Route::post('/eliminarGrupoSoda','SalidaSodaController@destroy');

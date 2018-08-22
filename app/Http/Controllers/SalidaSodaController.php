@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\SalidaSoda;
 use Illuminate\Http\Request;
+use App\AdministradorSoda;
+use App\Logs;
 
 class SalidaSodaController extends Controller
 {
@@ -26,6 +28,8 @@ class SalidaSodaController extends Controller
     public function create()
     {
         //
+        $gruposSoda= AdministradorSoda::all();
+        return view ('administrador.nuevaSalidasSoda')->with(['gruposSoda'=>$gruposSoda]);
     }
 
     /**
@@ -37,6 +41,29 @@ class SalidaSodaController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'grupo'=>'required',
+            'descripcion'=>'required',
+            'monto'=>'required',
+            ]);
+        $salidasSoda = new SalidaSoda();
+        $salidasSoda->fk_grupo = $request->grupo;
+        $salidasSoda->descripcion = $request->descripcion;
+        $salidasSoda->monto= $request->monto;
+
+
+        if($salidasSoda->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="entrada_sodas";
+            $log->nombre_elemento= $salidasSoda->id;
+            $log->accion="Agregar Salida Soda";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Salida para '.$request->descripcion.' creada correctamente');
+        }else{
+            return redirect('/administrador.nuevaSalidasSoda');
+        }
     }
 
     /**
@@ -82,5 +109,22 @@ class SalidaSodaController extends Controller
     public function destroy(SalidaSoda $salidaSoda)
     {
         //
+        $salidasSoda=SalidaSoda::find($request->id);
+        $salidasSoda->delete();
+        if ($salidasSoda->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="salida_sodas";
+          $log->nombre_elemento= $salidasSoda->id;
+          $log->accion="Eliminar salida Soda";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect('/listaEntradasSoda');
+        }
+    }// fin de destroy
+
+    public function verSalidasSoda($id){
+        $salidasSoda= SalidaSoda::find($id);
+        return view('administrador.verSalidasSoda')->with(['salidasSoda'=>$salidasSoda]);
     }
 }

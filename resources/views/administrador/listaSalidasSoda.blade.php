@@ -5,7 +5,7 @@
   <h3>Salidas para la Soda</h3>
   <a href="{{ URL::asset('/nuevaSalidaSoda') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
-          Agregar Entrada
+          Agregar Salida
   </a>
 
 
