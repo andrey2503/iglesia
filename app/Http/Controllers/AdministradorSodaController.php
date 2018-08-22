@@ -76,7 +76,7 @@ class AdministradorSodaController extends Controller
         //
         $grupo= AdministradorSoda::find($id);
         return view('administrador.modificarGrupoSodas')->with(['grupo'=>$grupo]);
-        
+
     }
 
     /**
@@ -130,8 +130,25 @@ class AdministradorSodaController extends Controller
      * @param  \App\AdministradorSoda  $administradorSoda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AdministradorSoda $administradorSoda)
+    public function destroy(Request $request)
     {
         //
+        $gruposSoda=AdministradorSoda::find($request->id);
+        $gruposSoda->delete();
+        if ($gruposSoda->delete()) {
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="administrador_sodas";
+          $log->nombre_elemento= $gruposSoda->id;
+          $log->accion="Eliminar Grupo Soda";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect('/listaGruposSoda');
+        }
+    }
+
+    public function verGrupoSoda($id){
+        $gruposSoda= AdministradorSoda::find($id);
+        return view('administrador.verGrupoSoda')->with(['gruposSoda'=>$gruposSoda]);
     }
 }

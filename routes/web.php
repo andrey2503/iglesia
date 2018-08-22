@@ -100,7 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/verGrupoSoda/{id}','AdministradorSodaController@verGrupoSoda');
     Route::get('/modificarGrupoSoda/{id}','AdministradorSodaController@show');
     Route::post('/modificarGruposSoda','AdministradorSodaController@update');
-     Route::post('/eliminarGruposSoda','AdministradorSodaController@destroy');
+    Route::post('/eliminarGrupoSoda','AdministradorSodaController@destroy');
     //fin grupos Soda
     // digitador
     Route::get('/digitador','Digitador@index');
