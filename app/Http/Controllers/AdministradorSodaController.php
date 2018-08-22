@@ -71,9 +71,12 @@ class AdministradorSodaController extends Controller
      * @param  \App\AdministradorSoda  $administradorSoda
      * @return \Illuminate\Http\Response
      */
-    public function show(AdministradorSoda $administradorSoda)
+    public function show($id)
     {
         //
+        $grupo= AdministradorSoda::find($id);
+        return view('administrador.modificarGrupoSodas')->with(['grupo'=>$grupo]);
+        
     }
 
     /**
@@ -97,7 +100,29 @@ class AdministradorSodaController extends Controller
     public function update(Request $request, AdministradorSoda $administradorSoda)
     {
         //
-    }
+        $this->validate($request,[
+            'nombreGrupo'=>'required',
+            'fechaInicio'=>'required',
+            'fechaFin'=>'required',
+            ]);
+        $gruposSoda = AdministradorSoda::find($request->id);
+        $gruposSoda->nombreGrupo = $request->nombreGrupo;
+        $gruposSoda->fechaInicio = $request->fechaInicio;
+        $gruposSoda->fechaFin= $request->fechaFin;
+
+        if($gruposSoda->save()){
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="administrador_sodas";
+          $log->nombre_elemento= $request->id;
+          $log->accion="Actualizar grupo";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+            return redirect()->back()->with('message','Grupo '.$request->nombreGrupo.' actualizado correctamente');
+        }else{
+            return redirect('/');
+        }
+    }// fin de update
 
     /**
      * Remove the specified resource from storage.

@@ -98,8 +98,8 @@ Route::group(['middleware' => ['auth']], function () {
      Route::get('/nuevoGrupoSoda','AdministradorSodaController@create');
      Route::post('/nuevoGruposSoda','AdministradorSodaController@store');
     // Route::get('/verSalario/{id}','SalarioController@verSalario');
-    // Route::get('/modificarSalario/{id}','SalarioController@show');
-    // Route::post('/modificarSalario','SalarioController@update');
+    Route::get('/modificarGrupoSoda/{id}','AdministradorSodaController@show');
+    Route::post('/modificarGruposSoda','AdministradorSodaController@update');
     // Route::post('/eliminarSalario','SalarioController@destroy');
     //fin grupos Soda
     // digitador
@@ -111,7 +111,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/lector','LectorController@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');
     // Route::post('/modificarUsuario','AdminController@update');
-    Route::get('/lout', 'LectorController@Logout');
+    Route::get('/lout', 'LectorController@Logout'); 
 
     //empleados
     Route::get('/empleados','EmpleadoController@index');
