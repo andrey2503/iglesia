@@ -73,9 +73,12 @@ class EntradaSodaController extends Controller
      * @param  \App\EntradaSoda  $entradaSoda
      * @return \Illuminate\Http\Response
      */
-    public function show(EntradaSoda $entradaSoda)
+    public function show($id)
     {
         //
+        $gruposSoda= AdministradorSoda::all();
+        $entradasSoda= EntradaSoda::find($id);
+        return view('administrador.modificarEntradasSoda')->with(['entradasSoda'=>$entradasSoda,'gruposSoda'=>$gruposSoda]);
     }
 
     /**
@@ -96,9 +99,31 @@ class EntradaSodaController extends Controller
      * @param  \App\EntradaSoda  $entradaSoda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EntradaSoda $entradaSoda)
+    public function update(Request $request)
     {
         //
+        $this->validate($request,[
+            'grupo'=>'required',
+            'descripcion'=>'required',
+            'monto'=>'required',
+            ]);
+        $entradasSoda = EntradaSoda::find($request->id);
+        $entradasSoda->fk_grupo = $request->grupo;
+        $entradasSoda->descripcion = $request->descripcion;
+        $entradasSoda->monto= $request->monto;
+
+        if($entradasSoda->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="entrada_sodas";
+            $log->nombre_elemento= $entradasSoda->id;
+            $log->accion="actualizar entrada Soda";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Entrada para '.$request->descripcion.' actualizada correctamente');
+        }else{
+            return redirect('/administrador.listaEntradasSoda');
+        }
     }
 
     /**

@@ -130,7 +130,7 @@ class SalidaSodaController extends Controller
      * @param  \App\SalidaSoda  $salidaSoda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SalidaSoda $salidaSoda)
+    public function destroy(Request $request)
     {
         //
         $salidasSoda=SalidaSoda::find($request->id);

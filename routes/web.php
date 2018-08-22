@@ -107,8 +107,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/nuevaEntradasSoda','EntradaSodaController@create');
     Route::post('/nuevaEntradasSoda','EntradaSodaController@store');
      Route::get('/verEntradasSoda/{id}','EntradaSodaController@verEntradasSoda');
-    // Route::get('/modificarEntradasSoda/{id}','EntradaSodaController@show');
-    // Route::post('/modificarEntradasSoda','EntradaSodaController@update');
+    Route::get('/modificarEntradaSoda/{id}','EntradaSodaController@show');
+    Route::post('/modificarEntradaSoda','EntradaSodaController@update');
      Route::post('/eliminarEntradasSoda','EntradaSodaController@destroy');
     //fin entradas Soda
 
@@ -119,7 +119,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/verSalidaSoda/{id}','SalidaSodaController@verSalidasSoda');
     Route::get('/modificarSalidaSoda/{id}','SalidaSodaController@show');
     Route::post('/modificarSalidaSoda','SalidaSodaController@update');
-    // Route::post('/eliminarGrupoSoda','SalidaSodaController@destroy');
+    Route::post('/eliminarSalidaSoda','SalidaSodaController@destroy');
     //fin salidas Soda
 
     // digitador
