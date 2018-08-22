@@ -28,8 +28,8 @@
 
                       <tr>
                         <td>{{ $es->EntradaSoda->nombreGrupo }}</td>
-                        <td>{{ $es->fechaInicio }}</td>
-                        <td>{{ $es->fechaFin }}</td>
+                        <td>{{ $es->descripcion }}</td>
+                        <td>{{ $es->monto }}</td>
 
                         <td>
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarEntradaSoda') }}/{{$es->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
