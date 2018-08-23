@@ -220,7 +220,14 @@
         </small>
       </a>
     </li> -->
-
+    <li>
+      <a href="{{ URL::asset('/listaEntradas') }}">
+        <i class="glyphicon glyphicon-th-list"></i> <span> Entradas</span> <i class="fa fa-angle-left pull-right"></i>
+        <small class="label pull-right bg-blue">
+          <span class="glyphicon glyphicon-th-list"></span>
+        </small>
+      </a>
+    </li>
     <li>
       <a href="{{ URL::asset('/logs') }}">
         <i class="glyphicon glyphicon-th-list"></i> <span>Logs</span> <i class="fa fa-angle-left pull-right"></i>

@@ -27,5 +27,9 @@ class Rubro extends Model
     {
         return $this->hasMany('App\Rubro','fk_rubro');
     }
+    public function Entrada()
+    {
+        return $this->hasMany('App\Rubro','fk_rubro');
+    }
 
 }

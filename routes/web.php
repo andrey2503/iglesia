@@ -122,6 +122,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/eliminarSalidaSoda','SalidaSodaController@destroy');
     //fin salidas Soda
 
+    //Entradas
+    Route::get('/listaEntradas','EntradaController@index');
+    Route::get('/nuevaEntrada','EntradaController@create');
+    Route::post('/nuevaEntrada','EntradaController@store');
+    // Route::get('/verSalidaSoda/{id}','EntradaController@verSalidasSoda');
+    // Route::get('/modificarSalidaSoda/{id}','EntradaController@show');
+    // Route::post('/modificarSalidaSoda','EntradaController@update');
+    // Route::post('/eliminarSalidaSoda','EntradaController@destroy');
+    //fin Entradas
+
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');
