@@ -161,4 +161,10 @@ class EntradaController extends Controller
     {
         //
     }
+
+    public function verEntradas($id){
+// dd($cuentas);
+        $entradas= Entrada::find($id);
+        return view('administrador.verEntradas')->with(['entradas'=>$entradas]);
+    }
 }
