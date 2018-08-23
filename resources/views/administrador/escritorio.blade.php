@@ -198,7 +198,23 @@
               </small>
             </a>
           </li>
-
+          <li>
+            <a href="{{ URL::asset('/listaEntradas') }}">
+              <i class="glyphicon glyphicon-arrow-up"></i> <span> Entradas</span> <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-green">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+              </small>
+            </a>
+          </li>
+          <li>
+            <a href="{{ URL::asset('/listaSalidas') }}">
+              <i class="glyphicon glyphicon-arrow-down"></i> <span> Salidas</span> <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-red">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+              </small>
+            </a>
+          </li>
+          
       <li class="active treeview">
         <a href="">
             <i class="glyphicon glyphicon-apple"></i><span>Soda</span>
@@ -220,14 +236,7 @@
         </small>
       </a>
     </li> -->
-    <li>
-      <a href="{{ URL::asset('/listaEntradas') }}">
-        <i class="glyphicon glyphicon-th-list"></i> <span> Entradas</span> <i class="fa fa-angle-left pull-right"></i>
-        <small class="label pull-right bg-blue">
-          <span class="glyphicon glyphicon-th-list"></span>
-        </small>
-      </a>
-    </li>
+
     <li>
       <a href="{{ URL::asset('/logs') }}">
         <i class="glyphicon glyphicon-th-list"></i> <span>Logs</span> <i class="fa fa-angle-left pull-right"></i>
