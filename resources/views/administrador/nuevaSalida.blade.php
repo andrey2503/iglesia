@@ -61,6 +61,15 @@
                  <span style="color: red;">{{ $errors->first('monto') }}</span>
                @endif
               </div>
+
+              <div class="form-group">
+               <label for="user">Confirmar Monto</label>
+               <input type="number" step="any" class="form-control" name="confMonto" placeholder="Monto">
+               @if($errors->has('confMonto'))
+                 <span style="color: red;">{{ $errors->first('confMonto') }}</span>
+               @endif
+              </div>
+
               <div class="form-group">
                <label for="user">Generar cuenta por cobrar</label>
                <select class="form-control" name="cuentaCobrar">
@@ -73,12 +82,36 @@
              </div>
 
              <div class="form-group">
+              <label for="user">Nombre cuenta por Cobrar</label>
+              <input type="number" step="any" class="form-control" name="cuentaPagar" placeholder="Nombre cuenta por Cobrar">
+              @if($errors->has('cuentaPagar'))
+                <span style="color: red;">{{ $errors->first('cuentaPagar') }}</span>
+              @endif
+             </div>
+
+             <div class="form-group">
+              <label for="user">Aplicar a cuenta por pagar</label>
+              <select class="form-control" name="cuentaPagar">
+                  <option value="0">No</option>
+                @if(isset($cuentasPagar))
+                  @foreach($cuentasPagar as $cp)
+                <option value="{{ $cp->id }}">{{ $cp->nombre }} // {{ $cp->monto }}  </option>
+                  @endforeach
+                @endif
+              </select>
+              @if($errors->has('cuentaPagar'))
+                <span style="color: red;">{{ $errors->first('cuentaPagar') }}</span>
+              @endif
+            </div>
+
+
+             <div class="form-group">
               <label for="user">Asignar Cuenta Bancaria</label>
               <select class="form-control" name="cuentaBancaria">
                   <option value="0">Sin Cuenta Bancaria Asignada</option>
                 @if(isset($cuentas))
                   @foreach($cuentas as $c)
-                <option value="{{ $c->id }}">{{ $c->cuenta }}  //  {{ $c->moneda }}</option>
+                <option value="{{ $c->id }}">{{ $c->cuenta }}  // {{ $c->nombre }} // {{ $c->moneda }}</option>
                   @endforeach
                 @endif
               </select>

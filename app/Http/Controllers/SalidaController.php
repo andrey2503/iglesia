@@ -6,6 +6,7 @@ use App\Salida;
 use Illuminate\Http\Request;
 use App\Rubro;
 use App\CuentaBancaria;
+use App\CuentaPagar;
 class SalidaController extends Controller
 {
     /**
@@ -29,7 +30,8 @@ class SalidaController extends Controller
         //
         $rubros= Rubro::all();
         $cuentas= CuentaBancaria::all();
-        return view ('administrador.nuevaSalida')->with(['rubros'=>$rubros,'cuentas'=>$cuentas]);
+        $cuentasPagar= CuentaPagar::all();
+        return view ('administrador.nuevaSalida')->with(['rubros'=>$rubros,'cuentas'=>$cuentas,'cuentasPagar'=>$cuentasPagar]);
     }
 
     /**
