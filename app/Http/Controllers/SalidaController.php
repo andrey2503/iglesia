@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Salida;
 use Illuminate\Http\Request;
-
+use App\Rubro;
+use App\CuentaBancaria;
 class SalidaController extends Controller
 {
     /**
@@ -14,7 +15,8 @@ class SalidaController extends Controller
      */
     public function index()
     {
-        //
+        $salidas= Salida::all();
+        return view('administrador.listaSalidas')->with(['salidas'=>$salidas]);
     }
 
     /**
@@ -25,6 +27,9 @@ class SalidaController extends Controller
     public function create()
     {
         //
+        $rubros= Rubro::all();
+        $cuentas= CuentaBancaria::all();
+        return view ('administrador.nuevaSalida')->with(['rubros'=>$rubros,'cuentas'=>$cuentas]);
     }
 
     /**
