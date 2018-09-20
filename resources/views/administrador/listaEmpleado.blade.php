@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
-
+<h3>Lista Empleados</h3>
   <a href="{{ URL::asset('/nuevoEmpleado') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
-          Agregar
+          Agregar Empleado
   </a>
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
@@ -17,7 +17,7 @@
                   <th>Telefeno</th>
                   <th>Puesto</th>
                   <th>Estado</th>
-                  <th>Monto</th>
+                  <th>Salario</th>
                   <th>Acción</th>
                 </thead>
                 <tbody>
@@ -27,14 +27,17 @@
                         <td>{{ $e->nombre }}</td>
                         <td>{{ $e->cedula }}</td>
                         <td>{{ $e->telefono }}</td>
-                        <td>{{ $e->fk_puesto }}</td>
+                        <td>{{ $e->puesto->nombre }}</td>
                         @if($e->estado==1)
                         <td>activo</td>
                         @else
                         <td> inactivo</td>
                         @endif
-                        <td>{{ $e->monto }}</td>
-
+                        @foreach($salarios as $s)
+                        @if($e->fk_puesto == $s->fk_puesto)
+                        <td>{{ $s->salarioNeto }}</td>
+                          @endif
+                        @endforeach
                         <td>
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarEmpleado') }}/{{$e->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
                          <a class="btn btn-success btn-md" href="{{ url('/verEmpleado') }}/{{$e->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>

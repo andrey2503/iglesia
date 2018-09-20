@@ -8,11 +8,13 @@ use Illuminate\Contracts\Auth\Guard;
 use Session;
 use App\Logs;
 use App\Puesto;
+use App\Salario;
 class EmpleadoController extends Controller
 {
-    
+
     public function __construct(Guard $auth)
     {
+
         $this->auth = $auth;
         $this->middleware(['auth','administrador'])->except('logout');
     }
@@ -24,8 +26,9 @@ class EmpleadoController extends Controller
     public function index()
     {
         //
+        $salarios= Salario::all();
         $empleados= Empleado::all();
-        return view('administrador.listaEmpleado')->with(['empleados'=>$empleados]);
+        return view('administrador.listaEmpleado')->with(['empleados'=>$empleados,'salarios'=>$salarios]);
     }
 
     /**
@@ -73,7 +76,7 @@ class EmpleadoController extends Controller
         }else{
             return redirect('/nuevoRubro');
         }
-        
+
     }// fin de stoer
 
     /**
@@ -87,7 +90,7 @@ class EmpleadoController extends Controller
            $empleado= Empleado::find($id);
         $puestos=Puesto::all();
         return view('administrador.verEmpleado')->with(['empleado'=>$empleado,'puestos'=>$puestos]);
-   
+
     }
 
     /**
@@ -132,7 +135,7 @@ class EmpleadoController extends Controller
         }else{
             return redirect('/nuevoEmpleado');
         }
-        
+
         //
     }
 

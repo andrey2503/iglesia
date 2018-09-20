@@ -52,8 +52,11 @@ class EntradaController extends Controller
           'descripcion'=>'required',
           'moneda'=>'required',
           'monto'=>'required',
+          'confMonto'=>'required',
           'cuentaCobrar'=>'required',
           'cuentaBancaria'=>'required',
+          'documento'=>'required',
+          'monto'=>'required|same:confMonto'
         ]);
 
         $entradas = new Entrada();
@@ -61,6 +64,7 @@ class EntradaController extends Controller
         $entradas->fk_rubro= $request->rubro;
         $entradas->moneda= $request->moneda;
         $entradas->monto=$request->monto;
+        $entradas->documento=$request->documento;
 
         if($entradas->save()){
           $log= new Logs();
@@ -78,7 +82,7 @@ class EntradaController extends Controller
 
         if ($request->cuentaCobrar ==1) {
           $cuentasCobrar = new CuentaCobrar();
-          $cuentasCobrar->nombre = "Entrada".$entradas->descripcion;
+          $cuentasCobrar->nombre = $request->cuentaPagar;
           $cuentasCobrar->fk_rubro= $request->rubro;
           $cuentasCobrar->moneda= $request->moneda;
           $cuentasCobrar->monto=$request->monto;

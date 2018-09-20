@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="{{ URL::asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 
   <link rel="stylesheet" href="{{ URL::asset('css/styles.css') }}">
-
+<script src="{{ URL::asset('js/jquery-3.0.0.min.js') }}"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -214,7 +214,7 @@
               </small>
             </a>
           </li>
-          
+
       <li class="active treeview">
         <a href="">
             <i class="glyphicon glyphicon-apple"></i><span>Soda</span>

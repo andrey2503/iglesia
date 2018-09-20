@@ -23,4 +23,8 @@ class Puesto extends Model
     {
         return $this->hasMany('App\Salario','fk_puesto');
     }
+    public function Empleado()
+    {
+        return $this->hasMany('App\Salario','fk_puesto');
+    }
 }

@@ -90,7 +90,7 @@
 
              <div class="form-group">
               <label for="user">Nombre cuenta por Cobrar</label>
-              <input type="number" step="any" class="form-control" name="cuentaPagar" placeholder="Nombre cuenta por Cobrar">
+              <input type="text" step="any" class="form-control" name="cuentaPagar" placeholder="Nombre cuenta por Cobrar">
               @if($errors->has('cuentaPagar'))
                 <span style="color: red;">{{ $errors->first('cuentaPagar') }}</span>
               @endif

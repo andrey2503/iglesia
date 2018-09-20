@@ -1,7 +1,23 @@
 @extends('administrador.escritorio')
 
 @section('content')
+<script type="text/javascript">
 
+$( document ).ready(function() {
+
+$("#cuentaPagar").hide();
+    $("#cuentaCobrar").change(function(){
+      if ($("#cuentaCobrar").val() ==1) {
+        $("#cuentaPagar").show();
+      }else{
+        $("#cuentaPagar").hide();
+      }
+    });
+
+});
+
+
+</script>
 <div class="container row col-md-8 col-md-offset-2 ">
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
@@ -68,15 +84,31 @@
                  <span style="color: red;">{{ $errors->first('monto') }}</span>
                @endif
               </div>
+
+              <div class="form-group">
+               <label for="user">Confirmar Monto</label>
+               <input type="number" step="any" class="form-control" name="confMonto" placeholder="Monto">
+               @if($errors->has('confMonto'))
+                 <span style="color: red;">{{ $errors->first('confMonto') }}</span>
+               @endif
+              </div>
               <div class="form-group">
                <label for="user">Generar cuenta por cobrar</label>
-               <select class="form-control" name="cuentaCobrar">
+               <select class="form-control" name="cuentaCobrar" id="cuentaCobrar">
                  <option value="0" selected> No</option>
                  <option value="1"> Si</option>
                </select>
                @if($errors->has('cuentaCobrar'))
                  <span style="color: red;">{{ $errors->first('cuentaCobrar') }}</span>
                @endif
+             </div>
+
+             <div class="form-group" id="cuentaPagar">
+              <label for="user">Nombre cuenta por Cobrar</label>
+              <input type="text" step="any" class="form-control" name="cuentaPagar"  placeholder="Nombre cuenta por Cobrar">
+              @if($errors->has('cuentaPagar'))
+                <span style="color: red;">{{ $errors->first('cuentaPagar') }}</span>
+              @endif
              </div>
 
              <div class="form-group">

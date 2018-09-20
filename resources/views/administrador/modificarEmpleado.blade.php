@@ -5,7 +5,7 @@
 <div class="container row col-md-8 col-md-offset-2 ">
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
-                  <h3 class="box-title"> Nuevo empleado</h3>
+                  <h3 class="box-title"> Modificar empleado</h3>
                   @if(session()->has('message'))
                       <div class="alert alert-success">
                           {{ session()->get('message') }}
@@ -41,7 +41,7 @@
 
               <div class="form-group">
                 <label for="monto">Monto</label>
-                <input type="number" class="form-control" name="monto" value="{{$empleado->monto}}">
+                <input type="number" class="form-control" name="monto" value="{{$empleado->monto}}" disabled="true">
                 @if($errors->has('monto'))
                   <span style="color: red;">{{ $errors->first('monto') }}</span>
                 @endif
