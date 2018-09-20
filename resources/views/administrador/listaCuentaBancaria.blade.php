@@ -70,6 +70,7 @@
         <th scope="col">Tipo</th>
         <th scope="col">Moneda</th>
         <th scope="col">Monto</th>
+        <th scope="col">Datos Actualizacion</th>
       </tr>
     </thead>
     <tbody>
@@ -95,6 +96,7 @@
         <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
         <!-- verificar tipo moneda -->
+          <td>{{$c->updated_at}}</td>
       </tr>
       @endforeach
     @endif

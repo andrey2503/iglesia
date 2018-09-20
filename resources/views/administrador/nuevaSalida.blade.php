@@ -35,6 +35,13 @@
            @endif
          </div>
          <div class="form-group">
+          <label for="user">Numero Documento</label>
+          <input type="text" step="any" class="form-control" name="documento" placeholder="# documento">
+          @if($errors->has('documento'))
+            <span style="color: red;">{{ $errors->first('documento') }}</span>
+          @endif
+         </div>
+         <div class="form-group">
            <label for="email">Descripcion</label>
            <textarea type="text" class="form-control" name="descripcion" placeholder="Descripcion.." style="max-height: 300px;min-height: 200px;"></textarea>
            @if($errors->has('descripcion'))
