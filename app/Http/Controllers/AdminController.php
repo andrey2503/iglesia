@@ -196,4 +196,13 @@ class AdminController extends Controller
         return view('administrador.logs')->with(['logs'=>$logs]);
     }
 
+    public function generarReporteUsuarios(){
+        $User=User::all();
+        $view= view('reportes.pdfReporte')->with(['user'=>$User]);
+        unset($pdf);
+        $pdf=\App::make('dompdf.wrapper');
+        $pdf->loadhtml($view);
+        return $pdf->stream('document.pdf');
+    }// fin de generar reporte
+
 }

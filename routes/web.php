@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/verUsuario/{id}','AdminController@verusuario');
     Route::post('/eliminarUsuario','AdminController@destroy');
     Route::get('/logs','AdminController@logs');
+    Route::get('/reporteUsuarios','AdminController@generarReporteUsuarios');
     // cuenta bancaria
     Route::get('/listaCuentaBancaria','CuentaBancariaController@index');
     Route::get('/nuevaCuentaBancaria','CuentaBancariaController@create');
