@@ -39,14 +39,16 @@
 		}
 		.escudo{
 			width: 80px;
+			text-align: right;
 		}
 		.header{
 			text-align: center;
 		}
 	</style>
 <div class="header">
-	<img class="escudo" src="./img/escudoMuni.jpg">
-	<h1 class="titulo">Titulo del reporte</h1>
+	<img class="escudo" src="./img/corazon.png">
+	<h1 class="titulo">Parroquia del Sagrado Corazón de Jesús</h1>
+	<h4>Parroquia evangelizada, evangelizadora y misionera <br>Heredia, Costa Rica</h4>
 </div>
 <div>
 	<h3>Reporte de usuarios</h3>
@@ -61,14 +63,14 @@
 							<th class="col">Nombre</th>
 							<th class="col">Email</th>
 						</thead>
-				
+
 				<tbody>
 				<tr></tr>
 				@foreach($user as $e)
 					<tr>
 						<td class="rigth">{{ $e->nombre }}</td>
 						<td class="rigth">{{ $e->email }}</td>
-						
+
 					</tr>
 				@endforeach
 				</tbody>

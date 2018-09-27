@@ -8,6 +8,7 @@ use App\Logs;
 use App\Rubro;
 use App\CuentaBancaria;
 use App\CuentaCobrar;
+use App\CuentaPagar;
 class EntradaController extends Controller
 {
     /**
@@ -31,9 +32,11 @@ class EntradaController extends Controller
     public function create()
     {
         //
+        $cuentasPagar= CuentaPagar::all();
+        $cuentasCobrar= CuentaCobrar::all();
         $rubros= Rubro::all();
         $cuentas= CuentaBancaria::all();
-          return view ('administrador.nuevaEntrada')->with(['rubros'=>$rubros,'cuentas'=>$cuentas]);
+          return view ('administrador.nuevaEntrada')->with(['rubros'=>$rubros,'cuentas'=>$cuentas,'cuentasPagar'=>$cuentasPagar,'cuentasCobrar'=>$cuentasCobrar]);
     }
 
     /**
@@ -53,7 +56,6 @@ class EntradaController extends Controller
           'moneda'=>'required',
           'monto'=>'required',
           'confMonto'=>'required',
-          'cuentaCobrar'=>'required',
           'cuentaBancaria'=>'required',
           'documento'=>'required',
           'monto'=>'required|same:confMonto'
@@ -74,52 +76,68 @@ class EntradaController extends Controller
           $log->accion="Agregar  Entrada";
           $log->fecha=date ('y-m-d H:i:s');
           $log->save();
-          if ($request->cuentaCobrar !=1 && $request->cuentaBancaria == 0) {
-          return redirect()->back()->with('message','Entrada '.$entradas->descripcion.' creada correctamente');
-          }
           //return redirect()->back()->with('message','Entrada '.$entradas->descripcion.' creada correctamente');
         }
 
-        if ($request->cuentaCobrar ==1) {
-          $cuentasCobrar = new CuentaCobrar();
-          $cuentasCobrar->nombre = $request->cuentaPagar;
-          $cuentasCobrar->fk_rubro= $request->rubro;
-          $cuentasCobrar->moneda= $request->moneda;
-          $cuentasCobrar->monto=$request->monto;
+        if ($request->cuentaPagar1 !=0) {
 
-          if($cuentasCobrar->save()){
-            $log= new Logs();
-            $log->fk_usuario= \Auth::user()->id;
-            $log->nombre_tabla="cuenta_cobrars";
-            $log->nombre_elemento= $cuentasCobrar->id;
-            $log->accion="Agregar Cuenta por Cobrar desde Entrada";
-            $log->fecha=date ('y-m-d H:i:s');
-            $log->save();
-            if ($request->cuentaBancaria == 0) {
-            return redirect()->back()->with('message','Entrada '.$entradas->descripcion.' creada correctamente');
-            }
-            //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
-          }
+        //  dd($request);
+          $this->addCuentaPagar($request);
+        }
+        if ($request->cuentaBancaria != 0) {
+            $this->addcuentaBancaria($request);
+        }
+        if ($request->cuentaCobrarD !=0) {
+
+        //  dd($request);
+          $this->addCuentaCobrarDis($request);
+        }
+        if ($request->cuentaPagarD !=0) {
+
+        //  dd($request);
+          $this->addCuentaPagarDis($request);
+        }
+        if ($request->cuentaPagarA !=0) {
+
+        //  dd($request);
+          $this->addCuentaPagarAu($request);
         }
 
-        if ($request->cuentaBancaria != 0) {//verificar si cuenta vancaria es diferente de 0
-          $cuenta= CuentaBancaria::find($request->cuentaBancaria);
-            $montoAnterior=$cuenta->monto;
-          if ($cuenta->moneda == $request->moneda) {
-            $cuenta->monto=$request->monto + $montoAnterior;
-            if ($cuenta->save()) {
-              if ($request->cuentaCobrar !=1 ) {
-              return redirect()->back()->with('message','Entrada '.$entradas->descripcion.' creada correctamente');
-            }else{
-              return redirect()->back()->with('message','Entrada '.$request->descripcion.' creada correctamente');
-            }
-            }
-          }else{
-            return redirect()->back()->with('error','La moneda y la cuenta son diferentes');
-          }
-        }
+        return redirect()->back()->with('message','Entrada '.$request->descripcion.' creada correctamente');
+      }//fin metodo store
 
-    }
+
+function addCuentaPagar($request) {
+//dd($request);
+    $cuentasPagar = new CuentaPagar();
+    $cuentasPagar->nombre = $request->cuentaPagar;
+    $cuentasPagar->fk_rubro= $request->rubro;
+    $cuentasPagar->moneda= $request->moneda;
+    $cuentasPagar->monto=$request->monto;
+
+    if($cuentasPagar->save()){
+      $log= new Logs();
+      $log->fk_usuario= \Auth::user()->id;
+      $log->nombre_tabla="cuenta_pagars";
+      $log->nombre_elemento= $cuentasPagar->id;
+      $log->accion="Agregar Cuenta por Pagar desde Entrada";
+      $log->fecha=date ('y-m-d H:i:s');
+      $log->save();
+
+      //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
+  }
+}//fin metodo addCuentaPagar
+
+function addcuentaBancaria($request){
+  //verificar si cuenta vancaria es diferente de 0
+    $cuenta= CuentaBancaria::find($request->cuentaBancaria);
+      $montoAnterior=$cuenta->monto;
+    if ($cuenta->moneda == $request->moneda) {
+      $cuenta->monto=$request->monto + $montoAnterior;
+      $cuenta->save();
+
+      }
+}//fin metodo addcuentaBancaria
 
     /**
      * Display the specified resource.
