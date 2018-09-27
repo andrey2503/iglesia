@@ -134,10 +134,83 @@ function addcuentaBancaria($request){
       $montoAnterior=$cuenta->monto;
     if ($cuenta->moneda == $request->moneda) {
       $cuenta->monto=$request->monto + $montoAnterior;
-      $cuenta->save();
+      if($cuenta->save()){
+        $log= new Logs();
+        $log->fk_usuario= \Auth::user()->id;
+        $log->nombre_tabla="cuenta_bancarias";
+        $log->nombre_elemento= $cuenta->id;
+        $log->accion="Sumar ".$request->monto." al monto anterior: ".$montoAnterior;
+        $log->fecha=date ('y-m-d H:i:s');
+        $log->save();
+        //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
+    }
 
       }
 }//fin metodo addcuentaBancaria
+
+//funcion para disminuir cuenta por cobrar
+function addCuentaCobrarDis($request){
+  $cuentasCobrar=CuentaCobrar::find($request->cuentaCobrarD);
+  $montoAnterior=$cuentasCobrar->monto;
+  if ($cuentasCobrar->moneda == $request->moneda ) {
+    $cuentasCobrar->monto=$montoAnterior - $request->monto;
+    if($cuentasCobrar->save()){
+      $log= new Logs();
+      $log->fk_usuario= \Auth::user()->id;
+      $log->nombre_tabla="cuenta_cobrars";
+      $log->nombre_elemento= $cuentasCobrar->id;
+      $log->accion="Disminuir: ".$request->monto." al monto anterior: ".$montoAnterior;
+      $log->fecha=date ('y-m-d H:i:s');
+      $log->save();
+      //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
+  }
+
+    }
+
+}//fin funcion disminuir cuenta por Cobrar
+
+//funcion para disminuir cuenta por pagar
+function addCuentaPagarDis($request){
+  $cuentasPagar=CuentaPagar::find($request->cuentaPagarD);
+  $montoAnterior=$cuentasPagar->monto;
+  if ($cuentasPagar->moneda == $request->moneda ) {
+    $cuentasPagar->monto=$montoAnterior - $request->monto;
+    if($cuentasPagar->save()){
+      $log= new Logs();
+      $log->fk_usuario= \Auth::user()->id;
+      $log->nombre_tabla="cuenta_pagars";
+      $log->nombre_elemento= $cuentasPagar->id;
+      $log->accion="Disminuir: ".$request->monto." al monto anterior: ".$montoAnterior;
+      $log->fecha=date ('y-m-d H:i:s');
+      $log->save();
+      //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
+  }
+
+    }
+
+}//fin funcion disminuir cuenta por pagar
+
+
+//funcion para aumentar cuenta por pagar
+function addCuentaPagarAu($request){
+  $cuentasPagar=CuentaPagar::find($request->cuentaPagarA);
+  $montoAnterior=$cuentasPagar->monto;
+  if ($cuentasPagar->moneda == $request->moneda ) {
+    $cuentasPagar->monto=$montoAnterior + $request->monto;
+    if($cuentasPagar->save()){
+      $log= new Logs();
+      $log->fk_usuario= \Auth::user()->id;
+      $log->nombre_tabla="cuenta_pagars";
+      $log->nombre_elemento= $cuentasPagar->id;
+      $log->accion="Aumentar: ".$request->monto." al monto anterior: ".$montoAnterior;
+      $log->fecha=date ('y-m-d H:i:s');
+      $log->save();
+      //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
+  }
+
+    }
+
+}//fin funcion aumentar cuenta por pagar
 
     /**
      * Display the specified resource.
