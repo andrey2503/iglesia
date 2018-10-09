@@ -52,7 +52,7 @@
 	<h3>Reporte de usuarios</h3>
 	<p>Fecha del reporte: {{ date('Y-m-d')}} <br>
 	Cantidad usuarios en el reporte: {{ count($user) }}<br>
-	Generado por: {{ Auth::user()->name }}</p>
+	Generado por: {{ Auth::user()->nombre }}</p>
 </div>
 <div class="container">
     <div class="row">
