@@ -128,9 +128,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/nuevaEntrada','EntradaController@create');
     Route::post('/nuevaEntrada','EntradaController@store');
      Route::get('/verEntradas/{id}','EntradaController@verEntradas');
-    // Route::get('/modificarSalidaSoda/{id}','EntradaController@show');
-    // Route::post('/modificarSalidaSoda','EntradaController@update');
-    // Route::post('/eliminarSalidaSoda','EntradaController@destroy');
+    Route::get('/modificarEntrada/{id}','EntradaController@show');
+    Route::post('/modificarEntrada','EntradaController@update');
+    Route::post('/eliminarEntrada','EntradaController@destroy');
     //fin Entradas
     Route::get('/listaSalidas','SalidaController@index');
     Route::get('/nuevaSalida','SalidaController@create');

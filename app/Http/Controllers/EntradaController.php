@@ -218,9 +218,12 @@ function addCuentaPagarAu($request){
      * @param  \App\Entrada  $entrada
      * @return \Illuminate\Http\Response
      */
-    public function show(Entrada $entrada)
+    public function show($id)
     {
         //
+        $entradas= Entrada::find($id);
+        $rubros= Rubro::all();
+        return view('administrador.modificarEntradas')->with(['entradas'=>$entradas,'rubros'=>$rubros]);
     }
 
     /**
@@ -241,9 +244,18 @@ function addCuentaPagarAu($request){
      * @param  \App\Entrada  $entrada
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Entrada $entrada)
+    public function update(Request $request)
     {
-        //
+      $entrada=Entrada::find($request->id);
+      $entrada->descripcion=$request->descripcion;
+      $entrada->documento=$request->documento;
+      $entrada->fk_rubro=$request->rubro;
+      if($entrada->save()){
+       return redirect()->back()->with('message','Entradaa actualizada correctamente');
+      }else{
+
+      }
+      //   //
     }
 
     /**
@@ -252,8 +264,14 @@ function addCuentaPagarAu($request){
      * @param  \App\Entrada  $entrada
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Entrada $entrada)
+    public function destroy(Request $request)
     {
+      $entrada=Entrada::find($request->id);
+      if ($entrada->delete()) {
+        return redirect()->back()->with('message','Entradaa eliminada correctamente');
+      }else{
+
+      }
         //
     }
 
