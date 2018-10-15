@@ -132,10 +132,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/modificarEntrada','EntradaController@update');
     Route::post('/eliminarEntrada','EntradaController@destroy');
     //fin Entradas
+    //salidas
     Route::get('/listaSalidas','SalidaController@index');
     Route::get('/nuevaSalida','SalidaController@create');
     Route::post('/nuevaSalida','SalidaController@store');
-    Route::get('/verSalidas/{id}','SalidaController@verEntradas');
+    Route::get('/verSalidas/{id}','SalidaController@verSalidas');
+    Route::get('/modificarSalida/{id}','SalidaController@show');
+    Route::post('/modificarSalida','SalidaController@update');
+    Route::post('/eliminarSalida','SalidaController@destroy');
+    
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');

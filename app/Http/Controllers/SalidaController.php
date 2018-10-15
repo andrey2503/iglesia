@@ -51,10 +51,19 @@ class SalidaController extends Controller
      * @param  \App\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function show(Salida $salida)
+    public function show($id)
     {
         //
+        $salida=Salida::find($id);
+        $rubros= Rubro::all();
+        return view ('administrador.modificarSalidas')->with(['rubros'=>$rubros,'salida'=>$salida]);
     }
+
+    public function verSalidas($id){
+        $salida=Salida::find($id);
+        return view ('administrador.verSalidas')->with(['salida'=>$salida]);
+        
+    }// fin de ver salidas
 
     /**
      * Show the form for editing the specified resource.
@@ -74,9 +83,19 @@ class SalidaController extends Controller
      * @param  \App\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Salida $salida)
+    public function update(Request $request)
     {
         //
+        $salida=Salida::find($request->id);
+        $salida->descripcion=$request->descripcion;
+        $salida->documento=$request->documento;
+        $salida->fk_rubro=$request->rubro;
+        if($salida->save()){
+         return redirect()->back()->with('message','Salida actualizada correctamente');
+        }else{
+  
+        }
+        //   //
     }
 
     /**
@@ -85,8 +104,13 @@ class SalidaController extends Controller
      * @param  \App\Salida  $salida
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Salida $salida)
+    public function destroy(Request $request)
     {
-        //
+    $salida=Salida::find($request->id);
+    if ($salida->delete()) {
+      return redirect()->back()->with('message','Entradaa eliminada correctamente');
+    }else{
     }
+    }
+      //
 }
