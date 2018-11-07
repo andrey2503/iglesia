@@ -280,4 +280,9 @@ function addCuentaPagarAu($request){
         $entradas= Entrada::find($id);
         return view('administrador.verEntradas')->with(['entradas'=>$entradas]);
     }
+
+    public function reporteTodasEntradas(){
+      $entradas= Entrada::all();
+      return view('reportes.pdfReporteEntradas')->with(['entradas'=>$entradas]);
+  }// fin de reporteTodoSalidas
 }
