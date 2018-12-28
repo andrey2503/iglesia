@@ -285,4 +285,59 @@ function addCuentaPagarAu($request){
       $entradas= Entrada::all();
       return view('reportes.pdfReporteEntradas')->with(['entradas'=>$entradas]);
   }// fin de reporteTodoSalidas
+
+  public function reportesEntradas(){
+
+  return view('administrador.reportesEntradas');
+  }
+
+
+  public function reportesConsultar(Request $request){
+  // dd($request);
+  if($request->tipoReporte == 2){
+    $entradas= Entrada::all();
+  //  dd($cuentasCobrar);
+    return view('administrador.reportesEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+
+  }
+  if($request->tipoReporte == 1){
+  // dd($request);
+  $this->validate($request,[
+      'fechaInicio'=>'required|date',
+      'fechaFinal'=>'required|date',
+      ]);
+    $entradas= Entrada::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+     //dd($cuentasCobrar);
+    return view('administrador.reportesEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
+  }
+
+  }// fin de reportes
+
+  public function reporteEntradas(Request $request){
+
+    if($request->tipoReporte == 2){
+
+        $entradas= Entrada::all();
+        $view= view('reportes.pdfReporteEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+        unset($pdf);
+        $pdf=\App::make('dompdf.wrapper');
+        $pdf->loadhtml($view);
+        return $pdf->stream('document.pdf');
+    //  dd($cuentas);
+
+      // return view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+    }
+    if($request->tipoReporte == 1){
+      $this->validate($request,[
+          'fechaInicio'=>'required',
+          'fechaFinal'=>'required',
+          ]);
+      $entradas= Entrada::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+      $view= view('reportes.pdfReporteEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+      unset($pdf);
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadhtml($view);
+      return $pdf->stream('document.pdf');  }
+  }// fin de reporte
+
 }

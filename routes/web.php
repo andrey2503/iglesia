@@ -123,6 +123,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/modificarEntradaSoda/{id}','EntradaSodaController@show');
     Route::post('/modificarEntradaSoda','EntradaSodaController@update');
      Route::post('/eliminarEntradasSoda','EntradaSodaController@destroy');
+
     //fin entradas Soda
 
     //salidas Soda
@@ -143,6 +144,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/modificarEntrada/{id}','EntradaController@show');
     Route::post('/modificarEntrada','EntradaController@update');
     Route::post('/eliminarEntrada','EntradaController@destroy');
+    //reporetes
+    Route::get('/reportesEntradas','EntradaController@reportesEntradas');
+    Route::post('/reportesconsulta','EntradaController@reportesConsultar');
+    Route::post('/reportegenerarEntradas','EntradaController@reporteEntradas');
     //fin Entradas
     //salidas
     Route::get('/listaSalidas','SalidaController@index');
