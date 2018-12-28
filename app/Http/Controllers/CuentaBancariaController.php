@@ -14,6 +14,12 @@ class CuentaBancariaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(Guard $auth)
+     {
+         $this->auth = $auth;
+         $this->middleware(['auth','administrador'])->except('logout');
+     }
     public function index()
     {
         //
@@ -155,8 +161,62 @@ class CuentaBancariaController extends Controller
     }
 
 
+public function reportesCuentasBancarias(){
+//  $cuentas= CuentaBancaria::all();
+
+return view('administrador.reportesCuentasBancarias');
+}
+
     public function vercuenta($id){
         $cuentas= CuentaBancaria::find($id);
         return view('administrador.verCuentas')->with(['cuentas'=>$cuentas]);
     }
+
+public function reportesConsultar(Request $request){
+// dd($request);
+if($request->tipoReporte == 2){
+  $cuentas= CuentaBancaria::all();
+  return view('administrador.reportesCuentasBancarias')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+
 }
+if($request->tipoReporte == 1){
+// dd($request);
+$this->validate($request,[
+    'fechaInicio'=>'required|date',
+    'fechaFinal'=>'required|date',
+    ]);
+  $cuentas= CuentaBancaria::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+  // dd($cuentas);
+  return view('administrador.reportesCuentasBancarias')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
+}
+
+}// fin de reportes
+
+public function reporte(Request $request){
+
+  if($request->tipoReporte == 2){
+
+      $cuentas= CuentaBancaria::all();
+      $view= view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+      unset($pdf);
+      $pdf=\App::make('dompdf.wrapper');
+      $pdf->loadhtml($view);
+      return $pdf->stream('document.pdf');
+  //  dd($cuentas);
+
+    // return view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+  }
+  if($request->tipoReporte == 1){
+    $this->validate($request,[
+        'fechaInicio'=>'required',
+        'fechaFinal'=>'required',
+        ]);
+    $cuentas= CuentaBancaria::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+    $view= view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+    unset($pdf);
+    $pdf=\App::make('dompdf.wrapper');
+    $pdf->loadhtml($view);
+    return $pdf->stream('document.pdf');  }
+}// fin de reporte
+
+}// fin de la clase

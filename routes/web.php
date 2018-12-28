@@ -48,6 +48,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/modificarCuenta/{id}','CuentaBancariaController@show');
     Route::post('/modificarCuenta','CuentaBancariaController@update');
     Route::post('/eliminarCuenta','CuentaBancariaController@destroy');
+    Route::get('/reportesCuentasBancarias','CuentaBancariaController@reportesCuentasBancarias');
+    Route::post('/reportesconsulta','CuentaBancariaController@reportesConsultar');
+    Route::post('/reportegenerar','CuentaBancariaController@reporte');
+
     // fin cuenta bancaria
     //rubros
     Route::get('/listaRubros','RubroController@index');
@@ -140,7 +144,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/modificarSalida/{id}','SalidaController@show');
     Route::post('/modificarSalida','SalidaController@update');
     Route::post('/eliminarSalida','SalidaController@destroy');
-    
+
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');

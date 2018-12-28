@@ -53,14 +53,14 @@ class SalidaController extends Controller
             'documento'=>'required',
             'monto'=>'required|same:confMonto'
           ]);
-  
+
           $salidas = new Salida();
           $salidas->descripcion = $request->descripcion;
           $salidas->fk_rubro= $request->rubro;
           $salidas->moneda= $request->moneda;
           $salidas->monto=$request->monto;
           $salidas->documento=$request->documento;
-  
+
           if($salidas->save()){
             $log= new Logs();
             $log->fk_usuario= \Auth::user()->id;
@@ -71,9 +71,9 @@ class SalidaController extends Controller
             $log->save();
             // return redirect()->back()->with('message','Salida '.$salidas->descripcion.' creada correctamente');
           }
-  
+
           if ($request->cuentaPagar1 !=0) {
-  
+
           //  dd($request);
             $this->addCuentaPagar($request);
           }
@@ -81,21 +81,21 @@ class SalidaController extends Controller
               $this->addcuentaBancaria($request);
           }
           if ($request->cuentaCobrarD !=0) {
-  
+
           //  dd($request);
             $this->addCuentaCobrarDis($request);
           }
           if ($request->cuentaPagarD !=0) {
-  
+
           //  dd($request);
             $this->addCuentaPagarDis($request);
           }
           if ($request->cuentaPagarA !=0) {
-  
+
           //  dd($request);
             $this->addCuentaPagarAu($request);
           }
-  
+
           return redirect()->back()->with('message','Salida '.$request->descripcion.' creada correctamente');
         }//fin metodo store
 
@@ -107,7 +107,7 @@ class SalidaController extends Controller
             $cuentasPagar->fk_rubro= $request->rubro;
             $cuentasPagar->moneda= $request->moneda;
             $cuentasPagar->monto=$request->monto;
-        
+
             if($cuentasPagar->save()){
               $log= new Logs();
               $log->fk_usuario= \Auth::user()->id;
@@ -116,7 +116,7 @@ class SalidaController extends Controller
               $log->accion="Agregar Cuenta por Pagar desde Entrada";
               $log->fecha=date ('y-m-d H:i:s');
               $log->save();
-        
+
               //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
           }
         }//fin metodo addCuentaPagar
@@ -127,7 +127,7 @@ class SalidaController extends Controller
               $cuenta= CuentaBancaria::find($request->cuentaBancaria);
                 $montoAnterior=$cuenta->monto;
               if ($cuenta->moneda == $request->moneda) {
-                $cuenta->monto=$request->monto + $montoAnterior;
+                $cuenta->monto=$request->monto - $montoAnterior;
                 if($cuenta->save()){
                   $log= new Logs();
                   $log->fk_usuario= \Auth::user()->id;
@@ -138,7 +138,7 @@ class SalidaController extends Controller
                   $log->save();
                   //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
               }
-          
+
                 }
           }//fin metodo addcuentaBancaria
 
@@ -158,9 +158,9 @@ class SalidaController extends Controller
                 $log->save();
                 //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
             }
-        
+
             }
-        
+
         }//fin funcion disminuir cuenta por Cobrar
 
         function addCuentaPagarDis($request){
@@ -178,9 +178,9 @@ class SalidaController extends Controller
                 $log->save();
                 //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
             }
-          
+
               }
-          
+
           }//fin funcion disminuir cuenta por pagar
 
           //funcion para aumentar cuenta por pagar
@@ -199,9 +199,9 @@ class SalidaController extends Controller
                 $log->save();
                 //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
             }
-        
+
             }
-        
+
         }//fin funcion aumentar cuenta por pagar
 
         //fin del update
@@ -222,7 +222,7 @@ class SalidaController extends Controller
     public function verSalidas($id){
         $salida=Salida::find($id);
         return view ('administrador.verSalidas')->with(['salida'=>$salida]);
-        
+
     }// fin de ver salidas
 
     /**
@@ -253,7 +253,7 @@ class SalidaController extends Controller
         if($salida->save()){
          return redirect()->back()->with('message','Salida actualizada correctamente');
         }else{
-  
+
         }
         //   //
     }

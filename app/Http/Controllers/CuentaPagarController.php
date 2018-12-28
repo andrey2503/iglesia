@@ -155,7 +155,7 @@ class CuentaPagarController extends Controller
         }
     }
     public function verPP($id){
-        $cuentasPagar= CuentaPagar::find($id);
+      //  $cuentasPagar= CuentaPagar::find($id);
         return view('administrador.verPP')->with(['cuentasPagar'=>$cuentasPagar]);
     }
 }

@@ -9,6 +9,12 @@
   </a>
   <!-- Trigger the modal with a button -->
 <a type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#totalCuentas" style="margin-top: 24px;"><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> Total Cuentas Bancarias</a>
+<a href="{{ URL::asset('/reportesCuentasBancarias') }}" class="btn btn-danger btn-md" style="margin-top: 24px;">
+        <span class="glyphicon glyphicon-file"></span>
+        Reportes
+</a>
+<h3>Cuentas Bancarias</h3>
+
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
             <div class="table-responsive">
