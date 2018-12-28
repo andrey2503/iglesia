@@ -79,6 +79,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/modificarPC/{id}','CuentaCobrarController@show');
     Route::post('/modificarPC','CuentaCobrarController@update');
     Route::post('/eliminarCP','CuentaCobrarController@destroy');
+    //reporetes
+    Route::get('/reportesPC','CuentaCobrarController@reportesPC');
+    Route::post('/reportesconsulta','CuentaCobrarController@reportesConsultar');
+    Route::post('/reportegenerarCP','CuentaCobrarController@reporteCP');
     //fin cuenta por cobrar
     //cuenta por pagar
     Route::get('/listaCuentaPP','CuentaPagarController@index');

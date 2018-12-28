@@ -7,6 +7,10 @@
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Cuenta por Cobrar
   </a>
+  <a href="{{ URL::asset('/reportesPC') }}" class="btn btn-danger btn-md" style="margin-top: 24px;">
+          <span class="glyphicon glyphicon-file"></span>
+          Reportes
+  </a>
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
             <div class="table-responsive">

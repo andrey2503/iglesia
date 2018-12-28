@@ -160,4 +160,58 @@ class CuentaCobrarController extends Controller
         $cuentasCobrar= CuentaCobrar::find($id);
         return view('administrador.verPC')->with(['cuentasCobrar'=>$cuentasCobrar]);
     }
+
+    public function reportesPC(){
+
+    return view('administrador.reportesCP');
+    }
+
+
+    public function reportesConsultar(Request $request){
+    // dd($request);
+    if($request->tipoReporte == 2){
+      $cuentasCobrar= CuentaCobrar::all();
+    //  dd($cuentasCobrar);
+      return view('administrador.reportesCP')->with(['cuentasCobrar'=>$cuentasCobrar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+
+    }
+    if($request->tipoReporte == 1){
+    // dd($request);
+    $this->validate($request,[
+        'fechaInicio'=>'required|date',
+        'fechaFinal'=>'required|date',
+        ]);
+      $cuentasCobrar= CuentaCobrar::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+       //dd($cuentasCobrar);
+      return view('administrador.reportesCP')->with(['cuentasCobrar'=>$cuentasCobrar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
+    }
+
+    }// fin de reportes
+
+    public function reporteCP(Request $request){
+
+      if($request->tipoReporte == 2){
+
+          $cuentasCobrar= CuentaCobrar::all();
+          $view= view('reportes.pdfReportePC')->with(['cuentasCobrar'=>$cuentasCobrar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+          unset($pdf);
+          $pdf=\App::make('dompdf.wrapper');
+          $pdf->loadhtml($view);
+          return $pdf->stream('document.pdf');
+      //  dd($cuentas);
+
+        // return view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+      }
+      if($request->tipoReporte == 1){
+        $this->validate($request,[
+            'fechaInicio'=>'required',
+            'fechaFinal'=>'required',
+            ]);
+        $cuentasCobrar= CuentaCobrar::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+        $view= view('reportes.pdfReportePC')->with(['cuentasCobrar'=>$cuentasCobrar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+        unset($pdf);
+        $pdf=\App::make('dompdf.wrapper');
+        $pdf->loadhtml($view);
+        return $pdf->stream('document.pdf');  }
+    }// fin de reporte
 }
