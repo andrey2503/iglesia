@@ -271,6 +271,17 @@ class SalidaController extends Controller
       return redirect()->back()->with('message','Entradaa eliminada correctamente');
     }else{
     }
-    }
+    }// fin de destroy
       //
+
+    public function reporteTodasSalidas(){
+        $salidas= Salida::all();
+        return view('reportes.pdfReporteSalidas')->with(['salidas'=>$salidas]);
+    }// fin de reporteTodoSalidas
+
+    public function reporteFecha(Request $request){
+        $salidas= Salida::where('created_at','>',$request->fechainicio)->where('created_at','<',$request->fechafinal);
+        return view('reportes.pdfReporteSalidas')->with(['salidas'=>$salidas]);
+
+    }
 }

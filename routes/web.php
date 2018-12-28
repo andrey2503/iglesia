@@ -165,6 +165,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/actualizarEmpleado/{id}','EmpleadoController@update');
     Route::post('/eliminarEmpleado','EmpleadoController@destroy');
 
+    //reportes
+    Route::get('/reportesalidas','SalidaController@reporteTodasSalidas');
+    Route::get('/reporteentradas','EntradaController@reporteTodasEntradas');
+    Route::post('/reportesalidasfecha','SalidaController@reporteFecha');
+
+
+
 
 });
 
