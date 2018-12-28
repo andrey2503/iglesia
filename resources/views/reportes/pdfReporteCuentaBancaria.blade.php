@@ -46,7 +46,10 @@
 	.right{
 	}
 	.escudo{
-		width: 80px;
+		position: absolute;
+		top:20px;
+		right: 10px;
+		width: 60px;
 		text-align: right;
 	}
 	.header{
@@ -102,10 +105,10 @@
 			</table>
 
 		</div><br>
-					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; with:600px;"></div><br>
-					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia" <br>
-						Telefono y fax (506) 22370494 Apto -3000,heredia Costa Rica<br>
-						email: <a href="mailto:parroquiacorazondejesus@gmail.com" target="_top">parroquiacorazondejesus@gmail.com</a> Facebook:parroquiacorazondejesus
+					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
+					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>
+						Telefono y fax (506) 22370494 Apto 186-3000,Heredia Costa Rica<br>
+						email: <a href="#" target="_top">parroquiacorjesus@gmail.com</a> Facebook:Sagrado Corazón
 					</p>
 				</div>
 			</div>
