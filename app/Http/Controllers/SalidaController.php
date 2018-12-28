@@ -274,14 +274,59 @@ class SalidaController extends Controller
     }// fin de destroy
       //
 
-    public function reporteTodasSalidas(){
-        $salidas= Salida::all();
-        return view('reportes.pdfReporteSalidas')->with(['salidas'=>$salidas]);
-    }// fin de reporteTodoSalidas
 
-    public function reporteFecha(Request $request){
-        $salidas= Salida::where('created_at','>',$request->fechainicio)->where('created_at','<',$request->fechafinal);
-        return view('reportes.pdfReporteSalidas')->with(['salidas'=>$salidas]);
+
+    public function reportesSalidas(){
+
+    return view('administrador.reportesSalidas');
+    }
+
+
+    public function reportesconsultaSalidas(Request $request){
+    // dd($request);
+    if($request->tipoReporte == 2){
+    $salida=Salida::all();
+    //  dd($salida);
+      return view('administrador.reportesSalidas')->with(['salidas'=>$salida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
 
     }
+    if($request->tipoReporte == 1){
+    // dd($request);
+    $this->validate($request,[
+        'fechaInicio'=>'required|date',
+        'fechaFinal'=>'required|date',
+        ]);
+    $salida=Salida::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+       //dd($salida);
+      return view('administrador.reportesSalidas')->with(['salidas'=>$salida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
+    }
+
+    }// fin de reportes
+
+    public function reportegenerarSalidas(Request $request){
+
+      if($request->tipoReporte == 2){
+
+          $salida=Salida::all();
+          $view= view('reportes.pdfReporteSalidas')->with(['salidas'=>$salida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+          unset($pdf);
+          $pdf=\App::make('dompdf.wrapper');
+          $pdf->loadhtml($view);
+          return $pdf->stream('document.pdf');
+      //  dd($cuentas);
+
+        // return view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+      }
+      if($request->tipoReporte == 1){
+        $this->validate($request,[
+            'fechaInicio'=>'required',
+            'fechaFinal'=>'required',
+            ]);
+        $salida=Salida::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+        $view= view('reportes.pdfReporteSalidas')->with(['salidas'=>$salida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+        unset($pdf);
+        $pdf=\App::make('dompdf.wrapper');
+        $pdf->loadhtml($view);
+        return $pdf->stream('document.pdf');  }
+    }// fin de reporte
 }

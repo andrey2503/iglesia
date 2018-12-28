@@ -146,8 +146,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/eliminarEntrada','EntradaController@destroy');
     //reporetes
     Route::get('/reportesEntradas','EntradaController@reportesEntradas');
-    Route::post('/reportesconsulta','EntradaController@reportesConsultar');
-    Route::post('/reportegenerarEntradas','EntradaController@reporteEntradas');
+    Route::post('/reportesconsultaEntrada','EntradaController@reportesConsultar');
+    Route::post('/reportegenerarEntradas','EntradaController@reportegenerarEntradas');
     //fin Entradas
     //salidas
     Route::get('/listaSalidas','SalidaController@index');
@@ -157,7 +157,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/modificarSalida/{id}','SalidaController@show');
     Route::post('/modificarSalida','SalidaController@update');
     Route::post('/eliminarSalida','SalidaController@destroy');
-
+    //reporetes
+    Route::get('/reportesSalidas','SalidaController@reportesSalidas');
+    Route::post('/reportesconsultaSalidas','SalidaController@reportesconsultaSalidas');
+    Route::post('/reportegenerarSalidas','SalidaController@reportegenerarSalidas');
+    //fin salidas
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');

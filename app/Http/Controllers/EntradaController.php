@@ -293,10 +293,10 @@ function addCuentaPagarAu($request){
 
 
   public function reportesConsultar(Request $request){
-  // dd($request);
+//   dd($request);
   if($request->tipoReporte == 2){
     $entradas= Entrada::all();
-  //  dd($cuentasCobrar);
+  //  dd($entradas);
     return view('administrador.reportesEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
 
   }
@@ -307,13 +307,13 @@ function addCuentaPagarAu($request){
       'fechaFinal'=>'required|date',
       ]);
     $entradas= Entrada::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
-     //dd($cuentasCobrar);
+     //dd($entradas);
     return view('administrador.reportesEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
   }
 
   }// fin de reportes
 
-  public function reporteEntradas(Request $request){
+  public function reportegenerarEntradas(Request $request){
 
     if($request->tipoReporte == 2){
 

@@ -38,18 +38,21 @@
 		.right{
 		}
 		.escudo{
-			width: 80px;
+			position: absolute;
+			top:20px;
+			right: 10px;
+			width: 60px;
 			text-align: right;
 		}
 		.header{
 			text-align: center;
 		}
 	</style>
-<div class="header">
-	<img class="escudo" src="./img/corazon.png">
-	<h1 class="titulo">Parroquia del Sagrado Corazón de Jesús</h1>
-	<h4>Parroquia evangelizada, evangelizadora y misionera <br>Heredia, Costa Rica</h4>
-</div>
+	<div class="header">
+		<img class="escudo" src="./img/corazon.png">
+		<h1 class="titulo">Parroquia del Sagrado Corazón de Jesús</h1>
+		<h4>Parroquia evangelizada, evangelizadora y misionera <br>Heredia, Costa Rica</h4>
+	</div>
 <div>
 	<h3>Reporte de Salidas</h3>
 	<p>Fecha del reporte: {{ date('Y-m-d')}} <br>
@@ -59,21 +62,31 @@
     <div class="row">
 		    <table class="table-encabezado">
 		    			<thead class="thead-dark">
+							<th class="col">Rubro</th>
 							<th class="col">Descripcion</th>
 							<th class="col">Monto</th>
+							<th class="col">#Documento</th>
+							<th class="col">Editado</th>
 						</thead>
 
 				<tbody>
 				<tr></tr>
 				@foreach($salidas as $s)
 					<tr>
+							<td class="rigth">{{ $s->rubro->nombre }}</td>
 						<td class="rigth">{{ $s->descripcion }}</td>
 						<td class="rigth">{{ $s->monto }}</td>
-
+						<td class="rigth">{{ $s->documento }}</td>
+						<td>{{\Carbon\Carbon::parse($s->updated_at)->format('d/m/Y')}}</td>
 					</tr>
 				@endforeach
 				</tbody>
 			</table>
-	</div>
+	</div><br>
+				<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
+				<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>
+					Telefono y fax (506) 22370494 Apto 186-3000,Heredia Costa Rica<br>
+					email: <a href="#" target="_top">parroquiacorjesus@gmail.com</a> Facebook:Sagrado Corazón
+				</p>
 </div>
 </body></html>

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid row contenedor-usuario col-md-12">
-  <form class=""  action="{{ url('/reportesconsultaEntrada') }}" method="post" id="formreportes">
+  <form class=""  action="{{ url('/reportesconsultaSalidas') }}" method="post" id="formreportes">
     {{ csrf_field() }}
 
     <div style="padding: 15px;" class="col-md-3">
@@ -39,11 +39,11 @@
 <div class="container row col-md-12 contenedor-usuario">
 
 
-<h3>Entradas</h3>
+<h3>Salidas</h3>
 
           <!-- tabla principal de usuarios -->
           @if(isset($tipoReporte))
-          <form class="" action="{{ url('/reportegenerarEntradas') }}" method="post">
+          <form class="" action="{{ url('/reportegenerarSalidas') }}" method="post">
             {{ csrf_field() }}
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
             <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}">
@@ -66,27 +66,27 @@
           <tbody>
             @php $i=0;
             @endphp
-            @if(isset($entradas))
-              @foreach($entradas as $e)
+            @if(isset($salidas))
+              @foreach($salidas as $s)
               @php
-              $i =   $e->monto  + $i
+              $i =   $s->monto  + $i
               @endphp
               <tr>
-                <td scope="row">{{ $e->rubro->nombre }}</td>
-                <th scope="row">{{ $e->descripcion }}</th>
+                <td scope="row">{{ $s->rubro->nombre }}</td>
+                <th scope="row">{{ $s->descripcion }}</th>
 
-                @if($e->moneda == "Dolares")
-                <td>$ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                @if($s->moneda == "Dolares")
+                <td>$ {{ number_format($s->monto, 2, ' ', ',') }}</td>
                 @endif
-                @if($e->moneda == "Colones")
-                <td>₡ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                @if($s->moneda == "Colones")
+                <td>₡ {{ number_format($s->monto, 2, ' ', ',') }}</td>
                 @endif
-                @if($e->moneda == "Euros")
-                <td>€ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                @if($s->moneda == "Euros")
+                <td>€ {{ number_format($s->monto, 2, ' ', ',') }}</td>
                 @endif
                 <!-- verificar tipo moneda -->
-                <td>{{$e->documento}}</td>
-                  <td>{{$e->updated_at}}</td>
+                <td>{{$s->documento}}</td>
+                <td>{{$s->updated_at}}</td>
               </tr>
             @endforeach
           @endif
@@ -120,27 +120,27 @@
     <tbody>
       @php $i=0;
       @endphp
-      @if(isset($entradas))
-        @foreach($entradas as $e)
+      @if(isset($salidas))
+        @foreach($salidas as $s)
         @php
-        $i =   $e->monto  + $i
+        $i =   $s->monto  + $i
         @endphp
       <tr>
-        <td scope="row">{{ $e->rubro->nombre }}</td>
-        <th scope="row">{{ $e->descripcion }}</th>
+        <td scope="row">{{ $s->rubro->nombre }}</td>
+        <th scope="row">{{ $s->descripcion }}</th>
 
-        @if($e->moneda == "Dolares")
-        <td>$ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+        @if($s->moneda == "Dolares")
+        <td>$ {{ number_format($s->monto, 2, ' ', ',') }}</td>
         @endif
-        @if($e->moneda == "Colones")
-        <td>₡ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+        @if($s->moneda == "Colones")
+        <td>₡ {{ number_format($s->monto, 2, ' ', ',') }}</td>
         @endif
-        @if($e->moneda == "Euros")
-        <td>€ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+        @if($s->moneda == "Euros")
+        <td>€ {{ number_format($s->monto, 2, ' ', ',') }}</td>
         @endif
         <!-- verificar tipo moneda -->
-        <td>{{$e->documento}}</td>
-          <td>{{$e->updated_at}}</td>
+        <td>{{$s->documento}}</td>
+        <td>{{$s->updated_at}}</td>
       </tr>
       @endforeach
     @endif
