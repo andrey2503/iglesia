@@ -92,6 +92,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/modificarPP/{id}','CuentaPagarController@show');
     Route::post('/modificarPP','CuentaPagarController@update');
     Route::post('/eliminarPP','CuentaPagarController@destroy');
+    //reporetes
+    Route::get('/reportesPP','CuentaPagarController@reportesPP');
+    Route::post('/reportesconsulta','CuentaPagarController@reportesConsultar');
+    Route::post('/reportegenerarPP','CuentaPagarController@reporteCP');
     //fin cuenta por pagar
     //salarios
     Route::get('/listaSalarios','SalarioController@index');

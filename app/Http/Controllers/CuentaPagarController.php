@@ -158,4 +158,58 @@ class CuentaPagarController extends Controller
       //  $cuentasPagar= CuentaPagar::find($id);
         return view('administrador.verPP')->with(['cuentasPagar'=>$cuentasPagar]);
     }
+
+    public function reportesPP(){
+
+    return view('administrador.reportesPP');
+    }
+
+
+    public function reportesConsultar(Request $request){
+    // dd($request);
+    if($request->tipoReporte == 2){
+      $cuentasPagar=CuentaPagar::all();
+    //  dd($cuentasCobrar);
+      return view('administrador.reportesPP')->with(['cuentasPagar'=>$cuentasPagar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+
+    }
+    if($request->tipoReporte == 1){
+    // dd($request);
+    $this->validate($request,[
+        'fechaInicio'=>'required|date',
+        'fechaFinal'=>'required|date',
+        ]);
+      $cuentasPagar=CuentaPagar::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+       //dd($cuentasCobrar);
+      return view('administrador.reportesPP')->with(['cuentasPagar'=>$cuentasPagar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
+    }
+
+    }// fin de reportes
+
+    public function reporteCP(Request $request){
+
+      if($request->tipoReporte == 2){
+
+          $cuentasPagar=CuentaPagar::all();
+          $view= view('reportes.pdfReportePP')->with(['cuentasPagar'=>$cuentasPagar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+          unset($pdf);
+          $pdf=\App::make('dompdf.wrapper');
+          $pdf->loadhtml($view);
+          return $pdf->stream('document.pdf');
+      //  dd($cuentas);
+
+        // return view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+      }
+      if($request->tipoReporte == 1){
+        $this->validate($request,[
+            'fechaInicio'=>'required',
+            'fechaFinal'=>'required',
+            ]);
+        $cuentasPagar=CuentaPagar::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+        $view= view('reportes.pdfReportePP')->with(['cuentasPagar'=>$cuentasPagar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+        unset($pdf);
+        $pdf=\App::make('dompdf.wrapper');
+        $pdf->loadhtml($view);
+        return $pdf->stream('document.pdf');  }
+    }// fin de reporte
 }
