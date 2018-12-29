@@ -167,7 +167,7 @@ class CuentaCobrarController extends Controller
     }
 
 
-    public function reportesConsultar(Request $request){
+    public function reportesConsultarCobrar(Request $request){
     // dd($request);
     if($request->tipoReporte == 2){
       $cuentasCobrar= CuentaCobrar::all();

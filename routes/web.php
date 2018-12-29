@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/eliminarCP','CuentaCobrarController@destroy');
     //reporetes
     Route::get('/reportesPC','CuentaCobrarController@reportesPC');
-    Route::post('/reportesconsulta','CuentaCobrarController@reportesConsultar');
+    Route::post('/reportesconsultaCobrar','CuentaCobrarController@reportesConsultarCobrar');
     Route::post('/reportegenerarCP','CuentaCobrarController@reporteCP');
     //fin cuenta por cobrar
     //cuenta por pagar

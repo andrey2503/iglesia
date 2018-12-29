@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid row contenedor-usuario col-md-12">
-  <form class=""  action="{{ url('/reportesconsulta') }}" method="post" id="formreportes">
+  <form class=""  action="{{ url('/reportesconsultaCobrar') }}" method="post" id="formreportes">
     {{ csrf_field() }}
 
     <div style="padding: 15px;" class="col-md-3">
