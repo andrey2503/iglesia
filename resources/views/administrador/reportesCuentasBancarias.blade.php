@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid row contenedor-usuario col-md-12">
-  <form class=""  action="{{ url('/reportesconsulta') }}" method="post" id="formreportes">
+  <form class=""  action="{{ url('/reportesCuentasBancarias') }}" method="post" id="formreportes">
     {{ csrf_field() }}
 
     <div style="padding: 15px;" class="col-md-3">
@@ -43,7 +43,7 @@
 
           <!-- tabla principal de usuarios -->
           @if(isset($tipoReporte))
-          <form class="" action="{{ url('/reportegenerar') }}" method="post">
+          <form class="" action="{{ url('/reportegenerar') }}" method="post" target="_blank">
             {{ csrf_field() }}
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
             <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}">
