@@ -75,9 +75,9 @@
 				<thead>
 					<tr>
 						<th scope="col">Nombre</th>
-		      	<th scope="col" style="width:60px;"># ID</th>
-		      	<th scope="col"  style="width:200px;">Rubro</th>
-		      	<th scope="col">Monto</th>
+						<th scope="col" style="width:60px;"># ID</th>
+						<th scope="col"  style="width:200px;">Rubro</th>
+						<th scope="col">Monto</th>
 						<th scope="col">Edicion</th>
 					</tr>
 				</thead>
@@ -112,7 +112,7 @@
 			</table>
 
 		</div><br>
-					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
+					<label for="">Firma Encargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
 					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>
 						Telefono y fax (506) 22370494 Apto 186-3000,Heredia Costa Rica<br>
 						email: <a href="#" target="_top">parroquiacorjesus@gmail.com</a> Facebook:Sagrado Corazón

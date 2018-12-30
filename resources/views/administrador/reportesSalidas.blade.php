@@ -43,7 +43,7 @@
 
           <!-- tabla principal de usuarios -->
           @if(isset($tipoReporte))
-          <form class="" action="{{ url('/reportegenerarSalidas') }}" method="post">
+          <form class="" action="{{ url('/reportegenerarSalidas') }}" method="post" target="_blank">
             {{ csrf_field() }}
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
             <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}">
