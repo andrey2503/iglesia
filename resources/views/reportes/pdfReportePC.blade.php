@@ -82,6 +82,9 @@
 					</tr>
 				</thead>
 				<tbody>
+				<?php $totalColones = 0; ?> 
+                <?php $totalDolares = 0; ?> 
+                <?php $totalEuros = 0; ?> 
 		      @php $i=0;
 		      @endphp
 		      @if(isset($cuentasCobrar))
@@ -106,11 +109,36 @@
 		        <!-- verificar tipo moneda -->
 		          <td>{{$cp->updated_at}}</td>
 		      </tr>
+			  		  @if($cp->moneda=='Colones')
+                      <?php $totalColones = $totalColones + $cp->monto; ?> 
+                      @endif
+                      @if($cp->moneda=='Dolares')
+                      <?php $totalDolares = $totalDolares + $cp->monto; ?> 
+                      @endif
+                      @if($cp->moneda=='Euros')
+                      <?php $totalEuros = $totalEuros + $cp->monto; ?> 
+                      @endif
 		      @endforeach
 		    @endif
 		    </tbody>
 			</table>
-
+			<h5>Totales</h5>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+					<th scope="col">Colones</th>
+					<th scope="col">Dolares</th>
+					<th scope="col">Euros</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td> {{ $totalColones }} </td>
+						<td> {{ $totalDolares }} </td>
+						<td> {{ $totalEuros }} </td>
+					</tr>
+				</tbody>				
+			</table>
 		</div><br>
 					<label for="">Firma Encargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
 					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>

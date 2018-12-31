@@ -24,6 +24,9 @@
                   <th>Acción</th>
                 </thead>
                 <tbody>
+                <?php $totalColones = 0; ?> 
+                <?php $totalDolares = 0; ?> 
+                <?php $totalEuros = 0; ?> 
                   @if(isset($cuentasCobrar))
                     @foreach($cuentasCobrar as $cpc)
 
@@ -39,11 +42,23 @@
                          <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$cpc->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
                         </td>
                       </tr>
-
+                      @if($cpc->moneda=='Colones')
+                      <?php $totalColones = $totalColones + $cpc->monto; ?> 
+                      @endif
+                      @if($cpc->moneda=='Dolares')
+                      <?php $totalDolares = $totalDolares + $cpc->monto; ?> 
+                      @endif
+                      @if($cpc->moneda=='Euros')
+                      <?php $totalEuros = $totalEuros + $cpc->monto; ?> 
+                      @endif
                     @endforeach
                   @endif
                 </tbody>
+                
               </table>
+              <p>Total Colones:  {{ $totalColones }}</p>
+                <p>Total Dolares:  {{ $totalDolares }}</p>
+                <p>Total Euros:  {{ $totalEuros }}</p>
             </div>
           </div>
 </div>
