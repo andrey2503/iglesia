@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es"><head>
 	<title>Reporte Salidas</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 </head><body>
 <style type="text/css">
 		.table-encabezado{
@@ -70,6 +72,9 @@
 						</thead>
 
 				<tbody>
+				<?php $totalColones = 0; ?> 
+				<?php $totalDolares = 0; ?> 
+				<?php $totalEuros = 0; ?>
 				<tr></tr>
 				@foreach($salidas as $s)
 					<tr>
@@ -79,8 +84,34 @@
 						<td class="rigth">{{ $s->documento }}</td>
 						<td>{{\Carbon\Carbon::parse($s->updated_at)->format('d/m/Y')}}</td>
 					</tr>
+					  @if($s->moneda=='Colones')
+                      <?php $totalColones = $totalColones + $s->monto; ?> 
+                      @endif
+                      @if($s->moneda=='Dolares')
+                      <?php $totalDolares = $totalDolares + $s->monto; ?> 
+                      @endif
+                      @if($s->moneda=='Euros')
+                      <?php $totalEuros = $totalEuros + $s->monto; ?> 
+                      @endif 
 				@endforeach
 				</tbody>
+			</table>
+			<h5>Totales</h5>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+					<th scope="col">Colones</th>
+					<th scope="col">Dolares</th>
+					<th scope="col">Euros</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>C {{ $totalColones }} </td>
+						<td>$ {{ $totalDolares }} </td>
+						<td>€ {{ $totalEuros }} </td>
+					</tr>
+				</tbody>				
 			</table>
 	</div><br>
 				<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>

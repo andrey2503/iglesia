@@ -82,6 +82,9 @@
 					</tr>
 				</thead>
 				<tbody>
+				<?php $totalColones = 0; ?> 
+                <?php $totalDolares = 0; ?> 
+                <?php $totalEuros = 0; ?> 
 		      @php $i=0;
 		      @endphp
 		      @if(isset($cuentasPagar))
@@ -106,11 +109,36 @@
 		        <!-- verificar tipo moneda -->
 		          <td>{{\Carbon\Carbon::parse($pp->updated_at)->format('d/m/Y')}}</td>
 		      </tr>
+			  		  @if($pp->moneda=='Colones')
+                      <?php $totalColones = $totalColones + $pp->monto; ?> 
+                      @endif
+                      @if($pp->moneda=='Dolares')
+                      <?php $totalDolares = $totalDolares + $pp->monto; ?> 
+                      @endif
+                      @if($pp->moneda=='Euros')
+                      <?php $totalEuros = $totalEuros + $pp->monto; ?> 
+                      @endif
 		      @endforeach
 		    @endif
 		    </tbody>
 			</table>
-
+			<h5>Totales</h5>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+					<th scope="col">Colones</th>
+					<th scope="col">Dolares</th>
+					<th scope="col">Euros</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>C {{ $totalColones }} </td>
+						<td>$ {{ $totalDolares }} </td>
+						<td>€ {{ $totalEuros }} </td>
+					</tr>
+				</tbody>				
+			</table>
 		</div><br>
 					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
 					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>

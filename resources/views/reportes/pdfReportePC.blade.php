@@ -133,9 +133,9 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td> {{ $totalColones }} </td>
-						<td> {{ $totalDolares }} </td>
-						<td> {{ $totalEuros }} </td>
+						<td>C {{ $totalColones }} </td>
+						<td>$ {{ $totalDolares }} </td>
+						<td>€ {{ $totalEuros }} </td>
 					</tr>
 				</tbody>				
 			</table>
