@@ -31,7 +31,7 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="#"><b>Sistema</b><br> Iglesia Sagrado Corazón de Jesús <b>Heredia</b></a>
+        <a href="#"><b>Sistema</b><br> Parroquia Sagrado Corazón de Jesús <b>Heredia</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Ingrese al sistema</p>
