@@ -9,6 +9,7 @@ use Session;
 use App\User;
 use App\Rubro;
 use App\Logs;
+use Carbon\Carbon;
 class CuentaCobrarController extends Controller
 {
     /**
@@ -49,14 +50,15 @@ class CuentaCobrarController extends Controller
                     'nombre'=>'required',
                     'rubro'=>'required',
                     'moneda'=>'required',
-                    'monto'=>"required"
+                    'monto'=>"required",
+                      'fechaRegistro'=>'required'
                     ]);
                 $cuentasCobrar = new CuentaCobrar();
                 $cuentasCobrar->nombre = $request->nombre;
                 $cuentasCobrar->fk_rubro= $request->rubro;
                 $cuentasCobrar->moneda= $request->moneda;
                 $cuentasCobrar->monto=$request->monto;
-
+                $cuentasCobrar->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
                 if($cuentasCobrar->save()){
                     $log= new Logs();
                     $log->fk_usuario= \Auth::user()->id;
@@ -110,7 +112,8 @@ class CuentaCobrarController extends Controller
                             'nombre'=>'required',
                             'rubro'=>'required',
                             'moneda'=>'required',
-                            'monto'=>"required"
+                            'monto'=>"required",
+                              'fechaRegistro'=>'required'
                             ]);
 
                         $cuentasCobrar = CuentaCobrar::find($request->id);
@@ -118,7 +121,7 @@ class CuentaCobrarController extends Controller
                         $cuentasCobrar->fk_rubro= $request->rubro;
                         $cuentasCobrar->moneda= $request->moneda;
                         $cuentasCobrar->monto=$request->monto;
-
+                        $cuentasCobrar->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
                         if($cuentasCobrar->save()){
                             $log= new Logs();
                             $log->fk_usuario= \Auth::user()->id;
@@ -181,9 +184,11 @@ class CuentaCobrarController extends Controller
         'fechaInicio'=>'required|date',
         'fechaFinal'=>'required|date',
         ]);
-      $cuentasCobrar= CuentaCobrar::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+        $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+        $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+      $cuentasCobrar= CuentaCobrar::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
        //dd($cuentasCobrar);
-      return view('administrador.reportesCP')->with(['cuentasCobrar'=>$cuentasCobrar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
+      return view('administrador.reportesCP')->with(['cuentasCobrar'=>$cuentasCobrar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
     }
 
     }// fin de reportes
@@ -207,8 +212,10 @@ class CuentaCobrarController extends Controller
             'fechaInicio'=>'required',
             'fechaFinal'=>'required',
             ]);
-        $cuentasCobrar= CuentaCobrar::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
-        $view= view('reportes.pdfReportePC')->with(['cuentasCobrar'=>$cuentasCobrar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+            $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+            $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+        $cuentasCobrar= CuentaCobrar::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+        $view= view('reportes.pdfReportePC')->with(['cuentasCobrar'=>$cuentasCobrar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
         unset($pdf);
         $pdf=\App::make('dompdf.wrapper');
         $pdf->loadhtml($view);

@@ -62,8 +62,14 @@
 		<h4>Parroquia evangelizada, evangelizadora y misionera <br>Heredia, Costa Rica</h4>
 	</div>
 	<div>
+		<?php
+		date_default_timezone_set("America/Costa_Rica");
+		 ?>
 		<h3>Reporte de Cuenta bancaria</h3>
-		<p>Fecha del reporte: {{ date('Y-m-d')}} <br>
+		@if($tipoReporte ==1)
+	<p>Fecha de Registro: Desde: {{ date('d-m-Y', strtotime($fechaInicio))}} Hasta: {{ date('d-m-Y', strtotime($fechaFinal))}}<br>
+	@endif
+	<p>Fecha del reporte: {{ date ("d-m-Y g:i a",time())}} <br>
 			Generado por: {{ Auth::user()->nombre }}</p>
 		</div>
 		<div class="">
@@ -82,8 +88,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php $totalColones = 0; ?> 
-					<?php $totalDolares = 0; ?> 
+					<?php $totalColones = 0; ?>
+					<?php $totalDolares = 0; ?>
 					<?php $totalEuros = 0; ?>
 					@php $i=0;
 					@endphp
@@ -103,13 +109,13 @@
 
 					</tr>
 					  @if($c->moneda=='Colones')
-                      <?php $totalColones = $totalColones + $c->monto; ?> 
+                      <?php $totalColones = $totalColones + $c->monto; ?>
                       @endif
                       @if($c->moneda=='Dolares')
-                      <?php $totalDolares = $totalDolares + $c->monto; ?> 
+                      <?php $totalDolares = $totalDolares + $c->monto; ?>
                       @endif
                       @if($c->moneda=='Euros')
-                      <?php $totalEuros = $totalEuros + $c->monto; ?> 
+                      <?php $totalEuros = $totalEuros + $c->monto; ?>
                       @endif
 					@endforeach
 				@endif
@@ -126,11 +132,11 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>C {{ $totalColones }} </td>
-						<td>$ {{ $totalDolares }} </td>
-						<td>€ {{ $totalEuros }} </td>
+						<td>C {{ number_format($totalColones, 2, ' ', ',') }}</td>
+						<td>$ {{ number_format($totalDolares, 2, ' ', ',') }} </td>
+						<td>€ {{ number_format($totalEuros, 2, ' ', ',') }}</td>
 					</tr>
-				</tbody>				
+				</tbody>
 			</table>
 		</div><br>
 					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>

@@ -163,6 +163,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/reportesconsultaSalidas','SalidaController@reportesconsultaSalidas');
     Route::post('/reportegenerarSalidas','SalidaController@reportegenerarSalidas');
     //fin salidas
+
+    Route::post('/reportesMovimientos','MovimientoController@reportesMovimientos');
+    Route::get('/reportesEntradasSalidas','MovimientoController@reportesRubros');
+
+
+
     // digitador
     Route::get('/digitador','Digitador@index');
     // Route::get('/modificarUsuario/{id}','AdminController@show');

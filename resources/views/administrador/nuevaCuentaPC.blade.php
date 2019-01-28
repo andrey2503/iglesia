@@ -50,6 +50,7 @@
                  <span style="color: red;">{{ $errors->first('moneda') }}</span>
                @endif
               </div>
+
               <div class="form-group">
                <label for="user">Monto</label>
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto">
@@ -57,7 +58,19 @@
                  <span style="color: red;">{{ $errors->first('monto') }}</span>
                @endif
               </div>
+              <div class="form-group">
 
+                <label for="fechaRegistro">Fecha de Registro</label>
+
+                <input type="date" class="form-control" name="fechaRegistro" >
+
+                @if($errors->has('fechaRegistro'))
+
+                  <span style="color: red;">{{ $errors->first('fechaRegistro') }}</span>
+
+                @endif
+
+              </div>
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Cuenta por Cobrar</button>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaCuentaPC') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>

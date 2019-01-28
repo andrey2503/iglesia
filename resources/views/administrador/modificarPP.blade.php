@@ -70,7 +70,19 @@
           <span style="color: red;">{{ $errors->first('monto') }}</span>
           @endif
         </div>
+        <div class="form-group">
 
+                <label for="fechaRegistro">Fecha de Registro</label>
+
+                <input type="date" class="form-control" name="fechaRegistro" value="{{ $cuentasPagar->fechaRegistro }}">
+
+                @if($errors->has('fechaRegistro'))
+
+                  <span style="color: red;">{{ $errors->first('fechaRegistro') }}</span>
+
+                @endif
+
+              </div>
 
       </div>
       <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Actualizar Cuenta por Pagar</button>

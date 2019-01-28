@@ -151,7 +151,21 @@
               </small>
             </a>
           </li>
+          <li>
 
+              <a href="{{ URL::asset('/reportesMovimientos') }}">
+
+                <i class="glyphicon glyphicon-file"></i> <span>Reporte de Movimientos</span> <i class="fa fa-angle-left pull-right"></i>
+
+                <small class="label pull-right bg-red">
+
+                  <span class="glyphicon glyphicon-file"></span>
+
+                </small>
+
+              </a>
+
+            </li>
           <li>
             <a href="{{ URL::asset('/listaCuentaBancaria') }}">
               <i class="glyphicon glyphicon-credit-card"></i> <span>Cuentas Bancarias</span> <i class="fa fa-angle-left pull-right"></i>
@@ -201,6 +215,22 @@
               </small>
             </a>
           </li>
+          <li>
+
+            <a href="{{ URL::asset('/reportesEntradasSalidas') }}">
+
+              <i class="glyphicon glyphicon-file"></i> <span>Reporte por Rubros</span> <i class="fa fa-angle-left pull-right"></i>
+
+              <small class="label pull-right bg-red">
+
+                <span class="glyphicon glyphicon-file"></span>
+
+              </small>
+
+            </a>
+
+          </li>
+
           <li>
             <a href="{{ URL::asset('/listaEntradas') }}">
               <i class="glyphicon glyphicon-arrow-up"></i> <span> Entradas</span> <i class="fa fa-angle-left pull-right"></i>

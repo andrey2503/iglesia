@@ -36,7 +36,13 @@
                 <label for="usuario">Monto</label>
                 <input type="number" step="any" class="form-control" name="usuario" value="{{ $cuentasPagar->monto }}" disabled="true">
               </div>
+              <div class="form-group">
 
+                    <label for="fechaRegistro">Fecha de Registro</label>
+
+                    <input type="date" class="form-control" name="fechaRegistro" value="{{ $cuentasPagar->fechaRegistro }}" disabled="true">
+
+                  </div>
 
               <a   class="btn btn-success" href="{{ url('/listaCuentaPP') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
         </div>

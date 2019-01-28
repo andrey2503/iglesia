@@ -9,6 +9,7 @@ use Session;
 use App\User;
 use App\Rubro;
 use App\Logs;
+use Carbon\Carbon;
 class CuentaPagarController extends Controller
 {
     /**
@@ -48,13 +49,15 @@ class CuentaPagarController extends Controller
             'nombre'=>'required',
             'rubro'=>'required',
             'moneda'=>'required',
-            'monto'=>"required"
+            'monto'=>"required",
+            'fechaRegistro'=>'required'
             ]);
         $cuentasPagar= new CuentaPagar();
         $cuentasPagar->nombre = $request->nombre;
         $cuentasPagar->fk_rubro= $request->rubro;
         $cuentasPagar->moneda= $request->moneda;
         $cuentasPagar->monto=$request->monto;
+        $cuentasPagar->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
 
         if($cuentasPagar->save()){
             $log= new Logs();
@@ -109,7 +112,8 @@ class CuentaPagarController extends Controller
                             'nombre'=>'required',
                             'rubro'=>'required',
                             'moneda'=>'required',
-                            'monto'=>"required"
+                            'monto'=>"required",
+                              'fechaRegistro'=>'required'
                             ]);
 
                         $cuentasPagar = CuentaPagar::find($request->id);
@@ -117,7 +121,7 @@ class CuentaPagarController extends Controller
                         $cuentasPagar->fk_rubro= $request->rubro;
                         $cuentasPagar->moneda= $request->moneda;
                         $cuentasPagar->monto=$request->monto;
-
+                        $cuentasPagar->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
                         if($cuentasPagar->save()){
                             $log= new Logs();
                             $log->fk_usuario= \Auth::user()->id;
@@ -155,7 +159,7 @@ class CuentaPagarController extends Controller
         }
     }
     public function verPP($id){
-      //  $cuentasPagar= CuentaPagar::find($id);
+        $cuentasPagar= CuentaPagar::find($id);
         return view('administrador.verPP')->with(['cuentasPagar'=>$cuentasPagar]);
     }
 
@@ -179,9 +183,11 @@ class CuentaPagarController extends Controller
         'fechaInicio'=>'required|date',
         'fechaFinal'=>'required|date',
         ]);
-      $cuentasPagar=CuentaPagar::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+        $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+        $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+      $cuentasPagar=CuentaPagar::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
        //dd($cuentasCobrar);
-      return view('administrador.reportesPP')->with(['cuentasPagar'=>$cuentasPagar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
+      return view('administrador.reportesPP')->with(['cuentasPagar'=>$cuentasPagar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
     }
 
     }// fin de reportes
@@ -205,8 +211,10 @@ class CuentaPagarController extends Controller
             'fechaInicio'=>'required',
             'fechaFinal'=>'required',
             ]);
-        $cuentasPagar=CuentaPagar::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
-        $view= view('reportes.pdfReportePP')->with(['cuentasPagar'=>$cuentasPagar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+            $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+            $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+        $cuentasPagar=CuentaPagar::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+        $view= view('reportes.pdfReportePP')->with(['cuentasPagar'=>$cuentasPagar,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
         unset($pdf);
         $pdf=\App::make('dompdf.wrapper');
         $pdf->loadhtml($view);

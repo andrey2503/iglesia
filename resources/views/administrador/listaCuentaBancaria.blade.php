@@ -59,7 +59,7 @@
 
 <!-- Modal total -->
 <div id="totalCuentas" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog  modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -71,11 +71,13 @@
         <table class="table table-striped">
     <thead>
       <tr>
+          <th scope="col">Nombre</th>
         <th scope="col"># Cuenta</th>
         <th scope="col">Banco</th>
         <th scope="col">Tipo</th>
         <th scope="col">Moneda</th>
         <th scope="col">Monto</th>
+        <th scope="col">Fecha de Registro</th>
         <th scope="col">Datos Actualizacion</th>
       </tr>
     </thead>
@@ -88,6 +90,7 @@
         $i =   $c->monto  + $i
         @endphp
       <tr>
+          <td>{{ $c->nombre }}</td>
         <th scope="row">{{ $c->cuenta }}</th>
         <td>{{$c->banco}}</td>
         <td>{{ $c->tipo }}</td>
@@ -102,7 +105,9 @@
         <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
         <!-- verificar tipo moneda -->
+          <td>{{$c->fechaRegistro}}</td>
           <td>{{$c->updated_at}}</td>
+
       </tr>
       @endforeach
     @endif

@@ -26,7 +26,7 @@
          </div>
          <div class="form-group">
            <label for="email">Descripcion</label>
-           <textarea type="text" class="form-control" name="descripcion" placeholder="Descripcion.." style="max-height: 300px;min-height: 200px;">{{$entradas->descripcion}}</textarea>
+           <textarea type="text" class="form-control" name="descripcion" placeholder="Descripcion.." style="max-height: 300px;min-height: 200px;" disabled="true">{{$entradas->descripcion}}</textarea>
          </div>
 
           <div class="form-group">
@@ -43,7 +43,13 @@
                <label for="user">Monto</label>
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{$entradas->monto}}" disabled="true">
               </div>
+              <div class="form-group">
 
+                    <label for="fechaRegistro">Fecha de Registro</label>
+
+                    <input type="date" class="form-control" name="fechaRegistro" value="{{ $entradas->fechaRegistro }}" disabled="true">
+
+                  </div>
         </div>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaEntradas') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
       </form>

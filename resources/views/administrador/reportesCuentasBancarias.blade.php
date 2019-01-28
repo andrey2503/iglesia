@@ -17,14 +17,14 @@
     <div style="padding: 15px;" class="col-md-3" hidden id="fInicio">
       <div class="form-group">
        <label for="user">Fecha Inicio:</label>
-       <input type="text" step="any" class="form-control" name="fechaInicio" id="datepicker"  placeholder="Fecha Inicial">
+       <input type="date" step="any" class="form-control" name="fechaInicio"   placeholder="Fecha Inicial">
       </div>
 
     </div>
     <div style="padding: 15px;" class="col-md-3" hidden id="fFin">
       <div class="form-group">
        <label for="user">Fecha Fin</label>
-       <input type="text" step="any" class="form-control" name="fechaFinal" id="datepicker2"  placeholder="Fecha Final">
+       <input type="date" step="any" class="form-control" name="fechaFinal"   placeholder="Fecha Final">
       </div>
     </div>
       <div class="col-md-3">
@@ -62,6 +62,7 @@
               <th scope="col">Tipo</th>
               <th scope="col">Moneda</th>
               <th scope="col">Monto</th>
+              <th scope="col">Fecha Registro</th>
               <th scope="col">Datos Actualizacion</th>
             </tr>
           </thead>
@@ -89,6 +90,7 @@
               <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
               @endif
               <!-- verificar tipo moneda -->
+                <td>{{$c->fechaRegistro}}</td>
                 <td>{{$c->updated_at}}</td>
             </tr>
             @endforeach
@@ -118,6 +120,7 @@
         <th scope="col">Tipo</th>
         <th scope="col">Moneda</th>
         <th scope="col">Monto</th>
+        <th scope="col">Fecha Registro</th>
         <th scope="col">Datos Actualizacion</th>
       </tr>
     </thead>
@@ -144,6 +147,7 @@
         <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
         <!-- verificar tipo moneda -->
+        <td>{{$c->fechaRegistro}}</td>
           <td>{{$c->updated_at}}</td>
       </tr>
       @endforeach

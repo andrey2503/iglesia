@@ -40,7 +40,13 @@
                 <label for="usuario">Número de CuentaNúmero de Cuenta</label>
                 <input type="text" class="form-control" name="usuario" value="{{ $cuentas->cuenta }}" disabled="true">
               </div>
+              <div class="form-group">
 
+                    <label for="fechaRegistro">Fecha de Registro</label>
+
+                    <input type="date" class="form-control" name="fechaRegistro" value="{{ $cuentas->fechaRegistro }}" disabled="true">
+
+                  </div>
 
               <a   class="btn btn-success" href="{{ url('/listaCuentaBancaria') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
         </div>
