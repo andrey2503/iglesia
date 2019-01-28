@@ -66,13 +66,16 @@
                   <span style="color: red;">{{ $errors->first('idrol') }}</span>
                 @endif
   </div>
-               <!-- <select name="estado"class="form-control">
+    <div class="form-group">
+
+                <select name="estado"class="form-control">
                   <option value="0">Inactivo</option>
                   <option value="1">Activo</option>
-              </select> -->
-              <!-- @if($errors->has('estado'))
+              </select>
+               @if($errors->has('estado'))
                   <span style="color: red;">{{ $errors->first('estado') }}</span>
-                @endif -->
+                @endif
+  </div>
 
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear usuario</button>

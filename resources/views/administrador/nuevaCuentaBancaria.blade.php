@@ -30,6 +30,20 @@
                   <span style="color: red;">{{ $errors->first('banco') }}</span>
                 @endif
               </div>
+              <div class="form-group">
+
+                <label for="fechaRegistro">Fecha de Registro</label>
+
+                <input type="date" class="form-control" name="fechaRegistro" >
+
+                @if($errors->has('fechaRegistro'))
+
+                  <span style="color: red;">{{ $errors->first('fechaRegistro') }}</span>
+
+                @endif
+
+              </div>
+
 
                <div class="form-group">
                 <label for="user">Tipo de Cuenta</label>
@@ -52,7 +66,7 @@
                  <span style="color: red;">{{ $errors->first('moneda') }}</span>
                @endif
               </div>
-              
+
               <div class="form-group">
                 <label for="telefono">Número de Cuenta</label>
                 <input type="text" class="form-control" name="cuenta" placeholder="Número de Cuenta">

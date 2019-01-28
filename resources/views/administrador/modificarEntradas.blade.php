@@ -59,9 +59,21 @@
 
               <div class="form-group">
                <label for="user">Monto</label>
-               <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{$entradas->monto}}" disabled="true">
+               <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{$entradas->monto}}">
               </div>
+              <div class="form-group">
 
+                    <label for="fechaRegistro">Fecha de Registro</label>
+
+                    <input type="date" class="form-control" name="fechaRegistro" value="{{ $entradas->fechaRegistro }}">
+
+                    @if($errors->has('fechaRegistro'))
+
+                      <span style="color: red;">{{ $errors->first('fechaRegistro') }}</span>
+
+                    @endif
+
+                  </div>
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Actualizar Entrada</button>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaEntradas') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>

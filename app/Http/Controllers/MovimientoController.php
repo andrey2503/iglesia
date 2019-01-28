@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Session;
 use App\Logs;
+use App\MovimeintoSalida;
+use App\MovimeintoEntrada;
+use App\User;
 use Carbon\Carbon;
-class CuentaBancariaController extends Controller
+class MovimientoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,10 +26,6 @@ class CuentaBancariaController extends Controller
      }
     public function index()
     {
-        //
-        $cuentas= CuentaBancaria::all();
-// dd($cuentas);
-        return view('administrador.listaCuentaBancaria')->with(['cuentas'=>$cuentas]);
 
     }
 
@@ -37,8 +36,7 @@ class CuentaBancariaController extends Controller
      */
     public function create()
     {
-        //
-        return view ('administrador.nuevaCuentaBancaria');
+
     }
 
     /**
@@ -49,35 +47,7 @@ class CuentaBancariaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-      $this->validate($request,[
-          'nombre'=>'required',
-          'banco'=>'required',
-          'cuenta'=>"required|unique:cuenta_bancarias",
-          'fechaRegistro'=>'required'
-          ]);
 
-      $cuenta = new CuentaBancaria();
-      $cuenta->nombre = $request->nombre;
-      $cuenta->tipo = $request->tipo;
-      $cuenta->moneda= $request->moneda;
-      $cuenta->banco= $request->banco;
-      $cuenta->monto=0;
-      $cuenta->cuenta=$request->cuenta;
-      $cuenta->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
-
-      if($cuenta->save()){
-        $log= new Logs();
-        $log->fk_usuario= \Auth::user()->id;
-        $log->nombre_tabla="cuenta_bancarias";
-        $log->nombre_elemento= $cuenta->id;
-        $log->accion="Agregar Cuenta Bancaria";
-        $log->fecha=date ('y-m-d H:i:s');
-        $log->save();
-          return redirect()->back()->with('message','Cuenta '.$request->cuenta.' creada correctamente');
-      }else{
-          return redirect('/nuevaCuentaBancaria');
-      }
     }
 
     /**
@@ -88,9 +58,7 @@ class CuentaBancariaController extends Controller
      */
     public function show($id)
     {
-        //
-        $cuentas= CuentaBancaria::find($id);
-        return view('administrador.modificarCuentas')->with(['cuentas'=>$cuentas]);
+
     }
 
     /**
@@ -113,35 +81,7 @@ class CuentaBancariaController extends Controller
      */
     public function update(Request $request)
     {
- // dd($request);
-      $this->validate($request,[
-          'nombre'=>'required',
-          'banco'=>'required',
-          'fechaRegistro'=>'required',
-          'cuenta'=>'required'
-          ]);
 
-      $cuenta = CuentaBancaria::find($request->id);
-      $cuenta->nombre = $request->nombre;
-      $cuenta->tipo = $request->tipo;
-      $cuenta->moneda= $request->moneda;
-      $cuenta->banco= $request->banco;
-      $cuenta->cuenta= $request->cuenta;
-      $cuenta->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
-              // $user->state=$request->estado;
-
-              if($cuenta->save()){
-                $log= new Logs();
-                $log->fk_usuario= \Auth::user()->id;
-                $log->nombre_tabla="cuenta_bancarias";
-                $log->nombre_elemento= $request->id;
-                $log->accion="Actualizar Cuenta Bancaria";
-                $log->fecha=date ('y-m-d H:i:s');
-                $log->save();
-                  return redirect()->back()->with('message','Cuenta '.$request->cuenta.' Actualizada correctamente');
-              }else{
-                  return redirect('/modificarCuentas');
-              }
     }
 
     /**
@@ -152,27 +92,22 @@ class CuentaBancariaController extends Controller
      */
     public function destroy(Request $request)
     {
-      // dd($request);
-      $cuenta = CuentaBancaria::find($request->id);
-      $cuenta->delete();
-      if ($cuenta->delete()) {
-        $log= new Logs();
-        $log->fk_usuario= \Auth::user()->id;
-        $log->nombre_tabla="cuenta_bancarias";
-        $log->nombre_elemento= $request->id;
-        $log->accion="Eliminar Cuenta Bancaria";
-        $log->fecha=date ('y-m-d H:i:s');
-        $log->save();
-          return redirect('/listaCuentaBancaria');
-      }
+
     }
 
 
-public function reportesCuentasBancarias(){
+// public function reportesMovimientos(){
+// //  $cuentas= CuentaBancaria::all();
+//
+// return view('administrador.reportesMovimientos');
+// }
+
+public function reportesEntradasSalidas(){
 //  $cuentas= CuentaBancaria::all();
 
-return view('administrador.reportesCuentasBancarias');
+return view('administrador.reportesRubross');
 }
+
 
     public function vercuenta($id){
         $cuentas= CuentaBancaria::find($id);

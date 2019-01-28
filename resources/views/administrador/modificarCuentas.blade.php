@@ -22,7 +22,13 @@
           <span style="color: red;">{{ $errors->first('nombre') }}</span>
           @endif
         </div>
-
+        <div class="form-group">
+          <label for="telefono">Número de Cuenta</label>
+          <input type="text" class="form-control" name="cuenta" value="{{ $cuentas->cuenta }}">
+          @if($errors->has('cuenta'))
+            <span style="color: red;">{{ $errors->first('cuenta') }}</span>
+          @endif
+        </div>
         <div class="form-group">
           <label for="email">Banco</label>
           <input type="text" class="form-control" name="banco" value="{{ $cuentas->banco }}">
@@ -30,7 +36,19 @@
           <span style="color: red;">{{ $errors->first('banco') }}</span>
           @endif
         </div>
+        <div class="form-group">
 
+            <label for="fechaRegistro">Fecha de Registro</label>
+
+            <input type="date" class="form-control" name="fechaRegistro" value="{{ $cuentas->fechaRegistro }}">
+
+            @if($errors->has('fechaRegistro'))
+
+              <span style="color: red;">{{ $errors->first('fechaRegistro') }}</span>
+
+            @endif
+
+          </div>
         <div class="form-group">
           <label for="user">Tipo de Cuenta</label>
           <select class="form-control" name="tipo">
@@ -70,7 +88,7 @@
           <span style="color: red;">{{ $errors->first('moneda') }}</span>
           @endif
         </div>
-      
+
 
 
       </div>

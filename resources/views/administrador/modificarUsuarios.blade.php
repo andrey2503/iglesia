@@ -64,6 +64,9 @@
                   <option value="1" selected>Administrador</option>
                 @endif
               </select>
+              </div>
+
+<div class="form-group">
 
                <select name="estado"class="form-control">
                @if($usuario->state==1)

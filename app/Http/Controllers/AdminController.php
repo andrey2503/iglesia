@@ -60,7 +60,9 @@ class AdminController extends Controller
             'email'=>'required|unique:usuarios',
             'idrol'=>'required',
             'contrasena'=>'required',
-            'usuario'=>"required|unique:usuarios"
+            'usuario'=>"required|unique:usuarios",
+            'estado'=>"required"
+
             ]);
         $usuario = new User();
         $usuario->nombre = $request->nombre;
@@ -68,6 +70,7 @@ class AdminController extends Controller
         $usuario->email= $request->email;
         $usuario->telefono= $request->telefono;
         $usuario->idrol=$request->idrol;
+        $usuario->state=$request->estado;
         $usuario->password= Hash::make($request->contrasena);
 
         if($usuario->save()){
@@ -124,12 +127,14 @@ class AdminController extends Controller
             'email'=>'required',
             'idrol'=>'required',
             'contrasena'=>'required',
+              'estado'=>"required"
             ]);
 
         $user = User::find($request->id);
         $user->nombre = $request->nombre;
         $user->email = $request->email;
         $user->idrol = $request->idrol;
+        $user->state=$request->estado;
         if($user->password!=$request->contrasena){
             $contrasena=$request->contrasena;
             $user->password = Hash::make($contrasena);
@@ -192,7 +197,7 @@ class AdminController extends Controller
     {
         //
         $logs= Logs::all();
-        
+
         return view('administrador.logs')->with(['logs'=>$logs]);
     }
 

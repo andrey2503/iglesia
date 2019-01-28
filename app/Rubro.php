@@ -36,4 +36,14 @@ class Rubro extends Model
     {
         return $this->hasMany('App\Rubro','fk_rubro');
     }
+
+    public function movimientoSalida()
+    {
+        return $this->hasMany('App\Rubro','fk_rubro');
+    }
+    public function movimientoEntrada()
+    {
+        return $this->hasMany('App\Rubro','fk_rubro');
+    }
+
 }

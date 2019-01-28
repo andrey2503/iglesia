@@ -57,7 +57,19 @@
                  <span style="color: red;">{{ $errors->first('monto') }}</span>
                @endif
               </div>
+              <div class="form-group">
 
+                <label for="fechaRegistro">Fecha de Registro</label>
+
+                <input type="date" class="form-control" name="fechaRegistro" >
+
+                @if($errors->has('fechaRegistro'))
+
+                  <span style="color: red;">{{ $errors->first('fechaRegistro') }}</span>
+
+                @endif
+
+              </div>
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Cuenta por Pagar</button>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaCuentaPP') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>

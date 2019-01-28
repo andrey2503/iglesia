@@ -9,6 +9,7 @@ use App\Rubro;
 use App\CuentaBancaria;
 use App\CuentaCobrar;
 use App\CuentaPagar;
+use Carbon\Carbon;
 class EntradaController extends Controller
 {
     /**
@@ -58,7 +59,8 @@ class EntradaController extends Controller
           'confMonto'=>'required',
           'cuentaBancaria'=>'required',
           'documento'=>'required',
-          'monto'=>'required|same:confMonto'
+          'monto'=>'required|same:confMonto',
+          'fechaRegistro'=>'required'
         ]);
 
         $entradas = new Entrada();
@@ -67,6 +69,7 @@ class EntradaController extends Controller
         $entradas->moneda= $request->moneda;
         $entradas->monto=$request->monto;
         $entradas->documento=$request->documento;
+        $entradas->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
 
         if($entradas->save()){
           $log= new Logs();
@@ -114,7 +117,7 @@ function addCuentaPagar($request) {
     $cuentasPagar->fk_rubro= $request->rubro;
     $cuentasPagar->moneda= $request->moneda;
     $cuentasPagar->monto=$request->monto;
-
+   $cuentasPagar->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
     if($cuentasPagar->save()){
       $log= new Logs();
       $log->fk_usuario= \Auth::user()->id;
@@ -246,15 +249,32 @@ function addCuentaPagarAu($request){
      */
     public function update(Request $request)
     {
+    //  dd($request);
+      $this->validate($request,[
+        'descripcion'=>'required',
+        'documento'=>'required',
+        'rubro'=>'required',
+        'fechaRegistro'=>'required'
+      ]);
+
       $entrada=Entrada::find($request->id);
       $entrada->descripcion=$request->descripcion;
       $entrada->documento=$request->documento;
       $entrada->fk_rubro=$request->rubro;
-      if($entrada->save()){
-       return redirect()->back()->with('message','Entradaa actualizada correctamente');
-      }else{
+      $entrada->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
 
-      }
+                    if($entrada->save()){
+                      $log= new Logs();
+                      $log->fk_usuario= \Auth::user()->id;
+                      $log->nombre_tabla="entradas";
+                      $log->nombre_elemento= $request->id;
+                      $log->accion="Actualizar Entrada";
+                      $log->fecha=date ('y-m-d H:i:s');
+                      $log->save();
+                        return redirect()->back()->with('message','Entrada '.$request->descripcion.' Actualizada correctamente');
+                    }else{
+                        return redirect('/modificarEntrada');
+                    }
       //   //
     }
 
@@ -306,7 +326,9 @@ function addCuentaPagarAu($request){
       'fechaInicio'=>'required|date',
       'fechaFinal'=>'required|date',
       ]);
-    $entradas= Entrada::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+      $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+      $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+    $entradas= Entrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
      //dd($entradas);
     return view('administrador.reportesEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
   }
@@ -332,8 +354,10 @@ function addCuentaPagarAu($request){
           'fechaInicio'=>'required',
           'fechaFinal'=>'required',
           ]);
-      $entradas= Entrada::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
-      $view= view('reportes.pdfReporteEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+          $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+          $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+      $entradas= Entrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+      $view= view('reportes.pdfReporteEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
       unset($pdf);
       $pdf=\App::make('dompdf.wrapper');
       $pdf->loadhtml($view);

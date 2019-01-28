@@ -17,14 +17,14 @@
     <div style="padding: 15px;" class="col-md-3" hidden id="fInicio">
       <div class="form-group">
        <label for="user">Fecha Inicio:</label>
-       <input type="text" step="any" class="form-control" name="fechaInicio" id="datepicker"  placeholder="Fecha Inicial">
+       <input type="date" step="any" class="form-control" name="fechaInicio"   placeholder="Fecha Inicial">
       </div>
 
     </div>
     <div style="padding: 15px;" class="col-md-3" hidden id="fFin">
       <div class="form-group">
        <label for="user">Fecha Fin</label>
-       <input type="text" step="any" class="form-control" name="fechaFinal" id="datepicker2"  placeholder="Fecha Final">
+      <input type="date" step="any" class="form-control" name="fechaFinal"   placeholder="Fecha Final">
       </div>
     </div>
       <div class="col-md-3">
@@ -60,6 +60,7 @@
               <th scope="col">Descripcion</th>
               <th scope="col">Monto</th>
               <th scope="col">documento</th>
+                <th scope="col">Fecha Registro</th>
               <th scope="col">Editado</th>
             </tr>
           </thead>
@@ -86,6 +87,7 @@
                 @endif
                 <!-- verificar tipo moneda -->
                 <td>{{$s->documento}}</td>
+                <td>{{$s->fechaRegistro}}</td>
                 <td>{{$s->updated_at}}</td>
               </tr>
             @endforeach
@@ -114,6 +116,7 @@
       <th scope="col">Descripcion</th>
       <th scope="col">Monto</th>
       <th scope="col">documento</th>
+        <th scope="col">Fecha Registro</th>
       <th scope="col">Editado</th>
       </tr>
     </thead>
@@ -140,6 +143,7 @@
         @endif
         <!-- verificar tipo moneda -->
         <td>{{$s->documento}}</td>
+        <td>{{$s->fechaRegistro}}</td>
         <td>{{$s->updated_at}}</td>
       </tr>
       @endforeach
@@ -205,13 +209,6 @@ $( document ).ready(function() {
       }
       console.log($("#tipoReporte").val());
     });
-
-
-
-
-//datapicker
-    $( "#datepicker" ).datepicker({format: 'yyyy-mm-dd'});
-    $( "#datepicker2" ).datepicker({format: 'yyyy-mm-dd'});
 
 
 

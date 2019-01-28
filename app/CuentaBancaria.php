@@ -21,7 +21,14 @@ class CuentaBancaria extends Model
     protected $fillable = [
         'nombre', 'tipo','moneda', 'banco', 'monto','cuenta',
     ];
-
+    public function movimientoSalida()
+    {
+        return $this->hasMany('App\CuentaBancaria','fk_cuenta');
+    }
+    public function movimientoEntrada()
+    {
+        return $this->hasMany('App\CuentaBancaria','fk_cuenta');
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

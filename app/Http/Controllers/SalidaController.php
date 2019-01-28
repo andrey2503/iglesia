@@ -8,6 +8,7 @@ use App\Logs;
 use App\Rubro;
 use App\CuentaBancaria;
 use App\CuentaPagar;
+use Carbon\Carbon;
 class SalidaController extends Controller
 {
     /**
@@ -51,7 +52,8 @@ class SalidaController extends Controller
             'confMonto'=>'required',
             'cuentaBancaria'=>'required',
             'documento'=>'required',
-            'monto'=>'required|same:confMonto'
+            'monto'=>'required|same:confMonto',
+              'fechaRegistro'=>'required'
           ]);
 
           $salidas = new Salida();
@@ -60,6 +62,7 @@ class SalidaController extends Controller
           $salidas->moneda= $request->moneda;
           $salidas->monto=$request->monto;
           $salidas->documento=$request->documento;
+          $salidas->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
 
           if($salidas->save()){
             $log= new Logs();
@@ -107,6 +110,7 @@ class SalidaController extends Controller
             $cuentasPagar->fk_rubro= $request->rubro;
             $cuentasPagar->moneda= $request->moneda;
             $cuentasPagar->monto=$request->monto;
+            $salidas->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
 
             if($cuentasPagar->save()){
               $log= new Logs();
@@ -127,13 +131,14 @@ class SalidaController extends Controller
               $cuenta= CuentaBancaria::find($request->cuentaBancaria);
                 $montoAnterior=$cuenta->monto;
               if ($cuenta->moneda == $request->moneda) {
-                $cuenta->monto=$request->monto - $montoAnterior;
+              //  dd($request->monto.$montoAnterior);
+                $cuenta->monto=$montoAnterior - $request->monto;
                 if($cuenta->save()){
                   $log= new Logs();
                   $log->fk_usuario= \Auth::user()->id;
                   $log->nombre_tabla="cuenta_bancarias";
                   $log->nombre_elemento= $cuenta->id;
-                  $log->accion="Sumar ".$request->monto." al monto anterior: ".$montoAnterior;
+                  $log->accion="Restar ".$request->monto." al monto anterior: ".$montoAnterior;
                   $log->fecha=date ('y-m-d H:i:s');
                   $log->save();
                   //  return redirect()->back()->with('message','Cuenta por Cobrar '.$cuentasCobrar->nombre.' creada correctamente');
@@ -246,10 +251,21 @@ class SalidaController extends Controller
     public function update(Request $request)
     {
         //
+        //  dd($request);
+          $this->validate($request,[
+            'descripcion'=>'required',
+            'documento'=>'required',
+            'rubro'=>'required',
+            'monto'=>'required',
+            'fechaRegistro'=>'required'
+          ]);
         $salida=Salida::find($request->id);
         $salida->descripcion=$request->descripcion;
         $salida->documento=$request->documento;
         $salida->fk_rubro=$request->rubro;
+        $salida->monto=$request->monto;
+
+        $salida->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
         if($salida->save()){
          return redirect()->back()->with('message','Salida actualizada correctamente');
         }else{
@@ -296,7 +312,9 @@ class SalidaController extends Controller
         'fechaInicio'=>'required|date',
         'fechaFinal'=>'required|date',
         ]);
-    $salida=Salida::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
+        $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+        $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+    $salida=Salida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
        //dd($salida);
       return view('administrador.reportesSalidas')->with(['salidas'=>$salida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$request->fechaInicio,'fechaFinal'=>$request->fechaFinal]);
     }
@@ -322,8 +340,10 @@ class SalidaController extends Controller
             'fechaInicio'=>'required',
             'fechaFinal'=>'required',
             ]);
-        $salida=Salida::where('created_at','>',$request->fechaInicio)->where('created_at','<',$request->fechaFinal)->get();
-        $view= view('reportes.pdfReporteSalidas')->with(['salidas'=>$salida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+            $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+            $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+        $salida=Salida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+        $view= view('reportes.pdfReporteSalidas')->with(['salidas'=>$salida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
         unset($pdf);
         $pdf=\App::make('dompdf.wrapper');
         $pdf->loadhtml($view);

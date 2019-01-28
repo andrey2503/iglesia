@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes; 
+use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use Notifiable;
-    use SoftDeletes;  
+    use SoftDeletes;
     protected $table="usuarios";
     /**
      * The attributes that are mass assignable.
@@ -33,7 +33,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Logs','fk_usuario');
     }
-
+    public function movimientoSalida()
+    {
+        return $this->hasMany('App\User','fk_usuario');
+    }
+    public function movimientoEntrada()
+    {
+        return $this->hasMany('App\User','fk_usuario');
+    }
     // public function Logs()
     // {
     //     return $this->belongsToMany('App\Logs','fk_usuario');

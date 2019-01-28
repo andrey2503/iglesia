@@ -43,6 +43,13 @@
                <label for="user">Monto</label>
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{$salida->monto}}" disabled="true">
               </div>
+              <div class="form-group">
+
+                    <label for="fechaRegistro">Fecha de Registro</label>
+
+                    <input type="date" class="form-control" name="fechaRegistro" value="{{ $salida->fechaRegistro }}" disabled="true">
+
+                  </div>
 
         </div>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaSalidas') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
