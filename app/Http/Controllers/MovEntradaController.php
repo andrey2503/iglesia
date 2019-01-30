@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MovEntrada;
+use App\MovSalida;
 use Illuminate\Http\Request;
 use App\Logs;
 use Carbon\Carbon;
@@ -17,8 +18,9 @@ class MovEntradaController extends Controller
     {
       //
       $movEntrada= MovEntrada::all();
-// dd($cuentas);
-      return view('administrador.reoportesMovimientos')->with(['movEntrada'=>$movEntrada]);
+      $movSalida= MovSalida::all();
+    //   dd($movEntrada);
+      return view('administrador.reportesMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida]);
     }
 
     /**

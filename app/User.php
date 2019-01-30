@@ -33,13 +33,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Logs','fk_usuario');
     }
-    public function movimientoSalida()
+    public function movSalida()
     {
-        return $this->hasMany('App\User','fk_usuario');
+        return $this->hasMany('App\MovSalida','fk_usuario');
     }
-    public function movimientoEntrada()
+    public function movEntrada()
     {
-        return $this->hasMany('App\User','fk_usuario');
+        return $this->hasMany('App\MovEntrada','fk_usuario');
     }
     // public function Logs()
     // {

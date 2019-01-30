@@ -10,7 +10,7 @@ class MovSalida extends Model
 {
   use Notifiable;
   use SoftDeletes;
-    protected $table="movimientosSalidas";
+    protected $table="mov_salidas";
     //
     protected $dates = ['deleted_at'];
 
@@ -26,5 +26,4 @@ class MovSalida extends Model
     {
         return $this->hasOne('App\CuentaBancaria','id','fk_cuenta');
     }
-}
 }

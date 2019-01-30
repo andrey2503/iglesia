@@ -3,31 +3,41 @@
 @section('content')
 
 <div class="container-fluid row contenedor-usuario col-md-12">
-  <form class=""  action="{{ url('/reportesconsultaCobrar') }}" method="post" id="formreportes">
+  <form class=""  action="{{ url('/reporteMovimientos') }}" method="post" id="formreportes">
     {{ csrf_field() }}
 
     <div style="padding: 15px;" class="col-md-3">
       <label for="user">Tipo de Reporte:</label>
       <select class="form-control" name="tipoReporte" id="tipoReporte">
           <option value="0">Selecione Tipo reporte</option>
-          <option value="1">Por fechas</option>
-          <option value="2">Todo</option>
+          <option value="1">Movimiento Por fechas</option>
+          <option value="2">Todos los Movimientos</option>
+          <option value="3">Rubros Por fechas</option>
+          <option value="4">Todos los Rubros</option>
+          <option value="5">1 Rubro Por fechas</option>
+          <option value="6">Todos los Movimientos de 1 Rubro</option>
       </select>
     </div>
-    <div style="padding: 15px;" class="col-md-3" hidden id="fInicio">
+    <div style="padding: 15px;" class="col-md-3" id="rubro1" hidden>
+      <label for="user">Rubro:</label>
+      <select class="form-control" name="rubro" id="rubro">
+          <option value="0">Selecione Rubro</option>
+      </select>
+    </div>
+    <div style="padding: 15px;" class="col-md-2" hidden id="fInicio">
       <div class="form-group">
        <label for="user">Fecha Inicio:</label>
        <input type="date" step="any" class="form-control" name="fechaInicio"   placeholder="Fecha Inicial">
       </div>
 
     </div>
-    <div style="padding: 15px;" class="col-md-3" hidden id="fFin">
+    <div style="padding: 15px;" class="col-md-2" hidden id="fFin">
       <div class="form-group">
        <label for="user">Fecha Fin</label>
        <input type="date" step="any" class="form-control" name="fechaFinal"   placeholder="Fecha Final">
       </div>
     </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
         <div class="form-group"  style="margin-top: 39px;">
 
         <button href="#" type="submit" class="btn btn-info" id="idconsultar">Consultar</button>
@@ -39,7 +49,7 @@
 <div class="container row col-md-12 contenedor-usuario">
 
 
-<h3>Cuentas por Cobrar</h3>
+<h3>Movimientos Bancarios</h3>
 
           <!-- tabla principal de usuarios -->
           @if(isset($tipoReporte))
@@ -53,45 +63,70 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
-              <table class="table table-striped">
+              <table id="example" class="table table-striped">
           <thead>
             <tr>
-                <th scope="col">Nombre</th>
-              <th scope="col"># ID</th>
-              <th scope="col">Rubro</th>
+                <th scope="col">Tipo</th>
               <th scope="col">Moneda</th>
               <th scope="col">Monto</th>
+              <th scope="col">Cuenta</th>
+              <th scope="col">Rubro</th>
+              <th scope="col">Usuario</th>
               <th scope="col">Fecha Registro</th>
             </tr>
           </thead>
           <tbody>
-            @php $i=0;
-            @endphp
-            @if(isset($cuentasCobrar))
-              @foreach($cuentasCobrar as $cp)
-              @php
-              $i =   $cp->monto  + $i
-              @endphp
+
+            @if(isset($movEntrada))
+              @foreach($movEntrada as $me)
+
             <tr>
-              <td scope="row">{{ $cp->nombre }}</td>
-              <th scope="row">0{{ $cp->id }}PC</th>
-              <td>{{$cp->rubro->nombre}}</td>
-              <td>{{ $cp->moneda }}</td>
-              @if($cp->moneda == "Dolares")
-              <td>$ {{ number_format($cp->monto, 2, ' ', ',') }}</td>
+              <td scope="row">Entrada</td>
+              <td>{{ $me->moneda }}</td>
+              @if($me->moneda == "Dolares")
+              <td>$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
               @endif
-              @if($cp->moneda == "Colones")
-              <td>₡ {{ number_format($cp->monto, 2, ' ', ',') }}</td>
+              @if($me->moneda == "Colones")
+              <td>₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
               @endif
-              @if($cp->moneda == "Euros")
-              <td>€ {{ number_format($cp->monto, 2, ' ', ',') }}</td>
+              @if($me->moneda == "Euros")
+              <td>€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
               @endif
+
               <!-- verificar tipo moneda -->
-                <!-- <td>{{$cp->updated_at}}</td> -->
-                <td>{{$cp->fechaRegistro}}</td>
+              <td>{{$me->cuenta->cuenta}}</td>
+                <td>{{$me->rubro->nombre}}</td>
+                <td>{{$me->usuario->nombre}}</td>
+                <td>{{$me->fechaRegistro}}</td>
             </tr>
             @endforeach
           @endif
+<!--  segunda tabla-->
+          @if(isset($movSalida))
+            @foreach($movSalida as $ms)
+
+            <tr>
+              <td scope="row">Salida</td>
+              <td>{{ $me->moneda }}</td>
+              @if($ms->moneda == "Dolares")
+              <td>$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+              @endif
+              @if($ms->moneda == "Colones")
+              <td>₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+              @endif
+              @if($ms->moneda == "Euros")
+              <td>€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+              @endif
+
+              <!-- verificar tipo moneda -->
+                <td>{{$me->cuenta->cuenta}}</td>
+                <td>{{$ms->rubro->nombre}}</td>
+                <td>{{$ms->usuario->nombre}}</td>
+                <td>{{$ms->fechaRegistro}}</td>
+            </tr>
+          @endforeach
+        @endif
+
           </tbody>
         </table>
             </div>
@@ -106,17 +141,17 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Total Cuentas Bancarias</h4>
+        <h4 class="modal-title">Movimientos Bancarios</h4>
       </div>
       <div class="modal-body">
         <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">Nombre</th>
-      <th scope="col"># ID</th>
-      <th scope="col">Rubro</th>
+        <th scope="col">Tipo</th>
       <th scope="col">Moneda</th>
       <th scope="col">Monto</th>
+      <th scope="col">Rubro</th>
+      <th scope="col">Usuario</th>
       <th scope="col">Fecha Registro</th>
       </tr>
     </thead>
@@ -165,27 +200,7 @@
   </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog"  id="myModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Confirmacion</h4>
-      </div>
-      <div class="modal-body">
-        <h4>Desea eliminar este elemento?</h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-        <form  action="{{ url('eliminarCuenta') }}" method="post" id="eliminar">
-        {{ csrf_field() }}
-        <input id="rutaEliminar" type="hidden"  name="id">
-        <button type="submit" href="#" class="btn btn-danger"> <span class="glyphicon glyphicon-trash"></span>   Eliminar</button>
-        </form>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
 <script>
   function preEliminar(id){
     // alert(id);
@@ -200,13 +215,22 @@
 <script>
 $( document ).ready(function() {
     $("#tipoReporte").change(function(){
-      if ($("#tipoReporte").val()==1) {
+      if ($("#tipoReporte").val()==1 ||$("#tipoReporte").val()==3) {
         $("#fInicio").show();
           $("#fFin").show();
       }else if($("#tipoReporte").val()!=1){
         $("#fInicio").hide();
           $("#fFin").hide();
       }
+        if ($("#tipoReporte").val()==5) {
+          $("#rubro1").show();
+          $("#fInicio").show();
+            $("#fFin").show();
+        }else if ($("#tipoReporte").val()==6) {
+          $("#rubro1").show();
+        }else{
+          $("#rubro1").hide();
+        }
       console.log($("#tipoReporte").val());
     });
 

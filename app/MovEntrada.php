@@ -10,7 +10,7 @@ class MovEntrada extends Model
 {
   use Notifiable;
   use SoftDeletes;
-    protected $table="movimientosEntradas";
+    protected $table="mov_entradas";
     //
     protected $dates = ['deleted_at'];
 
