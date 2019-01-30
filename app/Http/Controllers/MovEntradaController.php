@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\MovEntrada;
 use Illuminate\Http\Request;
-
+use App\Logs;
+use Carbon\Carbon;
 class MovEntradaController extends Controller
 {
     /**
@@ -14,7 +15,10 @@ class MovEntradaController extends Controller
      */
     public function index()
     {
-        //
+      //
+      $movEntrada= MovEntrada::all();
+// dd($cuentas);
+      return view('administrador.reoportesMovimientos')->with(['movEntrada'=>$movEntrada]);
     }
 
     /**

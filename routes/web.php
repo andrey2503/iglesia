@@ -130,7 +130,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/reportesconsultaEntrada','EntradaSodaController@reportesConsultar');
     Route::post('/reportegenerarEntradas','EntradaSodaController@reportegenerarEntradas');
 
-    //copiar  
+    //copiar
     //  Route::get('/reportesEntradas','EntradaController@reportesEntradas');
     // Route::post('/reportesconsultaEntrada','EntradaController@reportesConsultar');
     // Route::post('/reportegenerarEntradas','EntradaController@reportegenerarEntradas');
@@ -173,9 +173,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/reportegenerarSalidas','SalidaController@reportegenerarSalidas');
     //fin salidas
 
-    Route::post('/reportesMovimientos','MovimientoController@reportesMovimientos');
-    Route::get('/reportesEntradasSalidas','MovimientoController@reportesRubros');
-
+    Route::get('/reportesMovimientos','MovEntradaController@index');
+    Route::get('/reportesEntradasSalidas','MovSalidaController@index');
 
 
     // digitador

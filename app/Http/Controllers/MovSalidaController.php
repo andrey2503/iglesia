@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\MovSalida;
 use Illuminate\Http\Request;
-
+use App\Logs;
+use Carbon\Carbon;
 class MovSalidaController extends Controller
 {
     /**
@@ -14,7 +15,10 @@ class MovSalidaController extends Controller
      */
     public function index()
     {
-        //
+      //
+      $movSalida= MovSalida::all();
+// dd($cuentas);
+      return view('administrador.reportesRubros')->with(['movSalida'=>$movSalida]);
     }
 
     /**
