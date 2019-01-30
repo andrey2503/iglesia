@@ -125,6 +125,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/modificarEntradaSoda','EntradaSodaController@update');
      Route::post('/eliminarEntradasSoda','EntradaSodaController@destroy');
 
+     // Reportes entradas sodas ingresos
+     Route::get('/reportesEntradas','EntradaSodaController@reportesSodaEntradas');
+    Route::post('/reportesconsultaEntrada','EntradaSodaController@reportesConsultar');
+    Route::post('/reportegenerarEntradas','EntradaSodaController@reportegenerarEntradas');
+
+    //copiar  
+    //  Route::get('/reportesEntradas','EntradaController@reportesEntradas');
+    // Route::post('/reportesconsultaEntrada','EntradaController@reportesConsultar');
+    // Route::post('/reportegenerarEntradas','EntradaController@reportegenerarEntradas');
     //fin entradas Soda
 
     //salidas Soda
