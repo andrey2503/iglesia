@@ -9,6 +9,7 @@ use App\Rubro;
 use App\CuentaBancaria;
 use App\CuentaPagar;
 use Carbon\Carbon;
+use App\MovSalida;
 class SalidaController extends Controller
 {
     /**
@@ -81,7 +82,7 @@ class SalidaController extends Controller
             $this->addCuentaPagar($request);
           }
           if ($request->cuentaBancaria != 0) {
-              $this->addcuentaBancaria($request);
+              $this->addcuentaBancaria($request,$salidas->id);
           }
           if ($request->cuentaCobrarD !=0) {
 
@@ -126,7 +127,8 @@ class SalidaController extends Controller
         }//fin metodo addCuentaPagar
 
 
-        function addcuentaBancaria($request){
+        function addcuentaBancaria($request,$salidasid){
+              $this->addMovimiento($request,$salidasid);
             //verificar si cuenta vancaria es diferente de 0
               $cuenta= CuentaBancaria::find($request->cuentaBancaria);
                 $montoAnterior=$cuenta->monto;
@@ -146,6 +148,27 @@ class SalidaController extends Controller
 
                 }
           }//fin metodo addcuentaBancaria
+
+          function addMovimiento($request,$salidasid){
+            $movSalida = new MovSalida();
+            $movSalida->fk_usuario = \Auth::user()->id;
+            $movSalida->fk_rubro= $request->rubro;
+            $movSalida->fk_cuenta= $request->cuentaBancaria;
+            $movSalida->fk_salida= $salidasid;
+            $movSalida->moneda= $request->moneda;
+            $movSalida->monto=$request->monto;
+            $movSalida->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
+            if($movSalida->save()){
+              $log= new Logs();
+              $log->fk_usuario= \Auth::user()->id;
+              $log->nombre_tabla="mov_salida";
+              $log->nombre_elemento= $movSalida->id;
+              $log->accion="Agregar Movimiento Salida";
+              $log->fecha=date ('y-m-d H:i:s');
+              $log->save();
+
+              }
+          }
 
           //funcion para disminuir cuenta por cobrar
         function addCuentaCobrarDis($request){

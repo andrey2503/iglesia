@@ -10,6 +10,7 @@ use App\CuentaBancaria;
 use App\CuentaCobrar;
 use App\CuentaPagar;
 use Carbon\Carbon;
+use App\MovEntrada;
 class EntradaController extends Controller
 {
     /**
@@ -88,7 +89,7 @@ class EntradaController extends Controller
           $this->addCuentaPagar($request);
         }
         if ($request->cuentaBancaria != 0) {
-            $this->addcuentaBancaria($request);
+            $this->addcuentaBancaria($request,$entradas->id);
         }
         if ($request->cuentaCobrarD !=0) {
 
@@ -131,7 +132,8 @@ function addCuentaPagar($request) {
   }
 }//fin metodo addCuentaPagar
 
-function addcuentaBancaria($request){
+function addcuentaBancaria($request,$entradaid){
+    $this->addMovimiento($request,$entradaid);
   //verificar si cuenta vancaria es diferente de 0
     $cuenta= CuentaBancaria::find($request->cuentaBancaria);
       $montoAnterior=$cuenta->monto;
@@ -150,6 +152,27 @@ function addcuentaBancaria($request){
 
       }
 }//fin metodo addcuentaBancaria
+
+function addMovimiento($request,$entradaid){
+  $movEntrada = new MovEntrada();
+  $movEntrada->fk_usuario = \Auth::user()->id;
+  $movEntrada->fk_rubro= $request->rubro;
+  $movEntrada->fk_cuenta= $request->cuentaBancaria;
+  $movEntrada->fk_entrada= $entradaid;
+  $movEntrada->moneda= $request->moneda;
+  $movEntrada->monto=$request->monto;
+  $movEntrada->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
+  if($movEntrada->save()){
+    $log= new Logs();
+    $log->fk_usuario= \Auth::user()->id;
+    $log->nombre_tabla="mov_entrada";
+    $log->nombre_elemento= $movEntrada->id;
+    $log->accion="Agregar Movimiento Entrada";
+    $log->fecha=date ('y-m-d H:i:s');
+    $log->save();
+
+    }
+}
 
 //funcion para disminuir cuenta por cobrar
 function addCuentaCobrarDis($request){
