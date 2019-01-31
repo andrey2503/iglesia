@@ -63,7 +63,7 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
-              @if($tipoReporte == 0 || $tipoReporte == 0 || $tipoReporte == 2)
+              @if($tipoReporte == 0 || $tipoReporte == 1 || $tipoReporte == 2)
               <table id="example" class="table table-striped">
 
 

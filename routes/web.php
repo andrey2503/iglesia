@@ -175,7 +175,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/reportesMovimientos','MovEntradaController@index');
     Route::post('/reporteMovimientos','MovEntradaController@reporteMovimientos');
-
+    Route::post('/reportegenerarMovimiento','MovEntradaController@reportegenerarMovimiento');
 
     // digitador
     Route::get('/digitador','Digitador@index');

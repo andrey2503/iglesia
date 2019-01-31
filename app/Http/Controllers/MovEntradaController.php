@@ -144,4 +144,54 @@ class MovEntradaController extends Controller
 
     }// fin de reportes
 
+    public function reportegenerarMovimiento(Request $request){
+      if($request->tipoReporte == 1){
+        $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+        $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+        $movEntrada= MovEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+        $movSalida= MovSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+          $view= view('reportes.pdfReporteMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+          unset($pdf);
+          $pdf=\App::make('dompdf.wrapper');
+          $pdf->loadhtml($view);
+          return $pdf->stream('document.pdf');
+      }
+      if($request->tipoReporte == 2){
+        $movEntrada= MovEntrada::all();
+        $movSalida= MovSalida::all();
+          $view= view('reportes.pdfReporteMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+          unset($pdf);
+          $pdf=\App::make('dompdf.wrapper');
+          $pdf->loadhtml($view);
+          return $pdf->stream('document.pdf');
+      }
+      if($request->tipoReporte == 3){
+        $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+        $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+        $rubros= Rubro::all();
+        $SumatoriaEntradas=array();
+        $SumatoriaSalidas=array();
+        foreach ($rubros as $key => $value) {
+        $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
+        array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe]);
+        $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
+        array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros]);
+        }
+          $view= view('reportes.pdfReporteMovimientos')->with(['movRubroEntrada'=>$SumatoriaEntradas,'movRubroSalida'=>$SumatoriaSalidas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+          unset($pdf);
+          $pdf=\App::make('dompdf.wrapper');
+          $pdf->loadhtml($view);
+          return $pdf->stream('document.pdf');
+      }
+      if($request->tipoReporte == 4){
+        $movEntrada= MovEntrada::all();
+        $movSalida= MovSalida::all();
+          $view= view('reportes.pdfReporteMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+          unset($pdf);
+          $pdf=\App::make('dompdf.wrapper');
+          $pdf->loadhtml($view);
+          return $pdf->stream('document.pdf');
+      }
+    }
+
 }
