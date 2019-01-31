@@ -12,10 +12,10 @@
           <option value="0">Selecione Tipo reporte</option>
           <option value="1">Movimiento Por fechas</option>
           <option value="2">Todos los Movimientos</option>
-          <option value="3">Rubros Por fechas</option>
+          <option value="3">Todos los Rubros Por fechas</option>
           <option value="4">Todos los Rubros</option>
-          <option value="5">1 Rubro Por fechas</option>
-          <option value="6">Todos los Movimientos de 1 Rubro</option>
+          <!-- <option value="5">1 Rubro Por fechas</option>
+          <option value="6">Todos los Movimientos de 1 Rubro</option> -->
       </select>
     </div>
     <div style="padding: 15px;" class="col-md-3" id="rubro1" hidden>
@@ -53,7 +53,7 @@
 
           <!-- tabla principal de usuarios -->
           @if(isset($tipoReporte))
-          <form class="" action="{{ url('/reportegenerarCP') }}" method="post" target="_blank">
+          <form class="" action="{{ url('/reportegenerarMovimiento') }}" method="post" target="_blank">
             {{ csrf_field() }}
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
             <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}">
@@ -63,7 +63,10 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
+              @if($tipoReporte <= 2)
               <table id="example" class="table table-striped">
+
+
           <thead>
             <tr>
                 <th scope="col">Tipo</th>
@@ -128,7 +131,89 @@
         @endif
 
           </tbody>
+
         </table>
+          @endif
+
+        @if($tipoReporte == 3)
+        <table id="example" class="table table-striped">
+
+
+    <thead>
+      <tr>
+        <th scope="col">Rubro</th>
+        <th scope="col">Monto Entrada</th>
+        <th scope="col">Monto Salida</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      @if(isset($movRubroEntrada) && isset($movRubroSalida))
+      @for ($i = 0; $i < count($movRubroEntrada); $i++)
+      <!-- verifica el monto que la suma sea mayor a 0 -->
+        @if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
+      <tr>
+      <td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
+      <td scope="row">{{ $movRubroEntrada[$i]['monto'] }}</td>
+      <td scope="row">{{ $movRubroSalida[$i]['monto'] }}</td>
+      </tr>
+        @endif
+
+      @endfor
+      @endif
+  <!-- fin tr sumatorias -->
+  <!-- fin tr todos los rubros -->
+    </tbody>
+
+  </table>
+        @endif
+
+        @if($tipoReporte == 4)
+        <table id="example" class="table table-striped">
+
+
+    <thead>
+      <tr>
+        <th scope="col">Tipo</th>
+        <th scope="col">Rubro</th>
+        <th scope="col">Monto </th>
+        <th scope="col">Fecha Registro</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      @if(isset($movEntrada))
+        @foreach($movEntrada as $me)
+      <tr>
+      <td scope="row">Entrada</td>
+      <td scope="row">{{ $me->rubro->nombre }}</td>
+      <td scope="row">{{ $me->monto }}</td>
+        <td scope="row">{{ $me->fechaRegistro }}</td>
+      </tr>
+
+      @endforeach
+      @endif
+
+      @if(isset($movSalida))
+        @foreach($movSalida as $ms)
+      <tr>
+      <td scope="row">Salida</td>
+      <td scope="row">{{ $ms->rubro->nombre }}</td>
+      <td scope="row">{{ $ms->monto }}</td>
+        <td scope="row">{{ $ms->fechaRegistro }}</td>
+      </tr>
+
+      @endforeach
+      @endif
+  <!-- fin tr sumatorias -->
+  <!-- fin tr todos los rubros -->
+    </tbody>
+
+  </table>
+        @endif
+
             </div>
           </div>
 </div>

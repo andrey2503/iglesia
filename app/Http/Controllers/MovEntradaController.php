@@ -7,6 +7,7 @@ use App\MovSalida;
 use Illuminate\Http\Request;
 use App\Logs;
 use Carbon\Carbon;
+use App\Rubro;
 class MovEntradaController extends Controller
 {
     /**
@@ -19,8 +20,9 @@ class MovEntradaController extends Controller
       //
       $movEntrada= MovEntrada::all();
       $movSalida= MovSalida::all();
+      $rubros= Rubro::all();
     //   dd($movEntrada);
-      return view('administrador.reportesMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida]);
+      return view('administrador.reportesMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'rubros'=>$rubros]);
     }
 
     /**
@@ -88,4 +90,58 @@ class MovEntradaController extends Controller
     {
         //
     }
+
+
+    public function reporteMovimientos(Request $request){
+    // dd($request);
+
+    if($request->tipoReporte == 1){
+    // dd($request);
+    $this->validate($request,[
+        'fechaInicio'=>'required|date',
+        'fechaFinal'=>'required|date',
+        ]);
+      $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+      $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+      $movEntrada= MovEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+      $movSalida= MovSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+      return view('administrador.reportesMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
+    }
+
+    if($request->tipoReporte == 2){
+      $movEntrada= MovEntrada::all();
+      $movSalida= MovSalida::all();
+      return view('administrador.reportesMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+
+    }
+
+    if($request->tipoReporte == 3){
+    // dd($request);
+    $this->validate($request,[
+        'fechaInicio'=>'required|date',
+        'fechaFinal'=>'required|date',
+        ]);
+      $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+      $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+      $rubros= Rubro::all();
+      $SumatoriaEntradas=array();
+      $SumatoriaSalidas=array();
+      foreach ($rubros as $key => $value) {
+      $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
+      array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe]);
+      $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
+      array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros]);
+      }
+//dd($SumatoriaEntradas);
+       return view('administrador.reportesMovimientos')->with(['movRubroEntrada'=>$SumatoriaEntradas,'movRubroSalida'=>$SumatoriaSalidas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
+    }
+    if($request->tipoReporte == 4){
+      $movEntrada= MovEntrada::all();
+      $movSalida= MovSalida::all();
+      return view('administrador.reportesMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+
+    }
+
+    }// fin de reportes
+
 }

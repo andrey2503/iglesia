@@ -174,7 +174,7 @@ Route::group(['middleware' => ['auth']], function () {
     //fin salidas
 
     Route::get('/reportesMovimientos','MovEntradaController@index');
-    Route::get('/reporteMovimientos','MovSalidaController@index');
+    Route::post('/reporteMovimientos','MovEntradaController@reporteMovimientos');
 
 
     // digitador
