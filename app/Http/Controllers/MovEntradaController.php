@@ -22,7 +22,7 @@ class MovEntradaController extends Controller
       $movSalida= MovSalida::all();
       $rubros= Rubro::all();
     //   dd($movEntrada);
-      return view('administrador.reportesMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'rubros'=>$rubros]);
+      return view('administrador.reportesMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'rubros'=>$rubros,'tipoReporte'=>0]);
     }
 
     /**

@@ -52,7 +52,7 @@
 <h3>Movimientos Bancarios</h3>
 
           <!-- tabla principal de usuarios -->
-          @if(isset($tipoReporte))
+          @if($tipoReporte>0)
           <form class="" action="{{ url('/reportegenerarMovimiento') }}" method="post" target="_blank">
             {{ csrf_field() }}
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
@@ -63,7 +63,7 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
-              @if($tipoReporte <= 2)
+              @if($tipoReporte == 0 || $tipoReporte == 0 || $tipoReporte == 2)
               <table id="example" class="table table-striped">
 
 

@@ -218,17 +218,13 @@
             </a>
           </li>
 
-          <li class="active treeview">
-            <a href="">
-                <i class="glyphicon glyphicon-file"></i><span>Reportes</span>
-             <i class="fa fa-angle-left pull-right"></i>
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+          <li>
+            <a href="{{ URL::asset('/reportesMovimientos') }}">
+              <i class="glyphicon glyphicon-file"></i> <span> Reporte de Movimientos</span> <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-red">
+                <span class="glyphicon glyphicon-file"></span>
+              </small>
             </a>
-            <ul class="treeview-menu">listaEntradasSoda
-              <!-- <li ><a href="{{ URL::asset('/reportesRubros') }}"><i class="glyphicon glyphicon-file"></i> Reporte por Rubros</a></li> -->
-              <li ><a href="{{ URL::asset('/reportesMovimientos') }}"><i class="glyphicon glyphicon-file"></i> Reporte de Movimientos</a></li>
-            </ul>
           </li>
 
       <li class="active treeview">
@@ -238,7 +234,7 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">listaEntradasSoda
+        <ul class="treeview-menu">
           <li ><a href="{{ URL::asset('/listaGruposSoda') }}"><i class="glyphicon glyphicon-tags"></i> Grupos</a></li>
           <li ><a href="{{ URL::asset('/listaEntradasSoda') }}"><i class="glyphicon glyphicon-upload"></i> Ingresos</a></li>
           <li><a href="{{ URL::asset('/listaSalidasSoda') }}"><i class="glyphicon glyphicon-download"></i> Gastos</a></li>
