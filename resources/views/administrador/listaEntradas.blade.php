@@ -3,6 +3,11 @@
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
   <h3>Entradas </h3>
+  @if(session()->has('message'))
+      <br><div class="alert alert-success">
+          {{ session()->get('message') }}
+      </div>
+  @endif
   <a href="{{ URL::asset('/nuevaEntrada') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Entrada

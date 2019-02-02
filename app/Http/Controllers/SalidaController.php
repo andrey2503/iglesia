@@ -305,13 +305,35 @@ class SalidaController extends Controller
      */
     public function destroy(Request $request)
     {
-    $salida=Salida::find($request->id);
+      $this->reversarCuenta($request);
+      $salida=Salida::find($request->id);
+    //  dd($salida);
+
     if ($salida->delete()) {
-      return redirect()->back()->with('message','Entradaa eliminada correctamente');
-    }else{
+      return redirect()->back()->with('message','Salida eliminada correctamente');
     }
+
     }// fin de destroy
-      //
+      //reversarCuenta bancaria
+      function reversarCuenta($request){
+        $movSalida = MovSalida::where('fk_salida','=',$request->id)->get();
+        //dd($movSalida);
+        $cuenta= CuentaBancaria::find($movSalida[0]['fk_cuenta']);
+        $montoAnterior=$cuenta->monto;
+        $cuenta->monto=$montoAnterior+$movSalida[0]['monto'];
+      //  dd($movSalida);
+       $movSalida[0]->delete();
+      if($cuenta->save()){
+          $log= new Logs();
+          $log->fk_usuario= \Auth::user()->id;
+          $log->nombre_tabla="cuentaBancaria";
+          $log->nombre_elemento= $cuenta->id;
+          $log->accion="Reversar Cuenta Bancaria";
+          $log->fecha=date ('y-m-d H:i:s');
+          $log->save();
+
+      }
+    }//fin reversar cuenta bancaria salida
 
 
 

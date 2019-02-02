@@ -309,14 +309,35 @@ function addCuentaPagarAu($request){
      */
     public function destroy(Request $request)
     {
-      $entrada=Entrada::find($request->id);
-      if ($entrada->delete()) {
-        return redirect()->back()->with('message','Entradaa eliminada correctamente');
-      }else{
+        $this->reversarCuenta($request);
+        $entrada=Entrada::find($request->id);
+      //  dd($salida);
 
+      if ($entrada->delete()) {
+        return redirect()->back()->with('message','Entrada eliminada correctamente');
       }
-        //
-    }
+
+      }// fin de destroy
+        //reversarCuenta bancaria
+        function reversarCuenta($request){
+          $movEntrada = MovEntrada::where('fk_entrada','=',$request->id)->get();
+          //dd($movSalida);
+          $cuenta= CuentaBancaria::find($movEntrada[0]['fk_cuenta']);
+          $montoAnterior=$cuenta->monto;
+          $cuenta->monto=$montoAnterior-$movEntrada[0]['monto'];
+        //  dd($movSalida);
+         $movEntrada[0]->delete();
+        if($cuenta->save()){
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="cuentaBancaria";
+            $log->nombre_elemento= $cuenta->id;
+            $log->accion="Reversar Cuenta Bancaria";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+
+        }
+      }//fin reversar cuenta bancaria salida
 
     public function verEntradas($id){
 // dd($cuentas);
