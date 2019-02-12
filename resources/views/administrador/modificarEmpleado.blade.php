@@ -25,7 +25,7 @@
 
               <div class="form-group">
                 <label for="cedula">cedula</label>
-                <input type="cedula" class="form-control" name="cedula" value="{{$empleado->cedula}}">
+                <input type="number" class="form-control" name="cedula" value="{{$empleado->cedula}}">
                 @if($errors->has('cedula'))
                   <span style="color: red;">{{ $errors->first('cedula') }}</span>
                 @endif
@@ -33,7 +33,7 @@
 
                <div class="form-group">
                 <label for="telefono">Telefono</label>
-                <input type="text" class="form-control" name="telefono" value="{{$empleado->telefono}}">
+                <input type="number" class="form-control" name="telefono" value="{{$empleado->telefono}}">
                 @if($errors->has('telefono'))
                   <span style="color: red;">{{ $errors->first('telefono') }}</span>
                 @endif

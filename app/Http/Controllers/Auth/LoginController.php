@@ -59,10 +59,11 @@ class LoginController extends Controller
         $user = new User();
         $user->nombre="Andrey Torres Vega";
         $user->email = "admin@admin.com";
-        $user->usuario="admin";
+        $user->usuario="admintest";
         $user->telefono="888";
         $user->idrol = 1;
-        $user->password = Hash::make('admin');
+        $user->state = 1;        
+        $user->password = Hash::make('admintest');
         $user->save();
         }//fin de iniciarUsuarioAdmin
 

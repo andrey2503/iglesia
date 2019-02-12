@@ -18,6 +18,7 @@ class CreateCuentaPagarsTable extends Migration
           $table->string('nombre');
           $table->string('moneda');
           $table->decimal('monto', 18, 2);
+          $table->date('fechaRegistro');
           $table->integer('fk_rubro')->unsigned();
           $table->foreign('fk_rubro')->references('id')->on('rubros');
           $table->rememberToken();

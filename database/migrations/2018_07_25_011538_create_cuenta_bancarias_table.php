@@ -18,6 +18,7 @@ class CreateCuentaBancariasTable extends Migration
             $table->string('nombre');
             $table->string('tipo');
             $table->string('moneda');
+            $table->date('fechaRegistro');
             $table->string('banco');
             $table->decimal('monto', 18, 2);
             $table->string('cuenta')->unique();
