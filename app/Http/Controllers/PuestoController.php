@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Puesto;
+use App\Empleado;
+use App\Salario;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Session;
@@ -19,7 +21,7 @@ class PuestoController extends Controller
         //
         $puestos= Puesto::all();
         // dd($puestos);
-        return view('administrador.puestos')->with(['puestos'=>$puestos]);
+        return view('administrador.listaPuestos')->with(['puestos'=>$puestos]);
     }
 
     /**
@@ -132,18 +134,26 @@ class PuestoController extends Controller
         //
         //
         $puesto=Puesto::find($request->id);
-        $puesto->delete();
-        if ($puesto->delete()) {
-          $log= new Logs();
-          $log->fk_usuario= \Auth::user()->id;
-          $log->nombre_tabla="puestos";
-          $log->nombre_elemento= $puesto->id;
-          $log->accion="Eliminar Puesto";
-          $log->fecha=date ('y-m-d H:i:s');
-          $log->save();
-            return redirect('/listaPuestos');
-        }
-    }
+
+        if(
+            Empleado::where('fk_puesto','=',$request->id)->get()->isNotEmpty() ||
+            Salario::where('fk_puesto','=',$request->id)->get()->isNotEmpty()
+           ){
+                    return redirect()->back()->with('messageError','Rubro "'.$puesto->nombre.' " no se puede eliminar, este rubro esta siendo usado por otros elementos');           
+           }
+           else{
+                    if ($puesto->delete()) {
+                    $log= new Logs();
+                    $log->fk_usuario= \Auth::user()->id;
+                    $log->nombre_tabla="puestos";
+                    $log->nombre_elemento= $puesto->id;
+                    $log->accion="Eliminar Puesto";
+                    $log->fecha=date ('y-m-d H:i:s');
+                    $log->save();
+                        return redirect('/listaPuestos');
+                    }
+            }
+    }// fin del destroy
 
     public function verPuesto($id){
         $puestos= Puesto::find($id);

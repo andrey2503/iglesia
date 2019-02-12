@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Rubro;
+use App\Entrada;
+use App\Salida;
+use App\MovimientoEntrada;
+use App\MovimientoSalida;
+use App\CuentaPagar;
+use App\CuentaCobrar;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Session;
@@ -18,7 +24,7 @@ class RubroController extends Controller
     {
         //
         $rubros= Rubro::all();
-        return view('administrador.rubros')->with(['rubros'=>$rubros]);
+        return view('administrador.listaRubros')->with(['rubros'=>$rubros]);
     }
 
     /**
@@ -128,19 +134,39 @@ class RubroController extends Controller
      */
     public function destroy(Request $request)
     {
-        //
+        //validacion de rubros
+        // cuenta_pagars
+        // cuenta_cobrars
+        // entradas
+        // salidas
+        // mov_entradas
+        // mov_salidas
+        // dd($request);
         $rubro=Rubro::find($request->id);
-        $rubro->delete();
-        if ($rubro->delete()) {
-          $log= new Logs();
-          $log->fk_usuario= \Auth::user()->id;
-          $log->nombre_tabla="rubros";
-          $log->nombre_elemento= $request->id;
-          $log->accion="Eliminar Rubro";
-          $log->fecha=date ('y-m-d H:i:s');
-          $log->save();
-            return redirect('/listaRubros');
-        }
+       if(
+            Salida::where('fk_rubro','=',$request->id)->get()->isNotEmpty() ||
+            Entrada::where('fk_rubro','=',$request->id)->get()->isNotEmpty() ||
+            CuentaPagar::where('fk_rubro','=',$request->id)->get()->isNotEmpty() ||
+            CuentaCobrar::where('fk_rubro','=',$request->id)->get()->isNotEmpty() ||
+            MovimientoEntrada::where('fk_rubro','=',$request->id)->get()->isNotEmpty() ||
+            MovimientoSalida::where('fk_rubro','=',$request->id)->get()->isNotEmpty()
+           ){
+        return redirect()->back()->with('messageError','Rubro "'.$rubro->nombre.' " no se puede eliminar, este rubro esta siendo usado por otros elementos');
+       }else{
+        if (
+            $rubro->delete()) {
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="rubros";
+            $log->nombre_elemento= $request->id;
+            $log->accion="Eliminar Rubro";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Rubro "'.$rubro->nombre.' " Eliminado exitosamente');
+          }
+       }
+    
+        
     }
 
     public function verrubro($id){

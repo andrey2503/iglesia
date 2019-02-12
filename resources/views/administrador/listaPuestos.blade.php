@@ -2,11 +2,20 @@
 
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
-<h3>Rubros</h3>
-
-  <a href="{{ URL::asset('/nuevoRubro') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
+<h3>Puestos</h3>
+@if(session()->has('message'))
+      <div class="alert alert-success">
+        {{ session()->get('message') }}
+      </div>
+@endif
+@if(session()->has('messageError'))
+      <div class="alert alert-danger">
+        {{ session()->get('messageError') }}
+      </div>
+@endif
+  <a href="{{ URL::asset('/nuevoPuesto') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
-          Agregar Rubro
+          Agregar Puesto
   </a>
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
@@ -18,17 +27,17 @@
                   <th>Acción</th>
                 </thead>
                 <tbody>
-                  @if(isset($rubros))
-                    @foreach($rubros as $r)
+                  @if(isset($puestos))
+                    @foreach($puestos as $p)
 
                       <tr>
-                        <td>{{ $r->nombre }}</td>
-                        <td>{{ $r->descripcion }}</td>
+                        <td>{{ $p->nombre }}</td>
+                        <td>{{ $p->descripcion }}</td>
 
                         <td>
-                         <a class="btn btn-primary btn-md" href="{{ url('/modificarRubro') }}/{{$r->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
-                         <a class="btn btn-success btn-md" href="{{ url('/verRubro') }}/{{$r->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
-                         <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$r->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
+                         <a class="btn btn-primary btn-md" href="{{ url('/modificarPuesto') }}/{{$p->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
+                         <a class="btn btn-success btn-md" href="{{ url('/verPuesto') }}/{{$p->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                         <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$p->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
                         </td>
                       </tr>
 
@@ -52,7 +61,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-        <form  action="{{ url('eliminarRubro') }}" method="post" id="eliminar">
+        <form  action="{{ url('eliminarPuesto') }}" method="post" id="eliminar">
         {{ csrf_field() }}
         <input id="rutaEliminar" type="hidden"  name="id">
         <button type="submit" href="#" class="btn btn-danger"> <span class="glyphicon glyphicon-trash"></span>   Eliminar</button>
