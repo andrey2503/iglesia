@@ -150,7 +150,8 @@ class PuestoController extends Controller
                     $log->accion="Eliminar Puesto";
                     $log->fecha=date ('y-m-d H:i:s');
                     $log->save();
-                        return redirect('/listaPuestos');
+                    return redirect()->back()->with('message','Puesto "'.$puesto->nombre.' " Eliminado exitosamente');            
+                        // return redirect('/listaPuestos');
                     }
             }
     }// fin del destroy

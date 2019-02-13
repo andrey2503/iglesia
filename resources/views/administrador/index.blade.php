@@ -3,6 +3,16 @@
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
 <h3>Usuarios</h3>
+@if(session()->has('message'))
+      <div class="alert alert-success">
+        {{ session()->get('message') }}
+      </div>
+@endif
+@if(session()->has('messageError'))
+      <div class="alert alert-danger">
+        {{ session()->get('messageError') }}
+      </div>
+@endif
   <a href="{{ URL::asset('/nuevoUsuario') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar

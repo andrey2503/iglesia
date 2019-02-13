@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\Guard;
 use Session;
 use App\User;
 use App\Logs;
+use App\MovimientoEntrada;
+use App\MovimientoSalida;
 use Hash;
 class AdminController extends Controller
 {
@@ -167,19 +169,24 @@ class AdminController extends Controller
         //
         // dd($request);
         $usuario=User::find($request->id);
-        $usuario->delete();
-        if ($usuario->delete()) {
-          $log= new Logs();
-          $log->fk_usuario= \Auth::user()->id;
-          $log->nombre_tabla="usuarios";
-          $log->nombre_elemento= $request->id;
-          $log->accion="Eliminar Usuario";
-          $log->fecha=date ('y-m-d H:i:s');
-          $log->save();
-            return redirect('/administrador');
+        if(
+            MovimientoEntrada::where('fk_usuario','=',$request->id)->get()->isNotEmpty() ||
+            MovimientoSalida::where('fk_usuario','=',$request->id)->get()->isNotEmpty()
+           ){
+                    return redirect()->back()->with('messageError','Usuario "'.$usuario->nombre.' " no se puede eliminar, este usuario esta siendo usado por otros elementos');
+                }else{
+                if ($usuario->delete()) {
+                $log= new Logs();
+                $log->fk_usuario= \Auth::user()->id;
+                $log->nombre_tabla="usuarios";
+                $log->nombre_elemento= $request->id;
+                $log->accion="Eliminar Usuario";
+                $log->fecha=date ('y-m-d H:i:s');
+                $log->save();
+                return redirect()->back()->with('message','Usuario "'.$usuario->nombre.' " elimidado exitosamente');
+                }
         }
-
-    }
+    }// fin del destroy
 
     protected function getLogout()
     {

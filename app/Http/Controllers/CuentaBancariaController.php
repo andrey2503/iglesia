@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\CuentaBancaria;
+use App\MovimientoEntrada;
+use App\MovimientoSalida;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Session;
@@ -154,18 +156,25 @@ class CuentaBancariaController extends Controller
     {
       // dd($request);
       $cuenta = CuentaBancaria::find($request->id);
-      $cuenta->delete();
-      if ($cuenta->delete()) {
-        $log= new Logs();
-        $log->fk_usuario= \Auth::user()->id;
-        $log->nombre_tabla="cuenta_bancarias";
-        $log->nombre_elemento= $request->id;
-        $log->accion="Eliminar Cuenta Bancaria";
-        $log->fecha=date ('y-m-d H:i:s');
-        $log->save();
-          return redirect('/listaCuentaBancaria');
-      }
+      
+      if(
+        MovimientoEntrada::where('fk_cuenta','=',$request->id)->get()->isNotEmpty() ||
+        MovimientoSalida::where('fk_cuenta','=',$request->id)->get()->isNotEmpty()
+       ){
+                return redirect()->back()->with('messageError','Cuenta bancaria "'.$cuenta->nombre.' " no se puede eliminar, este cuenta bancaria esta siendo usado por otros elementos');
+            }else{
+            if ($cuenta->delete()) {
+                $log= new Logs();
+                $log->fk_usuario= \Auth::user()->id;
+                $log->nombre_tabla="cuenta_bancarias";
+                $log->nombre_elemento= $request->id;
+                $log->accion="Eliminar Cuenta Bancaria";
+                $log->fecha=date ('y-m-d H:i:s');
+                $log->save();
+                return redirect()->back()->with('message','Cuenta bancaria "'.$cuenta->nombre.' " eliminado exitosamente');
+            }
     }
+    }// fin de destroy
 
 
 public function reportesCuentasBancarias(){

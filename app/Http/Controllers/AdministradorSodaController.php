@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\AdministradorSoda;
+use App\EntradaSoda;
+use App\SalidaSoda;
 use Illuminate\Http\Request;
 use App\Logs;
 class AdministradorSodaController extends Controller
@@ -134,16 +136,24 @@ class AdministradorSodaController extends Controller
     {
         //
         $gruposSoda=AdministradorSoda::find($request->id);
-        $gruposSoda->delete();
-        if ($gruposSoda->delete()) {
-          $log= new Logs();
-          $log->fk_usuario= \Auth::user()->id;
-          $log->nombre_tabla="administrador_sodas";
-          $log->nombre_elemento= $gruposSoda->id;
-          $log->accion="Eliminar Grupo Soda";
-          $log->fecha=date ('y-m-d H:i:s');
-          $log->save();
-            return redirect('/listaGruposSoda');
+       
+       if(
+            SalidaSoda::where('fk_grupo','=',$request->id)->get()->isNotEmpty() ||
+            EntradaSoda::where('fk_grupo','=',$request->id)->get()->isNotEmpty() 
+           ){
+        return redirect()->back()->with('messageError','Grupo "'.$gruposSoda->nombreGrupo.' " no se puede eliminar, este grupo esta siendo usado por otros elementos');
+       }else{
+            if ($gruposSoda->delete()) {
+            $log= new Logs();
+            $log->fk_usuario= \Auth::user()->id;
+            $log->nombre_tabla="administrador_sodas";
+            $log->nombre_elemento= $gruposSoda->id;
+            $log->accion="Eliminar Grupo Soda";
+            $log->fecha=date ('y-m-d H:i:s');
+            $log->save();
+            return redirect()->back()->with('message','Grupo "'.$gruposSoda->nombreGrupo.' " eliminado exitosamente');        
+                // return redirect('/listaGruposSoda');
+            }
         }
     }
 
