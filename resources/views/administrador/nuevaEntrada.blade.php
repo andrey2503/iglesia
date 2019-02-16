@@ -52,7 +52,7 @@ $("#cuentaPagar").hide();
          </div>
          <div class="form-group">
           <label for="user">Numero Documento</label>
-          <input type="text" step="any" class="form-control" name="documento" placeholder="# documento">
+          <input type="text" step="any" class="form-control" name="documento" placeholder="# documento" value="{{ old('documento') }}"/>
           @if($errors->has('documento'))
             <span style="color: red;">{{ $errors->first('documento') }}</span>
           @endif
@@ -61,7 +61,7 @@ $("#cuentaPagar").hide();
 
            <label for="fechaRegistro">Fecha de Registro</label>
 
-           <input type="date" class="form-control" name="fechaRegistro" >
+           <input type="date" class="form-control" name="fechaRegistro" value="{{ old('fechaRegistro') }}" />
 
            @if($errors->has('fechaRegistro'))
 
@@ -72,7 +72,7 @@ $("#cuentaPagar").hide();
          </div>
          <div class="form-group">
            <label for="email">Descripcion</label>
-           <textarea type="text" class="form-control" name="descripcion" placeholder="Descripcion.." style="max-height: 300px;min-height: 200px;"></textarea>
+           <textarea type="text" class="form-control" name="descripcion" placeholder="Descripcion.." style="max-height: 300px;min-height: 200px;">{{ old('descripcion') }}</textarea>
            @if($errors->has('descripcion'))
              <span style="color: red;">{{ $errors->first('descripcion') }}</span>
            @endif
@@ -80,7 +80,8 @@ $("#cuentaPagar").hide();
 
               <div class="form-group">
                <label for="user">Moneda</label>
-               <select class="form-control" name="moneda">
+               <select class="form-control" name="moneda" value="{{ old('moneda') }}">
+                
                  <option value="Colones">₡ Colones</option>
                    <option value="Dolares">$ Dolares</option>
                     <option value="Euros">€ Euros</option>
@@ -92,7 +93,7 @@ $("#cuentaPagar").hide();
 
               <div class="form-group">
                <label for="user">Monto</label>
-               <input type="number" step="any" class="form-control" name="monto" placeholder="Monto">
+               <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{ old('monto') }}"/>
                @if($errors->has('monto'))
                  <span style="color: red;">{{ $errors->first('monto') }}</span>
                @endif
@@ -100,7 +101,7 @@ $("#cuentaPagar").hide();
 
               <div class="form-group">
                <label for="user">Confirmar Monto</label>
-               <input type="number" step="any" class="form-control" name="confMonto" placeholder="Monto">
+               <input type="number" step="any" class="form-control" name="confMonto" placeholder="Monto" value="{{ old('confMonto') }}"/>
                @if($errors->has('confMonto'))
                  <span style="color: red;">{{ $errors->first('confMonto') }}</span>
                @endif
@@ -118,7 +119,7 @@ $("#cuentaPagar").hide();
 
              <div class="form-group" id="cuentaPagar">
               <label for="user">Nombre cuenta por Pagar</label>
-              <input type="text" step="any" class="form-control" name="cuentaPagar"  placeholder="Nombre cuenta por Pagar">
+              <input type="text" step="any" class="form-control" name="cuentaPagar"  placeholder="Nombre cuenta por Pagar" value="{{ old('cuentaPagar') }}">
               @if($errors->has('cuentaPagar'))
                 <span style="color: red;">{{ $errors->first('cuentaPagar') }}</span>
               @endif

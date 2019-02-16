@@ -1,7 +1,23 @@
 @extends('administrador.escritorio')
 
 @section('content')
+<script type="text/javascript">
 
+$( document ).ready(function() {
+
+$("#cuentaPagar").hide();
+    $("#cuentaPagar1").change(function(){
+      if ($("#cuentaPagar1").val() ==1) {
+        $("#cuentaPagar").show();
+      }else{
+        $("#cuentaPagar").hide();
+      }
+    });
+
+});
+
+
+</script>
 <div class="container row col-md-8 col-md-offset-2 ">
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
@@ -36,7 +52,7 @@
          </div>
          <div class="form-group">
           <label for="user">Numero Documento</label>
-          <input type="text" step="any" class="form-control" name="documento" placeholder="# documento">
+          <input type="text" step="any" class="form-control" name="documento" placeholder="# documento" value="{{ old('documento') }}"/>
           @if($errors->has('documento'))
             <span style="color: red;">{{ $errors->first('documento') }}</span>
           @endif
@@ -45,7 +61,7 @@
 
            <label for="fechaRegistro">Fecha de Registro</label>
 
-           <input type="date" class="form-control" name="fechaRegistro" >
+           <input type="date" class="form-control" name="fechaRegistro" value="{{ old('fechaRegistro') }}" />
 
            @if($errors->has('fechaRegistro'))
 
@@ -56,7 +72,7 @@
          </div>
          <div class="form-group">
            <label for="email">Descripcion</label>
-           <textarea type="text" class="form-control" name="descripcion" placeholder="Descripcion.." style="max-height: 300px;min-height: 200px;"></textarea>
+           <textarea type="text" class="form-control" name="descripcion" placeholder="Descripcion.." style="max-height: 300px;min-height: 200px;">{{ old('descripcion') }}</textarea>
            @if($errors->has('descripcion'))
              <span style="color: red;">{{ $errors->first('descripcion') }}</span>
            @endif
@@ -76,7 +92,7 @@
 
               <div class="form-group">
                <label for="user">Monto</label>
-               <input type="number" step="any" class="form-control" name="monto" placeholder="Monto">
+               <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{ old('monto') }}">
                @if($errors->has('monto'))
                  <span style="color: red;">{{ $errors->first('monto') }}</span>
                @endif
@@ -84,7 +100,7 @@
 
               <div class="form-group">
                <label for="user">Confirmar Monto</label>
-               <input type="number" step="any" class="form-control" name="confMonto" placeholder="Monto">
+               <input type="number" step="any" class="form-control" name="confMonto" placeholder="Monto" value="{{ old('confMonto') }}" />
                @if($errors->has('confMonto'))
                  <span style="color: red;">{{ $errors->first('confMonto') }}</span>
                @endif
@@ -92,7 +108,7 @@
 
               <div class="form-group">
                <label for="user">Generar cuenta por cobrar</label>
-               <select class="form-control" name="cuentaCobrar">
+               <select class="form-control" name="cuentaCobrar" id="cuentaPagar1">
                  <option value="0" selected> No</option>
                  <option value="1"> Si</option>
                </select>
@@ -101,9 +117,9 @@
                @endif
              </div>
 
-             <div class="form-group">
+             <div class="form-group" id="cuentaPagar">
               <label for="user">Nombre cuenta por Cobrar</label>
-              <input type="text" step="any" class="form-control" name="cuentaPagar" placeholder="Nombre cuenta por Cobrar">
+              <input type="text" step="any" class="form-control" name="cuentaPagar" placeholder="Nombre cuenta por Cobrar" value="{{ old('cuentaPagar') }}" />
               @if($errors->has('cuentaPagar'))
                 <span style="color: red;">{{ $errors->first('cuentaPagar') }}</span>
               @endif
