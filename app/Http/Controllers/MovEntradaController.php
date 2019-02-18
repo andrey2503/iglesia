@@ -95,6 +95,10 @@ class MovEntradaController extends Controller
     public function reporteMovimientos(Request $request){
     // dd($request);
 
+    if($request->tipoReporte == 0){
+      return redirect('/reportesMovimientos');
+    }//
+
     if($request->tipoReporte == 1){
     // dd($request);
     $this->validate($request,[
