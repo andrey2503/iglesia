@@ -110,7 +110,7 @@
 
             <tr>
               <td scope="row">Salida</td>
-              <td>{{ $ms->moneda }}</td>
+              <td>{{ $me->moneda }}</td>
               @if($ms->moneda == "Dolares")
               <td>$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
               @endif

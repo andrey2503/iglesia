@@ -132,7 +132,7 @@
 						@endif
 
 						<!-- verificar tipo moneda -->
-							<td>{{$me->cuenta->cuenta}}</td>
+							<td>{{$ms->cuenta->cuenta}}</td>
 							<td>{{$ms->rubro->nombre}}</td>
 							<td>{{$ms->usuario->usuario}}</td>
 							<td>{{$ms->fechaRegistro}}</td>
