@@ -110,7 +110,7 @@
 
             <tr>
               <td scope="row">Salida</td>
-              <td>{{ $me->moneda }}</td>
+              <td>{{ $ms->moneda }}</td>
               @if($ms->moneda == "Dolares")
               <td>$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
               @endif
@@ -122,7 +122,7 @@
               @endif
 
               <!-- verificar tipo moneda -->
-                <td>{{$me->cuenta->cuenta}}</td>
+                <td>{{$ms->cuenta->cuenta}}</td>
                 <td>{{$ms->rubro->nombre}}</td>
                 <td>{{$ms->usuario->nombre}}</td>
                 <td>{{$ms->fechaRegistro}}</td>
