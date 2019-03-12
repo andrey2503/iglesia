@@ -7,18 +7,23 @@
     {{ csrf_field() }}
 
     <div style="padding: 15px;" class="col-md-3">
-      <label for="user">Tipo de Reporte:</label>
+      <label for="user">Cuentas</label>
       <select class="form-control" name="tipoReporte" id="tipoReporte">
-          <option value="0">Selecione Tipo reporte</option>
-          <option value="1">Por fechas</option>
-          <option value="2">Todo</option>
+        @if(isset($cuentas))
+        <option value="0">Selecione Tipo reporte</option>        
+          @foreach($cuentas as $c)
+          <option value="{{ $c->id }}">{{ $c->nombre }}</option>
+          @endforeach
+        @endif
       </select>
     </div>
+    
+
     <div style="padding: 15px;" class="col-md-3" hidden id="fInicio">
       <div class="form-group">
        <label for="user">Fecha Inicio:</label>
        <input type="date" step="any" class="form-control" name="fechaInicio"   placeholder="Fecha Inicial">
-      </div>
+    </div>
 
     </div>
     <div style="padding: 15px;" class="col-md-3" hidden id="fFin">
@@ -29,7 +34,7 @@
     </div>
       <div class="col-md-3">
         <div class="form-group"  style="margin-top: 39px;">
-
+        <input type="hidden" id="titulo" name="titulo">
         <button href="#" type="submit" class="btn btn-info" id="idconsultar">Consultar</button>
       </div>
     </div>
@@ -38,8 +43,9 @@
 </div>
 <div class="container row col-md-12 contenedor-usuario">
 
-
-<h3>Cuentas Bancarias</h3>
+@if(isset($titulo))
+<h3>{{ $titulo }}</h3>
+@endif
 
           <!-- tabla principal de usuarios -->
           @if(isset($tipoReporte))
@@ -53,50 +59,113 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
-              <table class="table table-striped">
-          <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-              <th scope="col"># Cuenta</th>
-              <th scope="col">Banco</th>
-              <th scope="col">Tipo</th>
-              <th scope="col">Moneda</th>
-              <th scope="col">Monto</th>
-              <th scope="col">Fecha Registro</th>
-              <th scope="col">Datos Actualizacion</th>
-            </tr>
-          </thead>
-          <tbody>
-            @php $i=0;
-            @endphp
-            @if(isset($cuentas))
-              @foreach($cuentas as $c)
-              @php
-              $i =   $c->monto  + $i
-              @endphp
-            <tr>
-              <td scope="row">{{ $c->nombre }}</td>
-              <th scope="row">{{ $c->cuenta }}</th>
-              <td>{{$c->banco}}</td>
-              <td>{{ $c->tipo }}</td>
-              <td>{{ $c->moneda }}</td>
-              @if($c->moneda == "Dolares")
-              <td>$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
-              @endif
-              @if($c->moneda == "Colones")
-              <td>₡ {{ number_format($c->monto, 2, ' ', ',') }}</td>
-              @endif
-              @if($c->moneda == "Euros")
-              <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
-              @endif
-              <!-- verificar tipo moneda -->
-                <td>{{$c->fechaRegistro}}</td>
-                <td>{{$c->updated_at}}</td>
-            </tr>
-            @endforeach
-          @endif
-          </tbody>
-        </table>
+            @if(isset($mov_entrada) || isset($mov_salida))
+              <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th scope="col">Movimiento</th>                  
+                    <th scope="col">Rubro</th>                  
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Cantidad</th>                    
+                    <th scope="col">Fecha registro</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                  @if(isset($mov_entrada))
+                    @foreach($mov_entrada as $me)
+                    <tr>
+                      <!-- <th scope="row">{{ $me->cuenta }}</th> -->
+                      <th scope="row">Entrada</th>
+                      <td>{{ $me->rubro->nombre }}</td>                      
+                      <td>{{ $me->moneda }}</td>
+                      @if($me->moneda == "Dolares")
+                      <td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      @if($me->moneda == "Colones")
+                      <td class="text-right">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      @if($me->moneda == "Euros")
+                      <td class="text-right">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      <!-- verificar tipo moneda -->
+                        <td>{{$me->fechaRegistro}}</td>
+                    </tr>
+                    @endforeach
+                  @endif
+
+                   @if(isset($mov_salida))
+                    @foreach($mov_salida as $ms)
+                    <tr>
+                      <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
+                      <th scope="row">Salida</th>    
+                      <td>{{ $me->rubro->nombre }}</td>                                                              
+                      <td>{{ $ms->moneda }}</td>
+                      @if($ms->moneda == "Dolares")
+                      <td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      @if($ms->moneda == "Colones")
+                      <td class="text-right">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      @if($ms->moneda == "Euros")
+                      <td class="text-right">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      <!-- verificar tipo moneda -->
+                        <td>{{$ms->fechaRegistro}}</td>
+                    </tr>
+                    @endforeach
+                  @endif
+
+                  </tbody>
+              </table>
+            @endif
+
+            @if(!isset($mov_entrada))
+              <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                      <th scope="col">Nombres</th>
+                    <th scope="col"># Cuenta</th>
+                    <th scope="col">Banco</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Fecha Registro</th>
+                    <th scope="col">Datos Actualizacion</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    @php $i=0;
+                    @endphp
+                    @if(isset($cuentas))
+                      @foreach($cuentas as $c)
+                      @php
+                      $i =   $c->monto  + $i
+                      @endphp
+                    <tr>
+                      <td scope="row">{{ $c->nombre }}</td>
+                      <th scope="row">{{ $c->cuenta }}</th>
+                      <td>{{$c->banco}}</td>
+                      <td>{{ $c->tipo }}</td>
+                      <td>{{ $c->moneda }}</td>
+                      @if($c->moneda == "Dolares")
+                      <td class="text-right">$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      @if($c->moneda == "Colones")
+                      <td class="text-right">₡ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      @if($c->moneda == "Euros")
+                      <td class="text-right">€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      <!-- verificar tipo moneda -->
+                        <td>{{$c->fechaRegistro}}</td>
+                        <td>{{$c->updated_at}}</td>
+                    </tr>
+                    @endforeach
+                  @endif
+                  </tbody>
+              </table>
+            @endif
+
             </div>
           </div>
 </div>
@@ -112,7 +181,7 @@
         <h4 class="modal-title">Total Cuentas Bancarias</h4>
       </div>
       <div class="modal-body">
-        <table class="table table-striped">
+        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
       <tr>
         <th scope="col"># Cuenta</th>
@@ -138,13 +207,13 @@
         <td>{{ $c->tipo }}</td>
         <td>{{ $c->moneda }}</td>
         @if($c->moneda == "Dolares")
-        <td>$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+        <td class="text-right">$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
         @if($c->moneda == "Colones")
-        <td>₡ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+        <td class="text-right">₡ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
         @if($c->moneda == "Euros")
-        <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+        <td class="text-right">€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
         <!-- verificar tipo moneda -->
         <td>{{$c->fechaRegistro}}</td>
@@ -204,10 +273,12 @@
 <script>
 $( document ).ready(function() {
     $("#tipoReporte").change(function(){
-      if ($("#tipoReporte").val()==1) {
+      var elt = document.getElementById("tipoReporte");
+      $("#titulo").attr("value",elt.options[elt.selectedIndex].text);
+      if ($("#tipoReporte").val() > 0) {
         $("#fInicio").show();
           $("#fFin").show();
-      }else if($("#tipoReporte").val()!=1){
+      }else if($("#tipoReporte").val()==0){
         $("#fInicio").hide();
           $("#fFin").hide();
       }

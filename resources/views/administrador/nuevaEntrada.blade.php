@@ -4,7 +4,10 @@
 <script type="text/javascript">
 
 $( document ).ready(function() {
-
+$("#cuentaMoneda").change(()=>{
+  let moneda=$("#cuentaMoneda").find(':selected').attr('moneda')
+  $("#validarMoneda").attr("value",moneda);
+});
 $("#cuentaPagar").hide();
     $("#cuentaPagar1").change(function(){
       if ($("#cuentaPagar1").val() ==1) {
@@ -50,6 +53,16 @@ $("#cuentaPagar").hide();
              <span style="color: red;">{{ $errors->first('rubro') }}</span>
            @endif
          </div>
+
+              <div class="form-group">
+               <label for="nombre">Nombre persona</label>
+               <input type="text" step="any" class="form-control" name="nombre" placeholder="Nombre" value="{{ old('nombre') }}"/>
+               @if($errors->has('nombre'))
+                 <span style="color: red;">{{ $errors->first('nombre') }}</span>
+               @endif
+              </div>
+
+
          <div class="form-group">
           <label for="user">Numero Documento</label>
           <input type="text" step="any" class="form-control" name="documento" placeholder="# documento" value="{{ old('documento') }}"/>
@@ -89,8 +102,11 @@ $("#cuentaPagar").hide();
                @if($errors->has('moneda'))
                  <span style="color: red;">{{ $errors->first('moneda') }}</span>
                @endif
+               @if($errors->has('validarMoneda'))
+                <span style="color: red;">La moneda debe coincidir con el tipo de cuenta bancaria</span>
+              @endif  
               </div>
-
+              
               <div class="form-group">
                <label for="user">Monto</label>
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{ old('monto') }}"/>
@@ -123,11 +139,14 @@ $("#cuentaPagar").hide();
               @if($errors->has('cuentaPagar'))
                 <span style="color: red;">{{ $errors->first('cuentaPagar') }}</span>
               @endif
+              @if($errors->has('cuentaBancaria'))
+                <span style="color: red;">{{ $errors->first('cuentaBancaria') }}</span>
+              @endif
              </div>
              <div class="form-group">
               <label for="user">Cuenta por Cobrar a Disminuir</label>
               <select class="form-control" name="cuentaCobrarD">
-                  <option value="0">Seleccione Cuenta por Cobrar</option>
+                  <option value="">Seleccione Cuenta por Cobrar</option>
                 @if(isset($cuentasCobrar))
                   @foreach($cuentasCobrar as $cpc)
                 <option value="{{ $cpc->id }}">{{ $cpc->nombre }}  //  {{ $cpc->id }}PC //   @if($cpc->moneda =="Colones" )₡ @endif
@@ -145,7 +164,7 @@ $("#cuentaPagar").hide();
             <div class="form-group">
              <label for="user">Seleccione Cuenta por Pagar a Disminuir</label>
              <select class="form-control" name="cuentaPagarD">
-                 <option value="0">Seleccione Cuenta por Cobrar</option>
+                 <option value="">Seleccione Cuenta por Cobrar</option>
                @if(isset($cuentasPagar))
                  @foreach($cuentasPagar as $cpp)
                  <option value="{{ $cpp->id }}">{{ $cpp->nombre }}  //  {{ $cpp->id }}PC //   @if($cpp->moneda =="Colones" )₡ @endif
@@ -160,10 +179,10 @@ $("#cuentaPagar").hide();
              @endif
            </div>
 
-           <div class="form-group">
+           <!-- <div class="form-group">
             <label for="user">Cuenta por Pagar a Aumentar</label>
             <select class="form-control" name="cuentaPagarA">
-                <option value="0">Selecione Cuenta por Cobrar</option>
+                <option value="">Selecione Cuenta por Cobrar</option>
                 @if(isset($cuentasPagar))
                   @foreach($cuentasPagar as $cpp)
                 <option value="{{ $cpp->id }}">{{ $cpp->nombre }}  //  {{ $cpp->id }}PC //   @if($cpp->moneda =="Colones" )₡ @endif
@@ -173,19 +192,19 @@ $("#cuentaPagar").hide();
                 @endforeach
               @endif
             </select>
-            @if($errors->has('cuentaPagarA'))
-              <span style="color: red;">{{ $errors->first('cuentaPagarA') }}</span>
-            @endif
-          </div>
+              @if($errors->has('cuentaPagarA'))
+                <span style="color: red;">{{ $errors->first('cuentaPagarA') }}</span>
+              @endif
+            </div> -->
 
 
              <div class="form-group">
               <label for="user">Asignar Cuenta Bancaria</label>
-              <select class="form-control" name="cuentaBancaria">
-                  <option value="0">Sin Cuenta Bancaria Asignada</option>
+              <select class="form-control" name="cuentaBancaria" id="cuentaMoneda">
+                  <option value="">Sin Cuenta Bancaria Asignada</option>
                 @if(isset($cuentas))
                   @foreach($cuentas as $c)
-                <option value="{{ $c->id }}">{{ $c->cuenta }}  //  {{ $c->moneda }} //  {{ $c->nombre }}</option>
+                <option value="{{ $c->id }}" moneda="{{ $c->moneda }}">{{ $c->cuenta }}  //  {{ $c->moneda }} //  {{ $c->nombre }}</option>
                   @endforeach
                 @endif
               </select>
@@ -193,6 +212,22 @@ $("#cuentaPagar").hide();
                 <span style="color: red;">{{ $errors->first('cuentaBancaria') }}</span>
               @endif
             </div>
+              <input name="validarMoneda" type="hidden" id="validarMoneda" value="0"/>
+
+            <!-- <div class="form-group">
+              <label for="user">Asignar Cuenta Bancaria</label>
+              <select class="form-control" name="cuentaBancaria" type="hidden">
+                  <option value="">Sin Cuenta Bancaria Asignada</option>
+                @if(isset($cuentas))
+                  @foreach($cuentas as $c)
+                <option value="{{ $c->moneda }}">{{ $c->cuenta }}  //  {{ $c->moneda }} //  {{ $c->nombre }}</option>
+                  @endforeach
+                @endif
+              </select>
+              @if($errors->has('cuentaBancaria'))
+                <span style="color: red;">{{ $errors->first('cuentaBancaria') }}</span>
+              @endif
+            </div> -->
 
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Entrada</button>

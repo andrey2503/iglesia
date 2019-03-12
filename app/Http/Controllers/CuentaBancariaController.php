@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\CuentaBancaria;
 use App\MovimientoEntrada;
 use App\MovimientoSalida;
+// use App\MovEntrada;
+// use App\MovSalida;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Session;
@@ -178,9 +180,8 @@ class CuentaBancariaController extends Controller
 
 
 public function reportesCuentasBancarias(){
-//  $cuentas= CuentaBancaria::all();
-
-return view('administrador.reportesCuentasBancarias');
+    $cuentas= CuentaBancaria::all();
+    return view('administrador.reportesCuentasBancarias')->with(['cuentas'=>$cuentas]);
 }
 
     public function vercuenta($id){
@@ -190,23 +191,71 @@ return view('administrador.reportesCuentasBancarias');
 
 public function reportesConsultar(Request $request){
 // dd($request);
-if($request->tipoReporte == 2){
-  $cuentas= CuentaBancaria::all();
-  return view('administrador.reportesCuentasBancarias')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
-
+if($request->tipoReporte==0){
+    return redirect('/reportesCuentasBancarias');
 }
-if($request->tipoReporte == 1){
 // dd($request);
-$this->validate($request,[
-    'fechaInicio'=>'required|date',
-    'fechaFinal'=>'required|date',
+if($request->tipoReporte != 0){
+    $this->validate($request,[
+            'fechaInicio'=>'required|date',
+            'fechaFinal'=>'required|date',
+            'tipoReporte'=>'required'            
     ]);
   $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
   $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
-  $cuentas= CuentaBancaria::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-  // dd($cuentas);
-  return view('administrador.reportesCuentasBancarias')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
+  $cuentas= CuentaBancaria::all();
+  $mov_entrada=MovimientoEntrada::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+  $mov_salida=MovimientoSalida::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+  
+  return view('administrador.reportesCuentasBancarias')->with([
+      'cuentas'=>$cuentas,
+      'tipoReporte'=>$request->tipoReporte,
+      'fechaInicio'=>'',
+      'fechaFinal'=>'',
+      'titulo'=>$request->titulo,
+      'mov_salida'=>$mov_salida,
+      'mov_entrada'=>$mov_entrada
+      ]);
+
 }
+// if($request->tipoReporte == 1){
+// // dd($request);
+// $this->validate($request,[
+//     'fechaInicio'=>'required|date',
+//     'fechaFinal'=>'required|date',
+//     ]);
+//   $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+//   $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+//   $cuentas= CuentaBancaria::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+//   // dd($cuentas);
+//   return view('administrador.reportesCuentasBancarias')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal,'titulo'=>$request->titulo]);
+// }
+
+// if($request->tipoReporte == 3){
+//     // dd($request);
+//     // $this->validate($request,[
+//     //     'fechaInicio'=>'required|date',
+//     //     'fechaFinal'=>'required|date',
+//     //     ]);
+//     //   $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+//     //   $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+//       $cuentas= CuentaBancaria::where('tipo','=','Corriente')->get();
+//       // dd($cuentas);
+//       return view('administrador.reportesCuentasBancarias')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'','titulo'=>$request->titulo]);
+//     }
+
+    // if($request->tipoReporte == 4){
+    //     // dd($request);
+    //     // $this->validate($request,[
+    //     //     'fechaInicio'=>'required|date',
+    //     //     'fechaFinal'=>'required|date',
+    //     //     ]);
+    //     //   $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+    //     //   $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+    //       $cuentas= CuentaBancaria::where('tipo','=','Ahorros')->get();
+    //       // dd($cuentas);
+    //       return view('administrador.reportesCuentasBancarias')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'','titulo'=>$request->titulo]);
+    // }
 
 }// fin de reportes
 

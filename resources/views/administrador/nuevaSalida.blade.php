@@ -5,6 +5,12 @@
 
 $( document ).ready(function() {
 
+$("#cuentaMoneda").change(()=>{
+  let moneda=$("#cuentaMoneda").find(':selected').attr('moneda')
+  $("#validarMoneda").attr("value",moneda);
+  alert(moneda);
+});
+
 $("#cuentaPagar").hide();
     $("#cuentaPagar1").change(function(){
       if ($("#cuentaPagar1").val() ==1) {
@@ -50,6 +56,15 @@ $("#cuentaPagar").hide();
              <span style="color: red;">{{ $errors->first('rubro') }}</span>
            @endif
          </div>
+
+          <div class="form-group">
+               <label for="nombre">Nombre persona</label>
+               <input type="text" step="any" class="form-control" name="nombre" placeholder="Nombre" value="{{ old('nombre') }}"/>
+               @if($errors->has('nombre'))
+                 <span style="color: red;">{{ $errors->first('nombre') }}</span>
+               @endif
+          </div>
+
          <div class="form-group">
           <label for="user">Numero Documento</label>
           <input type="text" step="any" class="form-control" name="documento" placeholder="# documento" value="{{ old('documento') }}"/>
@@ -88,6 +103,9 @@ $("#cuentaPagar").hide();
                @if($errors->has('moneda'))
                  <span style="color: red;">{{ $errors->first('moneda') }}</span>
                @endif
+               @if($errors->has('validarMoneda'))
+                <span style="color: red;">La moneda debe coincidir con el tipo de cuenta bancaria</span>
+              @endif  
               </div>
 
               <div class="form-group">
@@ -128,7 +146,7 @@ $("#cuentaPagar").hide();
              <div class="form-group">
               <label for="user">Aplicar a cuenta por pagar</label>
               <select class="form-control" name="cuentaPagar">
-                  <option value="0">No</option>
+                  <option value="">No</option>
                 @if(isset($cuentasPagar))
                   @foreach($cuentasPagar as $cp)
                 <option value="{{ $cp->id }}">{{ $cp->nombre }} // {{ $cp->monto }}  </option>
@@ -143,11 +161,11 @@ $("#cuentaPagar").hide();
 
              <div class="form-group">
               <label for="user">Asignar Cuenta Bancaria</label>
-              <select class="form-control" name="cuentaBancaria">
-                  <option value="0">Sin Cuenta Bancaria Asignada</option>
+              <select class="form-control" name="cuentaBancaria" id="cuentaMoneda">
+                  <option value="">Sin Cuenta Bancaria Asignada</option>
                 @if(isset($cuentas))
                   @foreach($cuentas as $c)
-                <option value="{{ $c->id }}">{{ $c->cuenta }}  // {{ $c->nombre }} // {{ $c->moneda }}</option>
+                <option value="{{ $c->id }}" moneda="{{ $c->moneda }}">{{ $c->cuenta }}  // {{ $c->nombre }} // {{ $c->moneda }}</option>
                   @endforeach
                 @endif
               </select>
@@ -155,6 +173,7 @@ $("#cuentaPagar").hide();
                 <span style="color: red;">{{ $errors->first('cuentaBancaria') }}</span>
               @endif
             </div>
+            <input name="validarMoneda" type="hidden" id="validarMoneda" value="0"/>            
 
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Salida</button>

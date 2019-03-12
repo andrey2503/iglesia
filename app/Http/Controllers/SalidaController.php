@@ -52,12 +52,15 @@ class SalidaController extends Controller
             'monto'=>'required',
             'confMonto'=>'required',
             'cuentaBancaria'=>'required',
-            'documento'=>'required',
+            'documento'=>'required|unique:salidas',
             'monto'=>'required|same:confMonto',
-              'fechaRegistro'=>'required'
+            'fechaRegistro'=>'required',
+            'nombre'=>'required',
+            'validarMoneda'=>'required|same:moneda'     
           ]);
 
           $salidas = new Salida();
+          $salidas->nombre = $request->nombre;
           $salidas->descripcion = $request->descripcion;
           $salidas->fk_rubro= $request->rubro;
           $salidas->moneda= $request->moneda;

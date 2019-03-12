@@ -56,16 +56,19 @@ class EntradaController extends Controller
           'rubro'=>'required',
           'descripcion'=>'required',
           'moneda'=>'required',
-          'monto'=>'required',
           'confMonto'=>'required',
           'cuentaBancaria'=>'required',
-          'documento'=>'required',
+          'documento'=>'required|unique:entradas',
           'monto'=>'required|same:confMonto',
-          'fechaRegistro'=>'required'
+          'fechaRegistro'=>'required',
+          'nombre'=>'required',          
+          'validarMoneda'=>'required|same:moneda'
         ]);
 
+        
         $entradas = new Entrada();
         $entradas->descripcion = $request->descripcion;
+        $entradas->nombre = $request->nombre;        
         $entradas->fk_rubro= $request->rubro;
         $entradas->moneda= $request->moneda;
         $entradas->monto=$request->monto;
@@ -82,7 +85,7 @@ class EntradaController extends Controller
           $log->save();
           //return redirect()->back()->with('message','Entrada '.$entradas->descripcion.' creada correctamente');
         }
-
+  
         if ($request->cuentaPagar1 !=0) {
 
         //  dd($request);
@@ -101,11 +104,13 @@ class EntradaController extends Controller
         //  dd($request);
           $this->addCuentaPagarDis($request);
         }
-        if ($request->cuentaPagarA !=0) {
+        // cuentaPagarA
+        // se elimino campo cuenta pagar del formulario
+        // if ($request->cuentaPagarA !=0) {
 
-        //  dd($request);
-          $this->addCuentaPagarAu($request);
-        }
+        // //  dd($request);
+        //   $this->addCuentaPagarAu($request);
+        // }
 
         return redirect()->back()->with('message','Entrada '.$request->descripcion.' creada correctamente');
       }//fin metodo store

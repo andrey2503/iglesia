@@ -49,7 +49,8 @@ class CuentaPagarController extends Controller
             'nombre'=>'required',
             'rubro'=>'required',
             'moneda'=>'required',
-            'monto'=>"required",
+            'monto'=>"required|integer",
+            'confirmar_monto'=>'required|same:monto',
             'fechaRegistro'=>'required'
             ]);
         $cuentasPagar= new CuentaPagar();
@@ -170,6 +171,11 @@ class CuentaPagarController extends Controller
 
 
     public function reportesConsultar(Request $request){
+
+    if($request->tipoReporte==0){
+        return redirect('/reportesPP');
+    }
+
     // dd($request);
     if($request->tipoReporte == 2){
       $cuentasPagar=CuentaPagar::all();

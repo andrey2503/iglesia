@@ -171,6 +171,9 @@ class CuentaCobrarController extends Controller
 
 
     public function reportesConsultarCobrar(Request $request){
+        if($request->tipoReporte==0){
+            return redirect('/reportesPC');
+        }
     // dd($request);
     if($request->tipoReporte == 2){
       $cuentasCobrar= CuentaCobrar::all();
