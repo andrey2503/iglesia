@@ -86,7 +86,7 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
-              @if($tipoReporte == 0  || $tipoReporte == 4)
+              @if($tipoReporte == 0  || $tipoReporte == 4 || $tipoReporte == 3)
               <table id="example" class="table table-striped">
                   <thead>
                     <tr>
@@ -159,88 +159,7 @@
         <!-- Suma de todos los valores -->
           @endif
 
-        @if($tipoReporte == 3 )
-        <table id="example" class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Rubro</th>
-              <th scope="col">Monto Entrada</th>
-              <th scope="col">Fecha registro</th>
-              
-
-            </tr>
-          </thead>
-          <tbody>
-
-            @if(isset($movEntrada))
-            <!-- verifica el monto que la suma sea mayor a 0 -->
-            @foreach($movEntrada as $me)
-            <tr>
-              <td scope="row" >{{ $me->rubro->nombre }}</td>
-              <td scope="row" class="text-right">{{ $me->monto }}</td>
-              <td scope="row" class="text-right">{{ $me->fechaRegistro }}</td>
-            </tr>
-            @endforeach
-            @endif
-
-            @if( isset($movSalida))
-            @foreach($movSalida as $ms)
-            <tr>
-              <td scope="row" >{{ $ms->rubro->nombre }}</td>
-              <td scope="row" class="text-right">{{ $ms->monto }}</td>
-              <td scope="row" class="text-right">{{ $ms->fechaRegistro }}</td>
-            </tr>
-            @endforeach
-            @endif
             
-        <!-- fin tr sumatorias -->     
-        @endif
-
-
-
-
-
-            @if($tipoReporte == 4)
-              <table id="example" class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">Tipo</th>
-                      <th scope="col">Rubro</th>
-                      <th scope="col">Monto </th>
-                      <th scope="col">Fecha Registro</th>
-
-                    </tr>
-                  </thead>
-            <tbody>
-
-            @if(isset($movEntrada))
-              @foreach($movEntrada as $me)
-            <tr>
-            <td scope="row">Entrada</td>
-            <td scope="row">{{ $me->rubro->nombre }}</td>
-            <td scope="row" class="text-right">{{ $me->monto }}</td>
-              <td scope="row">{{ $me->fechaRegistro }}</td>
-            </tr>
-
-            @endforeach
-            @endif
-
-            @if(isset($movSalida))
-              @foreach($movSalida as $ms)
-              <tr>
-                <td scope="row">Salida</td>
-                <td scope="row">{{ $ms->rubro->nombre }}</td>
-                <td scope="row" class="text-right">{{ $ms->monto }}</td>
-                <td scope="row">{{ $ms->fechaRegistro }}</td>
-              </tr>
-            @endforeach
-            @endif
-  <!-- fin tr sumatorias -->
-  <!-- fin tr todos los rubros -->
-    </tbody>
-
-  </table>
-        @endif
 
           @if($tipoReporte==1 || $tipoReporte==2)
               <table id="example" class="table table-striped">
@@ -295,8 +214,8 @@
               </tr>      
               <tr>
                 <td>Neto</td>
-                <td style="color:green">@if( $sumaColonesS > $sumaColonesE){{ $sumaColonesS }}@endif</td>
-                <td style="color:red">@if( $sumaColonesS < $sumaColonesE) {{ $sumaColonesE  }}@endif</td>
+                <td style="color:green">@if( $sumaColonesS > $sumaColonesE){{ $sumaColonesS-$sumaColonesE }}@endif</td>
+                <td style="color:red">@if( $sumaColonesS < $sumaColonesE) {{ $sumaColonesE-$sumaColonesS  }}@endif</td>
               </tr>                      
               </table>
               
