@@ -37,7 +37,7 @@
       <select name="filtroMoneda" class="form-control">
         <option value="Colones">Colones</option>
         <option value="Dolares">Dolares</option>
-        <option value="Euros">Euros</option>        
+        <option value="Euros">Euros</option>
       </select>
       </div>
     </div>
@@ -80,7 +80,7 @@
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
             <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}">
             <input type="hidden" name="fechaFinal" value="{{$fechaFinal}}">
-            <input type="hidden" name="filtroMoneda" value="{{$moneda}}">            
+            <input type="hidden" name="filtroMoneda" value="{{$moneda}}">
             <button href="#" target="_blank" type="submit"  class="btn btn-warning">Generar</button>
           </form>
           @endif
@@ -155,11 +155,11 @@
 
         </table>
         <!-- Datos de los reportes generales -->
-        
+
         <!-- Suma de todos los valores -->
           @endif
 
-            
+
 
           @if($tipoReporte==1 || $tipoReporte==2)
               <table id="example" class="table table-striped">
@@ -168,8 +168,8 @@
                     <th scope="col">Rubro</th>
                     <th scope="col">Monto Entrada</th>
                     <th scope="col">Monto Salida</th>
-                    <th scope="col">Moneda</th>   
-                  
+                    <th scope="col">Moneda</th>
+
                   </tr>
                 </thead>
               <tbody>
@@ -182,7 +182,7 @@
                 <td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
                 <td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
                 <td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
-                <td scope="row" >{{ $movRubroSalida[$i]['moneda'] }}</td>      
+                <td scope="row" >{{ $movRubroSalida[$i]['moneda'] }}</td>
                 </tr>
                   @endif
 
@@ -194,41 +194,41 @@
             <br/>
             <br/>
             <br/>
-            
+
             <table class="table">
               <th></th>
-              <th>Salida </th>
+              <th>Entrada </th>
               <!-- <th>Salida Dolares</th>
               <th>Salida Euros</th> -->
-              <th>Entrada </th>
+              <th>Salida </th>
               <!-- <th>Entrada Dolares</th>
               <th>Entrada Euros</th>    -->
               <tr>
                 <td>Todo general</td>
-                <td>{{ $sumaColonesS }}</td>
+                <td>₡ {{ number_format($sumaColonesS, 2, ' ', ',') }}</td>
                 <!-- <td>{{ $sumaDolaresS }}</td>
                 <td>{{ $sumaEurosS }}</td> -->
-                <td>{{ $sumaColonesE }}</td>
+                <td>₡ {{ number_format($sumaColonesE, 2, ' ', ',') }}</td>
                 <!-- <td>{{ $sumaDolaresE }}</td>
                 <td>{{ $sumaEurosE }}</td> -->
-              </tr>      
+              </tr>
               <tr>
                 <td>Neto</td>
-                <td style="color:green">@if( $sumaColonesS > $sumaColonesE){{ $sumaColonesS-$sumaColonesE }}@endif</td>
-                <td style="color:red">@if( $sumaColonesS < $sumaColonesE) {{ $sumaColonesE-$sumaColonesS  }}@endif</td>
-              </tr>                      
+                <td style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
+                <td style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)₡ {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
+              </tr>
               </table>
-              
+
             @endif
 
 
       <!-- Reporte numero 6 por cuentas -->
-         
+
         </div>
     </div>
 </div>
 
-<!-- 
+<!--
 <div id="totalCuentas" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -307,9 +307,9 @@ $( document ).ready(function() {
       $("#titulo").attr("value",elt.options[elt.selectedIndex].text);
 
       if($("#tipoReporte").val()>0){
-        $("#fMoneda").show();          
+        $("#fMoneda").show();
       }else{
-        $("#fMoneda").hide();                    
+        $("#fMoneda").hide();
       }
 
       if ($("#tipoReporte").val()==2 ||$("#tipoReporte").val()==4) {
