@@ -35,6 +35,7 @@
                   <th>Tipo</th>
                   <th>Moneda</th>
                   <th># Cuenta</th>
+                  <th>Monto Total</th>
                   <th>Acción</th>
                 </thead>
                 <tbody>
@@ -51,6 +52,15 @@
                         <td>{{ $c->tipo }}</td>
                         <td>{{ $c->moneda }}</td>
                         <td>{{ $c->cuenta }}</td>
+                        @if($c->moneda == "Dolares")
+                        <td>$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                        @endif
+                        @if($c->moneda == "Colones")
+                        <td>₡ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                        @endif
+                        @if($c->moneda == "Euros")
+                        <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                        @endif
 
                         <td>
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarCuenta') }}/{{$c->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
