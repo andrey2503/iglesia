@@ -76,72 +76,65 @@
 			<div class="">
 				<div class="row tabla-usuarios">
 					<div class="table-responsive">
-						@if($tipoReporte == 1 || $tipoReporte == 2)
-						<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">Tipo</th>
-					<th scope="col">Monto</th>
-					<th scope="col">Cuenta</th>
-					<th scope="col">Rubro</th>
-					<th scope="col">Usuario</th>
-					<th scope="col">Fecha Registro</th>
+					@if($tipoReporte==1 || $tipoReporte==2)
+              <table id="example" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Rubro</th>
+                    <th scope="col">Monto Entrada</th>
+                    <th scope="col">Monto Salida</th>
+                    <th scope="col">Moneda</th>   
+                  
+                  </tr>
+                </thead>
+              <tbody>
 
-					</tr>
-				</thead>
-				<tbody>
-					@if(isset($movEntrada))
-						@foreach($movEntrada as $me)
+                @if(isset($movRubroEntrada) && isset($movRubroSalida))
+                @for ($i = 0; $i < count($movRubroEntrada); $i++)
+                <!-- verifica el monto que la suma sea mayor a 0 -->
+                  @if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
+                <tr>
+                <td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
+                <td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
+                <td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
+                <td scope="row" >{{ $movRubroSalida[$i]['moneda'] }}</td>      
+                </tr>
+                  @endif
 
-					<tr>
-						<td scope="row">Entrada</td>
-
-						@if($me->moneda == "Dolares")
-						<td>$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
-						@endif
-						@if($me->moneda == "Colones")
-						<td>C {{ number_format($me->monto, 2, ' ', ',') }}</td>
-						@endif
-						@if($me->moneda == "Euros")
-						<td>€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
-						@endif
-
-						<!-- verificar tipo moneda -->
-						<td>{{$me->cuenta->cuenta}}</td>
-							<td>{{$me->rubro->nombre}}</td>
-							<td>{{$me->usuario->usuario}}</td>
-							<td>{{$me->fechaRegistro}}</td>
-					</tr>
-					@endforeach
-				@endif
-<!--  segunda tabla-->
-				@if(isset($movSalida))
-					@foreach($movSalida as $ms)
-
-					<tr>
-						<td scope="row">Salida</td>
-
-						@if($ms->moneda == "Dolares")
-						<td>$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
-						@endif
-						@if($ms->moneda == "Colones")
-						<td>C {{ number_format($ms->monto, 2, ' ', ',') }}</td>
-						@endif
-						@if($ms->moneda == "Euros")
-						<td>€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
-						@endif
-
-						<!-- verificar tipo moneda -->
-							<td>{{$ms->cuenta->cuenta}}</td>
-							<td>{{$ms->rubro->nombre}}</td>
-							<td>{{$ms->usuario->usuario}}</td>
-							<td>{{$ms->fechaRegistro}}</td>
-					</tr>
-				@endforeach
-			@endif
-				</tbody>
-			</table>
-				@endif
+                @endfor
+                @endif
+            <!-- fin tr todos los rubros -->
+              </tbody>
+            </table>
+            <br/>
+            <br/>
+            <br/>
+            
+            <table class="table">
+              <th></th>
+              <th>Salida </th>
+              <!-- <th>Salida Dolares</th>
+              <th>Salida Euros</th> -->
+              <th>Entrada </th>
+              <!-- <th>Entrada Dolares</th>
+              <th>Entrada Euros</th>    -->
+              <tr>
+                <td>Todo general</td>
+                <td>{{ $sumaColonesS }}</td>
+                <!-- <td>{{ $sumaDolaresS }}</td>
+                <td>{{ $sumaEurosS }}</td> -->
+                <td>{{ $sumaColonesE }}</td>
+                <!-- <td>{{ $sumaDolaresE }}</td>
+                <td>{{ $sumaEurosE }}</td> -->
+              </tr>      
+              <tr>
+                <td>Neto</td>
+                <td style="color:green">@if( $sumaColonesS > $sumaColonesE){{ $sumaColonesS-$sumaColonesE }}@endif</td>
+                <td style="color:red">@if( $sumaColonesS < $sumaColonesE) {{ $sumaColonesE-$sumaColonesS  }}@endif</td>
+              </tr>                      
+              </table>
+              
+            @endif
 				@if($tipoReporte == 3)
 				<table id="example" class="table table-striped">
 			<thead>
