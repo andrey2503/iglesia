@@ -98,9 +98,9 @@ class MovEntradaController extends Controller
     if($request->tipoReporte == 0){
       return redirect('/reportesMovimientos');
     }//
-
+   
+    // dd($condicion);
     if($request->tipoReporte == 1){
-      // dd($request);
         $rubros= Rubro::all();
         $SumatoriaEntradas=array();
         $SumatoriaSalidas=array();
@@ -112,29 +112,39 @@ class MovEntradaController extends Controller
         $sumaDolaresE=0;
         $sumaEurosE=0;
 
-        foreach ($rubros as $key => $value) {
 
-        $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
-        $sumaColoresE+=$sumRubroe;
-        array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>$request->filtroMoneda]);
-        // $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=','Euros')->sum('monto');                
-        // $sumaEurosE+=$sumRubroe;
-        // array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>'Euros']);
-        // $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=','Dolares')->sum('monto');                
-        // $sumaDolaresE+=$sumRubroe;
-        // array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>'Dolares']);
+        $condicion="=";
+        $evaluarIdrubro=$request->rubro;
+        if($request->rubro==0 ){
+          
+          foreach ($rubros as $key => $value) {
+            $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
+            $sumaColoresE+=$sumRubroe;
+            array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>$request->filtroMoneda]);
+         
+            $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
+            $sumaColoresS+=$sumRubros;        
+            array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>$request->filtroMoneda]);
+          }// fin del for
+          // dd($SumatoriaEntradas);
+        }else{
+          
+          foreach ($rubros as $key => $value) {
+            if($evaluarIdrubro==$value->id){
+            $sumRubroe=MovEntrada::where('fk_rubro','=',$evaluarIdrubro)->where('moneda','=',$request->filtroMoneda)->sum('monto');
+            $sumaColoresE+=$sumRubroe;
+            array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>$request->filtroMoneda]);
+         
+            $sumRubros=MovSalida::where('fk_rubro','=',$evaluarIdrubro)->where('moneda','=',$request->filtroMoneda)->sum('monto');
+            $sumaColoresS+=$sumRubros;        
+            array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>$request->filtroMoneda]);
+            }
+              
+          }// fin del for
+        }//else
 
-        $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
-        $sumaColoresS+=$sumRubros;        
-        array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>$request->filtroMoneda]);
-        // $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=','Euros')->sum('monto');
-        // $sumaEurosS+=$sumRubros;        
-        // array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>'Euros']);
-        // $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=','Dolares')->sum('monto');
-        // $sumaDolaresS+=$sumRubros;        
-        // array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>'Dolares']);
+
         
-      }// fin del for
       return view('administrador.reportesMovimientos')->with([
         'movRubroEntrada'=>$SumatoriaEntradas,
         'movRubroSalida'=>$SumatoriaSalidas,
@@ -148,7 +158,8 @@ class MovEntradaController extends Controller
         'sumaColonesS'=>$sumaColoresS,
         'sumaDolaresS'=>$sumaDolaresS,
         'sumaEurosS'=>$sumaEurosS,
-        'moneda'=> $request->filtroMoneda
+        'moneda'=> $request->filtroMoneda,
+        'rubros'=>$rubros
         ]);
       
       }//reporte value 1

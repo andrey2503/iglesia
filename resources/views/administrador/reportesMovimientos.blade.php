@@ -6,7 +6,7 @@
   <form class=""  action="{{ url('/reporteMovimientos') }}" method="post" id="formreportes">
     {{ csrf_field() }}
 
-    <div style="padding: 15px;" class="col-md-3">
+    <div style="padding: 15px;" class="col-md-2">
       <label for="user">Tipo de Reporte:</label>
       <select class="form-control" name="tipoReporte" id="tipoReporte">
           <!-- <option value="0">Selecione Tipo reporte</option>
@@ -24,10 +24,13 @@
           <option value="4">Reporte detallado por fecha</option>
       </select>
     </div>
-    <div style="padding: 15px;" class="col-md-3" id="rubro1" hidden>
+    <div style="padding: 15px;" class="col-md-2" id="frubro" hidden>
       <label for="user">Rubro:</label>
-      <select class="form-control" name="rubro" id="rubro">
-          <option value="0">Selecione Rubro</option>
+      <select class="form-control" name="rubro" id="filtrorubro">
+      <option value="0">Todos</option>      
+      @foreach($rubros as $r)
+          <option value="{{$r->id}}">{{$r->nombre}}</option>
+      @endforeach
       </select>
     </div>
 
@@ -205,17 +208,19 @@
               <th>Entrada Euros</th>    -->
               <tr>
                 <td>Todo general</td>
-                <td>₡ {{ number_format($sumaColonesS, 2, ' ', ',') }}</td>
                 <!-- <td>{{ $sumaDolaresS }}</td>
                 <td>{{ $sumaEurosS }}</td> -->
                 <td>₡ {{ number_format($sumaColonesE, 2, ' ', ',') }}</td>
+                <td>₡ {{ number_format($sumaColonesS, 2, ' ', ',') }}</td>
+
                 <!-- <td>{{ $sumaDolaresE }}</td>
                 <td>{{ $sumaEurosE }}</td> -->
               </tr>
               <tr>
                 <td>Neto</td>
-                <td style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
                 <td style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)₡ {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
+                <td style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
+
               </tr>
               </table>
 
@@ -308,8 +313,9 @@ $( document ).ready(function() {
 
       if($("#tipoReporte").val()>0){
         $("#fMoneda").show();
+        $("#frubro").show();        
       }else{
-        $("#fMoneda").hide();
+        $("#frubro").hide();
       }
 
       if ($("#tipoReporte").val()==2 ||$("#tipoReporte").val()==4) {
