@@ -113,8 +113,6 @@ class MovEntradaController extends Controller
         $sumaEurosE=0;
 
 
-        $condicion="=";
-        $evaluarIdrubro=$request->rubro;
         if($request->rubro==0 ){
           
           foreach ($rubros as $key => $value) {
@@ -130,12 +128,12 @@ class MovEntradaController extends Controller
         }else{
           
           foreach ($rubros as $key => $value) {
-            if($evaluarIdrubro==$value->id){
-            $sumRubroe=MovEntrada::where('fk_rubro','=',$evaluarIdrubro)->where('moneda','=',$request->filtroMoneda)->sum('monto');
+            if($request->rubro==$value->id){
+            $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
             $sumaColoresE+=$sumRubroe;
             array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>$request->filtroMoneda]);
          
-            $sumRubros=MovSalida::where('fk_rubro','=',$evaluarIdrubro)->where('moneda','=',$request->filtroMoneda)->sum('monto');
+            $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
             $sumaColoresS+=$sumRubros;        
             array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>$request->filtroMoneda]);
             }
@@ -183,29 +181,31 @@ class MovEntradaController extends Controller
           $sumaColoresE=0;
           $sumaDolaresE=0;
           $sumaEurosE=0;
+
+          if($request->rubro==0 ){
           foreach ($rubros as $key => $value) {
   
           $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
           $sumaColoresE+=$sumRubroe;
           array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>$request->filtroMoneda]);
-          // $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=','Euros')->sum('monto');                
-          // $sumaEurosE+=$sumRubroe;
-          // array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>'Euros']);
-          // $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=','Dolares')->sum('monto');                
-          // $sumaDolaresE+=$sumRubroe;
-          // array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>'Dolares']);
-  
+        
           $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
           $sumaColoresS+=$sumRubros;        
           array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>$request->filtroMoneda]);
-          // $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=','Euros')->sum('monto');
-          // $sumaEurosS+=$sumRubros;        
-          // array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>'Euros']);
-          // $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=','Dolares')->sum('monto');
-          // $sumaDolaresS+=$sumRubros;        
-          // array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>'Dolares']);
+          }// fin del for
+        }else{
+          foreach ($rubros as $key => $value) {
+            if($request->rubro==$value->id){            
+            $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
+            $sumaColoresE+=$sumRubroe;
+            array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>$request->filtroMoneda]);
           
-        }// fin del for
+            $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
+            $sumaColoresS+=$sumRubros;        
+            array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>$request->filtroMoneda]);
+            }
+          }// fin del for
+        }//else
         return view('administrador.reportesMovimientos')->with([
           'movRubroEntrada'=>$SumatoriaEntradas,
           'movRubroSalida'=>$SumatoriaSalidas,
@@ -219,7 +219,8 @@ class MovEntradaController extends Controller
           'sumaColonesS'=>$sumaColoresS,
           'sumaDolaresS'=>$sumaDolaresS,
           'sumaEurosS'=>$sumaEurosS,
-          'moneda'=> $request->filtroMoneda
+          'moneda'=> $request->filtroMoneda,
+          'rubros'=>$rubros         
           ]);
         
         }//reporte value 1
