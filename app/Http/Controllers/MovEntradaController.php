@@ -227,8 +227,18 @@ class MovEntradaController extends Controller
 
 
     if($request->tipoReporte == 3){
-      $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda);
-      $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda);
+      $movEntrada=0;
+      $movSalida=0;
+      $rubros= Rubro::all();
+      
+      if($request->rubro==0){
+        $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda);
+        $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda);      
+      }else{
+        $movEntrada = MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$request->rubro);
+        $movSalida  = MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$request->rubro);
+      }
+      
       return view('administrador.reportesMovimientos')->with([
         'movEntrada'=>$movEntrada,
         'movSalida'=>$movSalida,
@@ -236,7 +246,10 @@ class MovEntradaController extends Controller
         'fechaInicio'=>'',
         'fechaFinal'=>'',
         'titulo'=>$request->titulo,
-        'moneda'=> $request->filtroMoneda]);
+        'moneda'=> $request->filtroMoneda,
+        'rubros'=>$rubros   
+        ]
+    );
 
     }// reporte value 3 
 
@@ -245,10 +258,21 @@ class MovEntradaController extends Controller
         'fechaInicio'=>'required|date',
         'fechaFinal'=>'required|date',
         ]);
+      $rubros= Rubro::all();        
       $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
       $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
-      $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
-      $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
+
+      $movEntrada = 0;
+      $movSalida  = 0;
+    
+      if($request->rubro==0){
+        $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
+        $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
+      } else{
+        $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->where('fk_rubro','=',$request->rubro);
+        $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->where('fk_rubro','=',$request->rubro);
+      } 
+
       return view('administrador.reportesMovimientos')->with([
         'movEntrada'=>$movEntrada,
         'movSalida'=>$movSalida,
@@ -256,7 +280,9 @@ class MovEntradaController extends Controller
         'fechaInicio'=>'',
         'fechaFinal'=>'',
         'titulo'=>$request->titulo,
-        'moneda'=> $request->filtroMoneda]);
+        'moneda'=> $request->filtroMoneda,
+        'rubros'=>$rubros   
+        ]);
 
     }// reporte value 4
 
