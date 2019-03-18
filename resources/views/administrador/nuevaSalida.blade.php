@@ -146,7 +146,8 @@ $("#cuentaPagar").hide();
              <div class="form-group">
               <label for="user">Aplicar a cuenta por pagar</label>
               <select class="form-control" name="cuentaPagar">
-                  <option value="">No</option>
+                  <option value="0">No</option>
+                  <option value="1">Si</option>                  
                 @if(isset($cuentasPagar))
                   @foreach($cuentasPagar as $cp)
                 <option value="{{ $cp->id }}">{{ $cp->nombre }} // {{ $cp->monto }}  </option>
