@@ -27,7 +27,7 @@
     <div style="padding: 15px;" class="col-md-2" id="frubro" hidden>
       <label for="user">Rubro:</label>
       <select class="form-control" name="rubro" id="filtrorubro">
-      <option value="0">Todos</option>      
+      <option value="0">Todos</option>
       @foreach($rubros as $r)
           <option value="{{$r->id}}">{{$r->nombre}}</option>
       @endforeach
@@ -163,7 +163,7 @@
           @endif
 
 
-
+<!-- consolidado -->
           @if($tipoReporte==1 || $tipoReporte==2)
               <table id="example" class="table table-striped">
                 <thead>
@@ -310,7 +310,7 @@ $( document ).ready(function() {
 
       if($("#tipoReporte").val()>0){
         $("#fMoneda").show();
-        $("#frubro").show();        
+        $("#frubro").show();
       }else{
         $("#frubro").hide();
       }
