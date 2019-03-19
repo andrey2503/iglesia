@@ -387,7 +387,7 @@ class MovEntradaController extends Controller
 
 
 
-      return view('reportes.pdfReporteConsolidado')->with([
+      $view= view('reportes.pdfReporteConsolidado')->with([
         'movRubroEntrada'=>$SumatoriaEntradas,
         'movRubroSalida'=>$SumatoriaSalidas,
         'tipoReporte'=>$request->tipoReporte,

@@ -2,13 +2,13 @@
 <html lang="es"><head>
 	<title>Reporte Cuenta bancaria</title>
 	<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head><body>
 	<style type="text/css">
 	.table-encabezado{
@@ -64,189 +64,60 @@
 	<div>
 		<?php
 		date_default_timezone_set("America/Costa_Rica");
-		 ?>
-		 @if(isset($titulo))
- 		<h3>{{ $titulo }} en moneda {{ $moneda }} </h3>
- 		@endif
-		@if(isset($fechaInicio) && isset($fechaFinal) )
+		?>
+		@if(isset($titulo))
+		<h3>{{ $titulo }} en moneda {{ $moneda }} </h3>
+		@endif
+
+		@if($fechaInicio!="" && $fechaFinal!="" )
 		<p>Desde : {{$fechaInicio}} hasta : {{ $fechaFinal }}</p>
 		@endif
-	<p>Fecha del reporte: {{ date ("d-m-Y g:i a",time())}} <br>
+		<p>Fecha del reporte: {{ date ("d-m-Y g:i a",time())}} <br>
 			Generado por: {{ Auth::user()->nombre }}</p>
 		</div>
 		<div class="">
 			<div class="">
 				<div class="row tabla-usuarios">
 					<div class="table-responsive">
-				  @if($tipoReporte==1 || $tipoReportey=2)
-              <table id="example" class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Rubro</th>
-                    <th scope="col">Monto Entrada</th>
-                    <th scope="col">Monto Salida</th>
-
-                  </tr>
-                </thead>
-              <tbody>
-
-                @if(isset($movRubroEntrada) && isset($movRubroSalida))
-                @for ($i = 0; $i < count($movRubroEntrada); $i++)
-                <!-- verifica el monto que la suma sea mayor a 0 -->
-                  @if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
-                <tr>
-                <td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
-                <td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
-                <td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
-                </tr>
+						@if($tipoReporte==1 || $tipoReporte==2)
+						<table id="example" class="table table-striped">
+							<thead>
 								<tr>
-									<td scope="row">General</td>
-									<td scope="row">entrada</td>
-									<td scope="row">salida</td>
+									<th scope="col">Rubro</th>
+									<th scope="col">Monto Entrada</th>
+									<th scope="col">Monto Salida</th>
 								</tr>
+							</thead>
+							<tbody>
+
+								@if(isset($movRubroEntrada) && isset($movRubroSalida))
+								@for ($i = 0; $i < count($movRubroEntrada); $i++)
+								<!-- verifica el monto que la suma sea mayor a 0 -->
+								@if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
+								<tr>
+									<td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
+									<td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
+									<td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
+								</tr>
+								@endif
+								@endfor
+
 								<tr>
 									<td scope="row">Monto Neto</td>
-									<td style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)₡ {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
-	                <td style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
+									<td class="text-right" style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)C {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
+									<td class="text-right" style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)C {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
 
 								</tr>
-                  @endif
-
-                @endfor
-                @endif
-            <!-- fin tr todos los rubros -->
-              
-              <th></th>
-              <th>Salida </th>
-              <!-- <th>Salida Dolares</th>
-              <th>Salida Euros</th> -->
-              <th>Entrada </th>
-              <!-- <th>Entrada Dolares</th>
-              <th>Entrada Euros</th>    -->
-              <tr>
-                <td>Todo general</td>
-                <td>{{ $sumaColonesS }}</td>
-                <!-- <td>{{ $sumaDolaresS }}</td>
-                <td>{{ $sumaEurosS }}</td> -->
-                <td>{{ $sumaColonesE }}</td>
-                <!-- <td>{{ $sumaDolaresE }}</td>
-                <td>{{ $sumaEurosE }}</td> -->
-              </tr>
-              <tr>
-                <td>Neto</td>
-                <td style="color:green">@if( $sumaColonesS > $sumaColonesE){{ $sumaColonesS-$sumaColonesE }}@endif</td>
-                <td style="color:red">@if( $sumaColonesS < $sumaColonesE) {{ $sumaColonesE-$sumaColonesS  }}@endif</td>
-              </tr>
-              </table>
-
-            @endif
-				@if($tipoReporte == 3)
-				<table id="example" class="table table-striped">
-			<thead>
-			<tr>
-				<th scope="col">Rubro</th>
-				<th scope="col">Monto Entrada</th>
-				<th scope="col">Monto Salida</th>
-
-			</tr>
-			</thead>
-			<tbody>
-				@php $totalentradas=0;$totalsalidas=0;
-				@endphp
-			@if(isset($movRubroEntrada) && isset($movRubroSalida))
-			@for ($i = 0; $i < count($movRubroEntrada); $i++)
-			<!-- verifica el monto que la suma sea mayor a 0 -->
-				@if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
-				@php
-				$totalentradas =   $movRubroEntrada[$i]['monto']  + $totalentradas;
-				$totalsalidas =   $movRubroSalida[$i]['monto']  + $totalsalidas;
-				@endphp
-			<tr>
-			<td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
-			<td scope="row">{{ $movRubroEntrada[$i]['monto'] }}</td>
-			<td scope="row">{{ $movRubroSalida[$i]['monto'] }}</td>
-			</tr>
-				@endif
-
-			@endfor
-			@endif
-			<tr>
-				<th scope="row">Totales</th>
-				<th scope="row">{{ number_format($totalentradas, 2, ' ', ',') }}</th>
-				<th scope="row">{{ number_format($totalsalidas, 2, ' ', ',') }}</th>
-			</tr>
-			<!-- fin tr sumatorias -->
-			<!-- fin tr todos los rubros -->
-			</tbody>
-
-			</table>
-				@endif
-
-				@if($tipoReporte == 4)
-				<table id="example" class="table table-striped">
+								@endif
+								<!-- fin tr todos los rubros -->
+							</tbody>
+						</table>
 
 
-			<thead>
-			<tr>
-				<th scope="col">Tipo</th>
-				<th scope="col">Rubro</th>
-				<th scope="col">Monto </th>
-				<th scope="col">Fecha Registro</th>
+						@endif
 
-			</tr>
-			</thead>
-			<tbody>
-				@php $totalentradas=0;$totalsalidas=0;
-			  @endphp
-			@if(isset($movEntrada))
-				@foreach($movEntrada as $me)
-				@php
-				$totalentradas =   $me->monto  + $totalentradas;
-				@endphp
-			<tr>
-			<td scope="row">Entrada</td>
-			<td scope="row">{{ $me->rubro->nombre }}</td>
-			<td scope="row">{{ $me->monto }}</td>
-				<td scope="row">{{ $me->fechaRegistro }}</td>
-			</tr>
 
-			@endforeach
-			@endif
-
-			@if(isset($movSalida))
-				@foreach($movSalida as $ms)
-				@php
-				$totalsalidas =   $ms->monto  + $totalsalidas;
-				@endphp
-			<tr>
-			<td scope="row">Salida</td>
-			<td scope="row">{{ $ms->rubro->nombre }}</td>
-			<td scope="row">{{ $ms->monto }}</td>
-				<td scope="row">{{ $ms->fechaRegistro }}</td>
-			</tr>
-
-			@endforeach
-			@endif
-			<tr>
-				<th scope="row">Total Entradas</th>
-				<th scope="row">{{ number_format($totalentradas, 2, ' ', ',') }}</th>
-				<th scope="row"></th>
-					<th scope="row"></th>
-			</tr>
-			<tr>
-				<th scope="row">Total Salidas</th>
-				<th scope="row">{{ number_format($totalsalidas, 2, ' ', ',') }}</th>
-					<th scope="row"></th>
-					<th scope="row"></th>
-			</tr>
-			<!-- fin tr sumatorias -->
-			<!-- fin tr todos los rubros -->
-			</tbody>
-
-			</table>
-				@endif
-
-		</div><br>
+					</div><br>
 					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
 					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>
 						Telefono y fax (506) 22370494 Apto 186-3000,Heredia Costa Rica<br>
