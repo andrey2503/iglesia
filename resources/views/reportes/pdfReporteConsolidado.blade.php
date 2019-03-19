@@ -83,8 +83,7 @@
                     <th scope="col">Rubro</th>
                     <th scope="col">Monto Entrada</th>
                     <th scope="col">Monto Salida</th>
-                    <th scope="col">Moneda</th>   
-                  
+
                   </tr>
                 </thead>
               <tbody>
@@ -97,8 +96,18 @@
                 <td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
                 <td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
                 <td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
-                <td scope="row" >{{ $movRubroSalida[$i]['moneda'] }}</td>      
                 </tr>
+								<tr>
+									<td scope="row">General</td>
+									<td scope="row">entrada</td>
+									<td scope="row">salida</td>
+								</tr>
+								<tr>
+									<td scope="row">Monto Neto</td>
+									<td style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)₡ {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
+	                <td style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
+
+								</tr>
                   @endif
 
                 @endfor
@@ -109,7 +118,7 @@
             <br/>
             <br/>
             <br/>
-            
+
             <table class="table">
               <th></th>
               <th>Salida </th>
@@ -126,14 +135,14 @@
                 <td>{{ $sumaColonesE }}</td>
                 <!-- <td>{{ $sumaDolaresE }}</td>
                 <td>{{ $sumaEurosE }}</td> -->
-              </tr>      
+              </tr>
               <tr>
                 <td>Neto</td>
                 <td style="color:green">@if( $sumaColonesS > $sumaColonesE){{ $sumaColonesS-$sumaColonesE }}@endif</td>
                 <td style="color:red">@if( $sumaColonesS < $sumaColonesE) {{ $sumaColonesE-$sumaColonesS  }}@endif</td>
-              </tr>                      
+              </tr>
               </table>
-              
+
             @endif
 				@if($tipoReporte == 3)
 				<table id="example" class="table table-striped">
