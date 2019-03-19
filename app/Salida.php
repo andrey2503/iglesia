@@ -18,4 +18,8 @@ class Salida extends Model
     {
         return $this->hasOne('App\Rubro','id','fk_rubro');
     }
+    public function movSalida()
+    {
+        return $this->hasOne('App\MovSalida','id','fk_salida');
+    }
 }

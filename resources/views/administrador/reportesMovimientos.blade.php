@@ -99,7 +99,7 @@
                       <th scope="col">Monto</th>
                       <th scope="col">Cuenta</th>
                       <th scope="col">Rubro</th>
-                      <th scope="col">Usuario</th>
+                      <th scope="col">Nombre</th>
                       <th scope="col">Fecha Registro</th>
                     </tr>
                   </thead>
@@ -124,7 +124,7 @@
               <!-- verificar tipo moneda -->
                     <td>{{$me->cuenta->cuenta}}</td>
                       <td>{{$me->rubro->nombre}}</td>
-                      <td>{{$me->usuario->nombre}}</td>
+                      <td>{{$me->entrada->descripcion}}</td>
                       <td>{{$me->fechaRegistro}}</td>
                     </tr>
             @endforeach
@@ -149,7 +149,7 @@
               <!-- verificar tipo moneda -->
                 <td>{{$ms->cuenta->cuenta}}</td>
                 <td>{{$ms->rubro->nombre}}</td>
-                <td>{{$ms->usuario->nombre}}</td>
+                <td>{{$ms->salida->descripcion}}</td>
                 <td>{{$ms->fechaRegistro}}</td>
             </tr>
             @endforeach

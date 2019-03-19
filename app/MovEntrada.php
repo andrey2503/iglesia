@@ -26,4 +26,9 @@ class MovEntrada extends Model
     {
         return $this->hasOne('App\CuentaBancaria','id','fk_cuenta');
     }
+    public function entrada()
+    {
+      return $this->hasOne('App\Entrada','id','fk_entrada');
+        // return $this->hasMany('App\Rubro','fk_entrada');
+    }
 }

@@ -18,4 +18,8 @@ class Entrada extends Model
     {
         return $this->hasOne('App\Rubro','id','fk_rubro');
     }
+    public function movEntrada()
+    {
+        return $this->hasOne('App\MovEntrada','id','fk_entrada');
+    }
 }

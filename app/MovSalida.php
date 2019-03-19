@@ -26,4 +26,9 @@ class MovSalida extends Model
     {
         return $this->hasOne('App\CuentaBancaria','id','fk_cuenta');
     }
+    public function salida()
+    {
+        return $this->hasOne('App\Salida','id','fk_salida');
+        // return $this->hasMany('App\Rubro','fk_salida');
+    }
 }
