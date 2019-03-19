@@ -15,12 +15,13 @@ class CreateSalidasTable extends Migration
     {
         Schema::create('salidas', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('nombre'); 
+          $table->string('nombre');
           $table->string('descripcion');
           $table->string('moneda');
           $table->string('documento');
           $table->decimal('monto', 18, 2);
           $table->date('fechaRegistro');
+          $table->integer('estado');
           $table->integer('fk_rubro')->unsigned();
           $table->foreign('fk_rubro')->references('id')->on('rubros');
           $table->rememberToken();
