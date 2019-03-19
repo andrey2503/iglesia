@@ -163,7 +163,7 @@
           @endif
 
 
-<!-- consolidado -->
+
           @if($tipoReporte==1 || $tipoReporte==2)
               <table id="example" class="table table-striped">
                 <thead>
@@ -182,10 +182,10 @@
                 <!-- verifica el monto que la suma sea mayor a 0 -->
                   @if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
                 <tr>
-                  <td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
-                  <td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
-                  <td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
-                  <td scope="row" >{{ $movRubroSalida[$i]['moneda'] }}</td>
+                <td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
+                <td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
+                <td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
+                <td scope="row" >{{ $movRubroSalida[$i]['moneda'] }}</td>
                 </tr>
                   @endif
 
@@ -208,10 +208,13 @@
               <th>Entrada Euros</th>    -->
               <tr>
                 <td>Todo general</td>
-                
+                <!-- <td>{{ $sumaDolaresS }}</td>
+                <td>{{ $sumaEurosS }}</td> -->
                 <td>₡ {{ number_format($sumaColonesE, 2, ' ', ',') }}</td>
                 <td>₡ {{ number_format($sumaColonesS, 2, ' ', ',') }}</td>
 
+                <!-- <td>{{ $sumaDolaresE }}</td>
+                <td>{{ $sumaEurosE }}</td> -->
               </tr>
               <tr>
                 <td>Neto</td>

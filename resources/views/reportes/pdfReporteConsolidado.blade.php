@@ -65,10 +65,12 @@
 		<?php
 		date_default_timezone_set("America/Costa_Rica");
 		 ?>
-		<h3>Reporte de Cuenta bancaria</h3>
-		@if($tipoReporte ==1)
-	<p>Fecha de Registro: Desde: {{ date('d-m-Y', strtotime($fechaInicio))}} Hasta: {{ date('d-m-Y', strtotime($fechaFinal))}}<br>
-	@endif
+		 @if(isset($titulo))
+ 		<h3>{{ $titulo }} en moneda {{ $moneda }} </h3>
+ 		@endif
+		@if(isset($fechaInicio) && isset($fechaFinal) )
+		<p>Desde : {{$fechaInicio}} hasta : {{ $fechaFinal }}</p>
+		@endif
 	<p>Fecha del reporte: {{ date ("d-m-Y g:i a",time())}} <br>
 			Generado por: {{ Auth::user()->nombre }}</p>
 		</div>
@@ -76,7 +78,7 @@
 			<div class="">
 				<div class="row tabla-usuarios">
 					<div class="table-responsive">
-					@if($tipoReporte==1 || $tipoReporte==2)
+				  @if($tipoReporte==1)
               <table id="example" class="table table-striped">
                 <thead>
                   <tr>
