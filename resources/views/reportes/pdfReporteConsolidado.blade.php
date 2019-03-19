@@ -66,7 +66,7 @@
 		date_default_timezone_set("America/Costa_Rica");
 		?>
 		@if(isset($titulo))
-		<h3>{{ $titulo }} en moneda {{ $moneda }} </h3>
+		<h3>{{ $titulo }} en {{ $moneda }} </h3>
 		@endif
 
 		@if($fechaInicio!="" && $fechaFinal!="" )
@@ -114,6 +114,74 @@
 						</table>
 
 
+						@endif
+
+						@if($tipoReporte == 0  || $tipoReporte == 4 || $tipoReporte == 3)
+						<table id="example" class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">Tipo</th>
+										<th scope="col">Monto</th>
+										<th scope="col">Cuenta</th>
+										<th scope="col">Rubro</th>
+										<th scope="col">Usuario</th>
+										<th scope="col">Fecha Registro</th>
+									</tr>
+								</thead>
+								<tbody>
+								@if(isset($movEntrada))
+									@foreach($movEntrada as $me)
+								<tr>
+									<td scope="row" style="width:60px;">Entrada</td>
+									@if($me->moneda == "Dolares")
+									<td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+									@endif
+									@if($me->moneda == "Colones")
+									<td class="text-right">C {{ number_format($me->monto, 2, ' ', ',') }}</td>
+									@endif
+									@if($me->moneda == "Euros")
+									<td class="text-right">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+									@endif
+
+						<!-- verificar tipo moneda -->
+									<td>{{$me->cuenta->cuenta}}</td>
+										<td>{{$me->rubro->nombre}}</td>
+										<td>{{$me->usuario->usuario}}</td>
+										<td>{{$me->fechaRegistro}}</td>
+									</tr>
+						@endforeach
+						@endif
+						<!--  segunda tabla-->
+						@if(isset($movSalida))
+						@foreach($movSalida as $ms)
+
+						<tr>
+						<td scope="row" style="width:60px;">Salida</td>
+						@if($ms->moneda == "Dolares")
+						<td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+						@endif
+						@if($ms->moneda == "Colones")
+						<td class="text-right">C {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+						@endif
+						@if($ms->moneda == "Euros")
+						<td class="text-right">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+						@endif
+
+						<!-- verificar tipo moneda -->
+							<td>{{$ms->cuenta->cuenta}}</td>
+							<td>{{$ms->rubro->nombre}}</td>
+							<td>{{$ms->usuario->usuario}}</td>
+							<td>{{$ms->fechaRegistro}}</td>
+						</tr>
+						@endforeach
+						@endif
+
+						</tbody>
+
+						</table>
+						<!-- Datos de los reportes generales -->
+
+						<!-- Suma de todos los valores -->
 						@endif
 
 

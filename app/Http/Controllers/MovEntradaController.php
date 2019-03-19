@@ -384,9 +384,7 @@ class MovEntradaController extends Controller
 
           }// fin del for
         }//else
-
-
-
+// dd($request->titulo);
       $view = view('reportes.pdfReporteConsolidado')->with([
         'movRubroEntrada'=>$SumatoriaEntradas,
         'movRubroSalida'=>$SumatoriaSalidas,
@@ -467,33 +465,69 @@ class MovEntradaController extends Controller
           $pdf->loadhtml($view);
           return $pdf->stream('document.pdf');
       }
+
       if($request->tipoReporte == 3){
+        $movEntrada=0;
+        $movSalida=0;
+        $rubros= Rubro::all();
+
+        if($request->rubro==0){
+          $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda);
+          $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda);
+        }else{
+          $movEntrada = MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$request->rubro);
+          $movSalida  = MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$request->rubro);
+        }
+
+        $view= view('reportes.pdfReporteConsolidado')->with([
+          'movEntrada'=>$movEntrada,
+          'movSalida'=>$movSalida,
+          'tipoReporte'=>$request->tipoReporte,
+          'fechaInicio'=>'',
+          'fechaFinal'=>'',
+          'titulo'=>$request->titulo,
+          'moneda'=> $request->filtroMoneda,
+          'rubros'=>$rubros
+          ]);
+          unset($pdf);
+          $pdf=\App::make('dompdf.wrapper');
+          $pdf->loadhtml($view);
+          return $pdf->stream('document.pdf');
+
+      }// reporte value 3
+
+      if($request->tipoReporte == 4){
+
+        $rubros= Rubro::all();
         $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
         $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
-        $rubros= Rubro::all();
-        $SumatoriaEntradas=array();
-        $SumatoriaSalidas=array();
-        foreach ($rubros as $key => $value) {
-        $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
-        array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe]);
-        $sumRubros=MovSalida::where('fk_rubro','=',$value->id)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
-        array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros]);
+
+        $movEntrada = 0;
+        $movSalida  = 0;
+
+        if($request->rubro==0){
+          $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
+          $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
+        } else{
+          $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->where('fk_rubro','=',$request->rubro);
+          $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->where('fk_rubro','=',$request->rubro);
         }
-          $view= view('reportes.pdfReporteMovimientos')->with(['movRubroEntrada'=>$SumatoriaEntradas,'movRubroSalida'=>$SumatoriaSalidas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
+
+        $view= view('reportes.pdfReporteConsolidado')->with([
+          'movEntrada'=>$movEntrada,
+          'movSalida'=>$movSalida,
+          'tipoReporte'=>$request->tipoReporte,
+          'fechaInicio'=>$fechaInicio,
+          'fechaFinal'=>$fechaFinal,
+          'titulo'=>$request->titulo,
+          'moneda'=> $request->filtroMoneda,
+          'rubros'=>$rubros
+          ]);
           unset($pdf);
           $pdf=\App::make('dompdf.wrapper');
           $pdf->loadhtml($view);
           return $pdf->stream('document.pdf');
-      }
-      if($request->tipoReporte == 4){
-        $movEntrada= MovEntrada::all();
-        $movSalida= MovSalida::all();
-          $view= view('reportes.pdfReporteMovimientos')->with(['movEntrada'=>$movEntrada,'movSalida'=>$movSalida,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
-          unset($pdf);
-          $pdf=\App::make('dompdf.wrapper');
-          $pdf->loadhtml($view);
-          return $pdf->stream('document.pdf');
-      }
+      }// reporte value 4
     }
 
 }
