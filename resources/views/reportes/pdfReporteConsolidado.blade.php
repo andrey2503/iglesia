@@ -78,7 +78,7 @@
 			<div class="">
 				<div class="row tabla-usuarios">
 					<div class="table-responsive">
-				  @if($tipoReporte==1)
+				  @if($tipoReporte==1 || $tipoReportey=2)
               <table id="example" class="table table-striped">
                 <thead>
                   <tr>
@@ -115,13 +115,7 @@
                 @endfor
                 @endif
             <!-- fin tr todos los rubros -->
-              </tbody>
-            </table>
-            <br/>
-            <br/>
-            <br/>
-
-            <table class="table">
+              
               <th></th>
               <th>Salida </th>
               <!-- <th>Salida Dolares</th>
