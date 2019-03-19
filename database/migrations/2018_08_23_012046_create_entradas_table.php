@@ -21,7 +21,7 @@ class CreateEntradasTable extends Migration
             $table->string('documento');
             $table->decimal('monto', 18, 2);
             $table->date('fechaRegistro');
-            $table->integer('estado');
+            $table->integer('estado')->default(1);
             $table->integer('fk_rubro')->unsigned();
             $table->foreign('fk_rubro')->references('id')->on('rubros');
             $table->rememberToken();
