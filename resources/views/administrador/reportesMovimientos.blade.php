@@ -94,13 +94,14 @@
               <table id="example" class="table table-striped">
                   <thead>
                     <tr>
+                      <th scope="col">Fecha Registro</th>
                       <th scope="col">Tipo</th>
                       <th scope="col">Moneda</th>
                       <th scope="col">Monto</th>
                       <th scope="col">Cuenta</th>
                       <th scope="col">Rubro</th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Fecha Registro</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -109,6 +110,7 @@
                     @foreach($movEntrada as $me)
 
                   <tr>
+                      <td>{{$me->fechaRegistro}}</td>
                     <td scope="row">Entrada</td>
                     <td>{{ $me->moneda }}</td>
                     @if($me->moneda == "Dolares")
@@ -122,10 +124,11 @@
                     @endif
 
               <!-- verificar tipo moneda -->
+
                     <td>{{$me->cuenta->cuenta}}</td>
                       <td>{{$me->rubro->nombre}}</td>
                       <td>{{$me->entrada->descripcion}}</td>
-                      <td>{{$me->fechaRegistro}}</td>
+
                     </tr>
             @endforeach
           @endif
@@ -134,6 +137,7 @@
             @foreach($movSalida as $ms)
 
             <tr>
+              <td>{{$ms->fechaRegistro}}</td>
               <td scope="row">Salida</td>
               <td>{{ $ms->moneda }}</td>
               @if($ms->moneda == "Dolares")
@@ -147,10 +151,11 @@
               @endif
 
               <!-- verificar tipo moneda -->
+
                 <td>{{$ms->cuenta->cuenta}}</td>
                 <td>{{$ms->rubro->nombre}}</td>
                 <td>{{$ms->salida->descripcion}}</td>
-                <td>{{$ms->fechaRegistro}}</td>
+
             </tr>
             @endforeach
           @endif

@@ -120,18 +120,20 @@
 						<table id="example" class="table table-striped">
 								<thead>
 									<tr>
+										<th scope="col">Fecha Registro</th>
 										<th scope="col">Tipo</th>
 										<th scope="col">Monto</th>
 										<th scope="col">Cuenta</th>
 										<th scope="col">Rubro</th>
 										<th scope="col">Usuario</th>
-										<th scope="col">Fecha Registro</th>
+
 									</tr>
 								</thead>
 								<tbody>
 								@if(isset($movEntrada))
 									@foreach($movEntrada as $me)
 								<tr>
+									<td>{{$me->fechaRegistro}}</td>
 									<td scope="row" style="width:60px;">Entrada</td>
 									@if($me->moneda == "Dolares")
 									<td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
@@ -147,7 +149,7 @@
 									<td>{{$me->cuenta->cuenta}}</td>
 										<td>{{$me->rubro->nombre}}</td>
 										<td>{{$me->usuario->usuario}}</td>
-										<td>{{$me->fechaRegistro}}</td>
+
 									</tr>
 						@endforeach
 						@endif
@@ -156,6 +158,7 @@
 						@foreach($movSalida as $ms)
 
 						<tr>
+						<td>{{$ms->fechaRegistro}}</td>
 						<td scope="row" style="width:60px;">Salida</td>
 						@if($ms->moneda == "Dolares")
 						<td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
@@ -171,7 +174,7 @@
 							<td>{{$ms->cuenta->cuenta}}</td>
 							<td>{{$ms->rubro->nombre}}</td>
 							<td>{{$ms->usuario->usuario}}</td>
-							<td>{{$ms->fechaRegistro}}</td>
+
 						</tr>
 						@endforeach
 						@endif
