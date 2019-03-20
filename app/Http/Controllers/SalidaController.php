@@ -19,7 +19,7 @@ class SalidaController extends Controller
      */
     public function index()
     {
-        $salidas= Salida::all();
+        $salidas= Salida::all()->where('estado','=',1);
         return view('administrador.listaSalidas')->with(['salidas'=>$salidas]);
     }
 
@@ -56,7 +56,7 @@ class SalidaController extends Controller
             'monto'=>'required|same:confMonto',
             'fechaRegistro'=>'required',
             'nombre'=>'required',
-            'validarMoneda'=>'required|same:moneda'     
+            'validarMoneda'=>'required|same:moneda'
           ]);
 
           $salidas = new Salida();
@@ -277,7 +277,7 @@ class SalidaController extends Controller
     public function update(Request $request)
     {
         //
-        //  dd($request);
+
           $this->validate($request,[
             'descripcion'=>'required',
             'documento'=>'required',
@@ -285,6 +285,26 @@ class SalidaController extends Controller
             'monto'=>'required',
             'fechaRegistro'=>'required'
           ]);
+          if ($request->estado == 0) {
+               // dd($request->id);
+
+            $cuentaId = MovSalida::all()->where('fk_salida','=',$request->id);
+             // dd($cuentaId[1]->fk_cuenta);
+            $cuenta= CuentaBancaria::find($cuentaId[1]->fk_cuenta);
+            $montoActual=$cuenta->monto;
+            $cuenta->monto=($request->montoRechazado+$montoActual);
+            $cuenta->save();
+            // dd($request->estado);
+            $salida=Salida::find($request->id);
+            $salida->estado = $request->estado;
+            if($salida->save()){
+             return redirect()->back()->with('message','Salida actualizada correctamente');
+            }else{
+
+            }
+          }else {
+            // code...
+
         $salida=Salida::find($request->id);
         $salida->descripcion=$request->descripcion;
         $salida->documento=$request->documento;
@@ -297,6 +317,7 @@ class SalidaController extends Controller
         }else{
 
         }
+          }
         //   //
     }
 

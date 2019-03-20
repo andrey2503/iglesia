@@ -59,6 +59,7 @@
 
               <div class="form-group">
                <label for="user">Monto</label>
+               <input type="hidden" step="any" class="form-control" name="montoRechazado"  value="{{$salida->monto}}" >
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{$salida->monto}}" >
               </div>
               <div class="form-group">
@@ -73,6 +74,23 @@
 
                   @endif
 
+                </div>
+
+                <div class="form-group">
+                  <label for="user">Estado</label>
+                  <select class="form-control" name="estado">
+
+                    @if($salida->estado == 1 )
+                       <option  value="0">Rechazado</option>
+                       <option selected value="1">Aceptado</option>
+                       @else
+                       <option  selected value="0">Rechazado</option>
+                       <option  value="1">Aceptado</option>
+                    @endif
+                  </select>
+                  @if($errors->has('estado'))
+                    <span style="color: red;">{{ $errors->first('estado') }}</span>
+                  @endif
                 </div>
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Actualizar Entrada</button>
