@@ -59,6 +59,7 @@
 
               <div class="form-group">
                <label for="user">Monto</label>
+                <input type="hidden" step="any" class="form-control" name="montoRechazado"  value="{{$entradas->monto}}" >
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{$entradas->monto}}">
               </div>
               <div class="form-group">
