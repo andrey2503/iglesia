@@ -127,7 +127,7 @@
 
                     <td>{{$me->cuenta->cuenta}}</td>
                       <td>{{$me->rubro->nombre}}</td>
-                      <td>{{$me->entrada->descripcion}}</td>
+                      <td>{{$me->entrada->nombre}}</td>
                       <td>{{$me->entrada->documento}}</td>
 
                     </tr>
@@ -155,7 +155,7 @@
 
                 <td>{{$ms->cuenta->cuenta}}</td>
                 <td>{{$ms->rubro->nombre}}</td>
-                <td>{{$ms->salida->descripcion}}</td>
+                <td>{{$ms->salida->nombre}}</td>
                 <td>{{$ms->salida->documento}}</td>
 
             </tr>
