@@ -286,9 +286,9 @@ class EntradaController extends Controller
     ]);
     if ($request->estado == 0) {
       // dd($request->id);
-      $cuentaId = MovEntrada::all()->where('fk_entrada','=',$request->id);
-       // dd($cuentaId[0]->fk_cuenta);
-      $cuenta= CuentaBancaria::find($cuentaId[0]->fk_cuenta);
+      $cuentaId = MovEntrada::where('fk_entrada','=',$request->id)->first();
+      //  dd($cuentaId->fk_cuenta);
+      $cuenta= CuentaBancaria::find($cuentaId->fk_cuenta);
       $montoActual=$cuenta->monto;
       $cuenta->monto=($request->montoRechazado-$montoActual);
       $cuenta->save();

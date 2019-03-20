@@ -93,7 +93,7 @@
                   @endif
                 </div>
         </div>
-        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Actualizar Entrada</button>
+        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Actualizar Salida</button>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaSalidas') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
 
       </form>

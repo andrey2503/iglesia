@@ -288,9 +288,9 @@ class SalidaController extends Controller
           if ($request->estado == 0) {
                // dd($request->id);
 
-            $cuentaId = MovSalida::all()->where('fk_salida','=',$request->id);
+            $cuentaId = MovSalida::where('fk_salida','=',$request->id)->first();
              // dd($cuentaId[1]->fk_cuenta);
-            $cuenta= CuentaBancaria::find($cuentaId[1]->fk_cuenta);
+            $cuenta= CuentaBancaria::find($cuentaId->fk_cuenta);
             $montoActual=$cuenta->monto;
             $cuenta->monto=($request->montoRechazado+$montoActual);
             $cuenta->save();
