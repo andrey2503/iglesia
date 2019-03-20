@@ -101,7 +101,7 @@
                       <th scope="col">Cuenta</th>
                       <th scope="col">Rubro</th>
                       <th scope="col">Nombre</th>
-
+                      <th scope="col">#Documento</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -128,6 +128,7 @@
                     <td>{{$me->cuenta->cuenta}}</td>
                       <td>{{$me->rubro->nombre}}</td>
                       <td>{{$me->entrada->descripcion}}</td>
+                      <td>{{$me->entrada->documento}}</td>
 
                     </tr>
             @endforeach
@@ -155,6 +156,7 @@
                 <td>{{$ms->cuenta->cuenta}}</td>
                 <td>{{$ms->rubro->nombre}}</td>
                 <td>{{$ms->salida->descripcion}}</td>
+                <td>{{$ms->salida->documento}}</td>
 
             </tr>
             @endforeach
