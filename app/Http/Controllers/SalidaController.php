@@ -8,6 +8,7 @@ use App\Logs;
 use App\Rubro;
 use App\CuentaBancaria;
 use App\CuentaPagar;
+use App\CuentaCobrar;
 use Carbon\Carbon;
 use App\MovSalida;
 class SalidaController extends Controller
@@ -79,10 +80,9 @@ class SalidaController extends Controller
             // return redirect()->back()->with('message','Salida '.$salidas->descripcion.' creada correctamente');
           }
 
-          if ($request->cuentaPagar1 !=0) {
-
-          //  dd($request);
-            $this->addCuentaPagar($request);
+          if ($request->cuentaCobrar !=0) {
+            //dd($request);
+            $this->addCuentaCobrar($request);
           }
           if ($request->cuentaBancaria != 0) {
               $this->addcuentaBancaria($request,$salidas->id);
@@ -107,21 +107,21 @@ class SalidaController extends Controller
         }//fin metodo store
 
 
-    function addCuentaPagar($request) {
+    function addCuentaCobrar($request) {
         //dd($request);
-            $cuentasPagar = new CuentaPagar();
-            $cuentasPagar->nombre = $request->cuentaPagar;
-            $cuentasPagar->fk_rubro= $request->rubro;
-            $cuentasPagar->moneda= $request->moneda;
-            $cuentasPagar->monto=$request->monto;
-            $salidas->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
+            $cuentasCobrar = new CuentaCobrar();
+            $cuentasCobrar->nombre = $request->cuentaCobrarName;
+            $cuentasCobrar->fk_rubro= $request->rubro;
+            $cuentasCobrar->moneda= $request->moneda;
+            $cuentasCobrar->monto=$request->monto;
+            $cuentasCobrar->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
 
-            if($cuentasPagar->save()){
+            if($cuentasCobrar->save()){
               $log= new Logs();
               $log->fk_usuario= \Auth::user()->id;
               $log->nombre_tabla="cuenta_pagars";
-              $log->nombre_elemento= $cuentasPagar->id;
-              $log->accion="Agregar Cuenta por Pagar desde Entrada";
+              $log->nombre_elemento= $cuentasCobrar->id;
+              $log->accion="Agregar Cuenta por Cobrar desde Salida";
               $log->fecha=date ('y-m-d H:i:s');
               $log->save();
 

@@ -147,7 +147,7 @@ $("#cuentaPagar").hide();
 
              <div class="form-group" id="cuentaPagar">
               <label for="user">Nombre cuenta por Cobrar</label>
-              <input type="text" step="any" class="form-control" name="cuentaPagar" placeholder="Nombre cuenta por Cobrar" value="{{ old('cuentaPagar') }}" />
+              <input type="text" step="any" class="form-control" name="cuentaCobrarName" placeholder="Nombre cuenta por Cobrar" value="{{ old('cuentaCobrarName') }}" />
               @if($errors->has('cuentaPagar'))
                 <span style="color: red;">{{ $errors->first('cuentaPagar') }}</span>
               @endif
