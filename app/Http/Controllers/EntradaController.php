@@ -282,13 +282,15 @@ class EntradaController extends Controller
       'descripcion'=>'required',
       'documento'=>'required',
       'rubro'=>'required',
-      'fechaRegistro'=>'required'
+      'fechaRegistro'=>'required',
+      'monto'=>'required|same:confMonto'
     ]);
     if ($request->estado == 0) {
       // dd($request->id);
       $cuentaId = MovEntrada::where('fk_entrada','=',$request->id)->first();
       //update movEntrada
-      $movEntrada = MovEntrada::where('fk_entrada','=',$request->id);
+      $movEntrada = MovEntrada::find($cuentaId->id);
+      //dd($movEntrada);
       $movEntrada->monto=0;
       $movEntrada->save();
       //  dd($cuentaId->fk_cuenta);
@@ -313,18 +315,28 @@ class EntradaController extends Controller
       $entrada->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
       //actualizar movimiento
       $cuentaId = MovEntrada::where('fk_entrada','=',$request->id)->first();
-      $movEntrada = MovEntrada::where('fk_entrada','=',$request->id);;
+      //update movEntrada
+    //  dd($cuentaId);
+      $movEntrada = MovEntrada::find($cuentaId->id);
+      //dd($request->id);
       $cuenta= CuentaBancaria::find($cuentaId->fk_cuenta);
+       // dd($cuentaId);
       $montoActual=$cuenta->monto;
-      if ($request->montoRechazado>$request->monto) {
-        $total=($request->monto)-($request->montoRechazado);
+      if ($request->montoRechazado > $request->monto) {
+        $total=($request->montoRechazado)-($request->monto);
+      //  dd("anterior".$request->montoRechazado." actual ".$request->monto." total ".$total);
+        $movEntrada->monto=($request->montoRechazado-$total);
+        $movEntrada->save();
+        $cuenta->monto=($montoActual-$total);
+        $cuenta->save();
       }else{
-          $total=($request->montoRechazado)+($request->monto);
+          $total=($request->monto)-($request->montoRechazado);
+          //dd("anterior".$request->montoRechazado." actual ".$request->monto." total ".$total);
+          $movEntrada->monto=($request->montoRechazado+$total);
+          $movEntrada->save();
+          $cuenta->monto=($montoActual+$total);
+          $cuenta->save();
       }
-      $movEntrada->monto=$total;
-      $movEntrada->save()
-      $cuenta->monto=$total;
-      $cuenta->save();
 
       if($entrada->save()){
         $log= new Logs();
