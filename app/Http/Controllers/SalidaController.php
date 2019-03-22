@@ -87,14 +87,9 @@ class SalidaController extends Controller
           if ($request->cuentaBancaria != 0) {
               $this->addcuentaBancaria($request,$salidas->id);
           }
-          if ($request->cuentaCobrarD !=0) {
+          if ($request->cuentaPagarDis !=0) {
 
-          //  dd($request);
-            $this->addCuentaCobrarDis($request);
-          }
-          if ($request->cuentaPagarD !=0) {
-
-          //  dd($request);
+           //dd($request);
             $this->addCuentaPagarDis($request);
           }
           if ($request->cuentaPagarA !=0) {
@@ -195,7 +190,7 @@ class SalidaController extends Controller
         }//fin funcion disminuir cuenta por Cobrar
 
         function addCuentaPagarDis($request){
-            $cuentasPagar=CuentaPagar::find($request->cuentaPagarD);
+            $cuentasPagar=CuentaPagar::find($request->cuentaPagarDis);
             $montoAnterior=$cuentasPagar->monto;
             if ($cuentasPagar->moneda == $request->moneda ) {
               $cuentasPagar->monto=$montoAnterior - $request->monto;

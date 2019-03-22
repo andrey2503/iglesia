@@ -155,7 +155,7 @@ $("#cuentaPagar").hide();
 
              <div class="form-group" id="cuentaPagarD">
               <label for="user">Aplicar a cuenta por pagar</label>
-              <select class="form-control" name="cuentaPagar" id="cuentaPagarD-1">
+              <select class="form-control" name="cuentaPagarDis" id="cuentaPagarD-1">
                   <option value="0">No</option>
 
                 @if(isset($cuentasPagar))
