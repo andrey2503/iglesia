@@ -8,7 +8,7 @@ $( document ).ready(function() {
 $("#cuentaMoneda").change(()=>{
   let moneda=$("#cuentaMoneda").find(':selected').attr('moneda')
   $("#validarMoneda").attr("value",moneda);
-  alert(moneda);
+  // alert(moneda);
 });
 
 $("#cuentaPagar").hide();

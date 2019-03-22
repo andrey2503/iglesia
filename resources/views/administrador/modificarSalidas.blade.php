@@ -63,6 +63,13 @@
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{$salida->monto}}" >
               </div>
               <div class="form-group">
+               <label for="user">Confirmar Monto</label>
+               <input type="number" step="any" class="form-control" name="confMonto" placeholder="Monto" value="{{ $salida->monto }}"/>
+               @if($errors->has('confMonto'))
+                 <span style="color: red;">{{ $errors->first('confMonto') }}</span>
+               @endif
+              </div>
+              <div class="form-group">
 
                   <label for="fechaRegistro">Fecha de Registro</label>
 

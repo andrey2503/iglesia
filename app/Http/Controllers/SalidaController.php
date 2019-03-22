@@ -283,13 +283,18 @@ class SalidaController extends Controller
             'documento'=>'required',
             'rubro'=>'required',
             'monto'=>'required',
-            'fechaRegistro'=>'required'
+            'fechaRegistro'=>'required',
+            'monto'=>'required|same:confMonto'
           ]);
           if ($request->estado == 0) {
-               // dd($request->id);
-
+            // dd($request->id);
             $cuentaId = MovSalida::where('fk_salida','=',$request->id)->first();
-             // dd($cuentaId[1]->fk_cuenta);
+            //update movEntrada
+            $movSalida = MovSalida::find($cuentaId->id);
+            //dd($movEntrada);
+            $movSalida->monto=0;
+            $movSalida->save();
+            //  dd($cuentaId->fk_cuenta);
             $cuenta= CuentaBancaria::find($cuentaId->fk_cuenta);
             $montoActual=$cuenta->monto;
             $cuenta->monto=($request->montoRechazado+$montoActual);
@@ -304,14 +309,37 @@ class SalidaController extends Controller
             }
           }else {
             // code...
+            $salida=Salida::find($request->id);
+            $salida->descripcion=$request->descripcion;
+            $salida->documento=$request->documento;
+            $salida->fk_rubro=$request->rubro;
+            $salida->monto=$request->monto;
+            $salida->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
+            //actualizar movimiento
+            $cuentaId = MovSalida::where('fk_salida','=',$request->id)->first();
+            //update movEntrada
+          //  dd($cuentaId);
+            $movSalida = MovSalida::find($cuentaId->id);
+            //dd($request->id);
+            $cuenta= CuentaBancaria::find($cuentaId->fk_cuenta);
+             // dd($cuentaId);
+            $montoActual=$cuenta->monto;
+            if ($request->montoRechazado > $request->monto) {
+              $total=($request->montoRechazado)-($request->monto);
+              //dd("anterior".$request->montoRechazado." actual ".$request->monto." total ".$total);
+              $movSalida->monto=($request->montoRechazado-$total);
+              $movSalida->save();
+              $cuenta->monto=($montoActual-$total);
+              $cuenta->save();
+            }else{
+                $total=($request->monto)-($request->montoRechazado);
+              //  dd("anterior2 ".$request->montoRechazado." actual ".$request->monto." total ".$total);
+                $movSalida->monto=($request->montoRechazado+$total);
+                $movSalida->save();
+                $cuenta->monto=($montoActual-$total);
+                $cuenta->save();
+            }
 
-        $salida=Salida::find($request->id);
-        $salida->descripcion=$request->descripcion;
-        $salida->documento=$request->documento;
-        $salida->fk_rubro=$request->rubro;
-        $salida->monto=$request->monto;
-
-        $salida->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
         if($salida->save()){
          return redirect()->back()->with('message','Salida actualizada correctamente');
         }else{
