@@ -300,6 +300,7 @@ class EntradaController extends Controller
       $cuenta->save();
       // dd($request->estado);
       $entrada=Entrada::find($request->id);
+      $entrada->nombre = "Rechazado";
       $entrada->estado = $request->estado;
       if($entrada->save()){
         return redirect()->back()->with('message','Entrada actualizada correctamente');

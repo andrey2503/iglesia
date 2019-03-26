@@ -53,13 +53,13 @@
                         <td>{{ $c->moneda }}</td>
                         <td>{{ $c->cuenta }}</td>
                         @if($c->moneda == "Dolares")
-                        <td>$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                        <td class="text-right">$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
                         @endif
                         @if($c->moneda == "Colones")
-                        <td>₡ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                        <td class="text-right">₡ {{ number_format($c->monto, 2, ' ', ',') }}</td>
                         @endif
                         @if($c->moneda == "Euros")
-                        <td>€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
+                        <td class="text-right">€ {{ number_format($c->monto, 2, ' ', ',') }}</td>
                         @endif
 
                         <td>

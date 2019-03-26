@@ -297,6 +297,7 @@ class SalidaController extends Controller
             // dd($request->estado);
             $salida=Salida::find($request->id);
             $salida->estado = $request->estado;
+            $salida->nombre = "Rechazado";
             if($salida->save()){
              return redirect()->back()->with('message','Salida actualizada correctamente');
             }else{

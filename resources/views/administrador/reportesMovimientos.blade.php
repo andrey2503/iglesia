@@ -96,12 +96,13 @@
                     <tr>
                       <th scope="col">Fecha Registro</th>
                       <th scope="col">Tipo</th>
-                      <th scope="col">Moneda</th>
-                      <th scope="col">Monto</th>
-                      <th scope="col">Cuenta</th>
+                      <th scope="col">#Documento</th>
                       <th scope="col">Rubro</th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">#Documento</th>
+                      <th scope="col">Monto</th>
+                      <th scope="col">Cuenta</th>
+
+
                     </tr>
                   </thead>
                   <tbody>
@@ -112,7 +113,9 @@
                   <tr>
                       <td>{{$me->fechaRegistro}}</td>
                     <td scope="row">Entrada</td>
-                    <td>{{ $me->moneda }}</td>
+                      <td>{{$me->entrada->documento}}</td>
+                      <td>{{$me->rubro->nombre}}</td>
+                      <td>{{$me->entrada->nombre}}</td>
                     @if($me->moneda == "Dolares")
                     <td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                     @endif
@@ -126,9 +129,8 @@
               <!-- verificar tipo moneda -->
 
                     <td>{{$me->cuenta->cuenta}}</td>
-                      <td>{{$me->rubro->nombre}}</td>
-                      <td>{{$me->entrada->nombre}}</td>
-                      <td>{{$me->entrada->documento}}</td>
+
+
 
                     </tr>
             @endforeach
@@ -140,7 +142,9 @@
             <tr>
               <td>{{$ms->fechaRegistro}}</td>
               <td scope="row">Salida</td>
-              <td>{{ $ms->moneda }}</td>
+              <td>{{$ms->salida->documento}}</td>
+              <td>{{$ms->rubro->nombre}}</td>
+              <td>{{$ms->salida->nombre}}</td>
               @if($ms->moneda == "Dolares")
               <td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
               @endif
@@ -154,9 +158,8 @@
               <!-- verificar tipo moneda -->
 
                 <td>{{$ms->cuenta->cuenta}}</td>
-                <td>{{$ms->rubro->nombre}}</td>
-                <td>{{$ms->salida->nombre}}</td>
-                <td>{{$ms->salida->documento}}</td>
+
+
 
             </tr>
             @endforeach
@@ -191,8 +194,8 @@
                   @if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
                 <tr>
                 <td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
-                <td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
-                <td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
+                <td scope="row" class="text-left">₡{{ $movRubroEntrada[$i]['monto'] }}</td>
+                <td scope="row" class="text-left">₡{{ $movRubroSalida[$i]['monto'] }}</td>
                 <td scope="row" >{{ $movRubroSalida[$i]['moneda'] }}</td>
                 </tr>
                   @endif
@@ -207,11 +210,12 @@
             <br/>
 
             <table class="table">
-              <th></th>
-              <th>Entrada </th>
+            <th style="width: 25%;"> </th>
+              <th style="width: 30%;">Entrada </th>
               <!-- <th>Salida Dolares</th>
               <th>Salida Euros</th> -->
               <th>Salida </th>
+              <th> </th>
               <!-- <th>Entrada Dolares</th>
               <th>Entrada Euros</th>    -->
               <tr>
@@ -228,7 +232,7 @@
                 <td>Neto</td>
                 <td style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)₡ {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
                 <td style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
-
+                <th> </th>
               </tr>
               </table>
 
