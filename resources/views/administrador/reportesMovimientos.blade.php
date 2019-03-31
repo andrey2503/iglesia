@@ -79,6 +79,7 @@
             <input type="hidden" name="fechaFinal" value="{{$fechaFinal}}">
             <input type="hidden" name="filtroMoneda" value="{{$moneda}}">
               <input type="hidden" name="titulo" value="{{$titulo}}">
+              <input type="hidden" name="rubro" value="{{$rubroid}}">
             <button href="#" target="_blank" type="submit"  class="btn btn-warning">Generar</button>
           </form>
           @endif
