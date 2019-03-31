@@ -9,14 +9,6 @@
     <div style="padding: 15px;" class="col-md-2">
       <label for="user">Tipo de Reporte:</label>
       <select class="form-control" name="tipoReporte" id="tipoReporte">
-          <!-- <option value="0">Selecione Tipo reporte</option>
-          <option value="1">Movimiento Por fechas</option>
-          <option value="2">Todos los Movimientos</option>
-          <option value="3">Todos los Rubros Por fechas detallado</option>
-          <option value="4">Todos los Rubros detallado</option>
-          <option value="5">Reporte consolidado</option>
-          <option value="6">Reporte consolidado por fechas</option> -->
-
           <option value="0">Selecione Tipo reporte</option>
           <option value="1">Reporte consolidado</option>
           <option value="2">Reporte consolidado por fechas</option>
@@ -68,9 +60,11 @@
   </form>
 </div>
 <div class="container row col-md-12 contenedor-usuario">
-
+@if(isset($rubrofiltro)&& $rubrofiltro != '' )
+<h4>Rubro : {{ $rubrofiltro }}</h4>
+@endif
 @if(isset($titulo))
-<h3>{{ $titulo }} en moneda {{ $moneda }} </h3>
+<h4>{{ $titulo }} en {{ $moneda }} </h4>
 @endif
 
 @if(isset($fechaInicio) && isset($fechaFinal) )
