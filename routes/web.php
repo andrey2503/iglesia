@@ -26,12 +26,10 @@ Auth::routes();
   Route::get('/salir', 'Auth\LoginController@getLogout');
 
 
-
-
 Route::group(['middleware' => ['auth']], function () {
     // admin
     Route::get('/aout', 'AdminController@Logout');
-    Route::get('/administrador','AdminController@index');
+    Route::get('/cuentas','CuentaBancariaController@index');
     Route::get('/modificarUsuario/{id}','AdminController@show');
     Route::post('/modificarUsuario','AdminController@update');
     Route::get('/nuevoUsuario','AdminController@create');

@@ -16,7 +16,7 @@ class EmpleadoController extends Controller
     {
 
         $this->auth = $auth;
-        $this->middleware(['auth','administrador'])->except('logout');
+        $this->middleware(['auth'])->except('logout');
     }
     /**
      * Display a listing of the resource.

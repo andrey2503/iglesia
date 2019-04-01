@@ -50,14 +50,14 @@ class LoginController extends Controller
     if (\Auth::attempt(['usuario' => $request->usuario, 'password' => $request->password])) {
         $usuarioactual=\Auth::user();
      
-        return redirect('/administrador');
+        return redirect('/cuentas');
      }
      return redirect('/login');
      }
 
     public function iniciarUsuarioAdmin(){
         $user = new User();
-        $user->nombre="Andrey Torres Vega";
+        $user->nombre="Name user";
         $user->email = "admin@admin.com";
         $user->usuario="admintest";
         $user->telefono="888";
@@ -71,7 +71,7 @@ class LoginController extends Controller
     {
         $this->auth->logout();
         Session::flush();
-        return redirect('/');
+        return redirect('/login');
     }
   
 }

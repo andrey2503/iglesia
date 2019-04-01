@@ -11,7 +11,7 @@ class Digitador extends Controller
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
-        $this->middleware(['auth','digitador'])->except('logout');
+        $this->middleware(['auth'])->except('logout');
     }
     //
     public function index(){
@@ -22,6 +22,6 @@ class Digitador extends Controller
     {
         $this->auth->logout();
         Session::flush();
-        return redirect('/');
+        return redirect('/login');
     }
 }

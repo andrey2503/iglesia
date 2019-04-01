@@ -12,7 +12,7 @@ class LectorController extends Controller
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
-        $this->middleware(['auth','lector'])->except('logout');
+        $this->middleware(['auth'])->except('logout');
     }
     public function Logout(){
         auth()->logout();

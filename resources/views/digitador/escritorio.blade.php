@@ -150,7 +150,7 @@
 
 
             <li>
-              <a href="{{ URL::asset('/out') }}">
+              <a href="{{ URL::asset('/aout') }}">
                 <i class="fa fa-times-circle"></i> <span>cerrar sesión</span>
                  <small class="label pull-right bg-red">
                     <span class="glyphicon glyphicon-off"></span>

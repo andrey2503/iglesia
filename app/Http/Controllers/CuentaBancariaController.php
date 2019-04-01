@@ -23,7 +23,7 @@ class CuentaBancariaController extends Controller
      public function __construct(Guard $auth)
      {
          $this->auth = $auth;
-         $this->middleware(['auth','administrador'])->except('logout');
+         $this->middleware(['auth'])->except('logout');
      }
     public function index()
     {

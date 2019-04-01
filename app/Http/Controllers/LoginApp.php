@@ -12,7 +12,7 @@ class LoginApp extends Controller
         //return 1;
         return response()->json([
             'acceso'=>true,
-            'name'=>'andrey',
+            'name'=>'none',
             'email'=>$request->email,
             ]);
     }// fin de login 

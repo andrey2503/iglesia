@@ -54,7 +54,7 @@
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
 
-        <span class="logo-lg"><span class="glyphicon glyphicon-user"> <b>AD</b>MIN </span></span>
+        <span class="logo-lg"><span class="glyphicon glyphicon-user"> {{ Auth::user()->usuario }}</span></span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top" role="navigation">
@@ -101,8 +101,8 @@
                 <span class="glyphicon glyphicon-user"></span>
                 <li class="user-header" style="height: 75px;">
                   <p>
-                    {{ Auth::user()->name }}
-                    <small>Administrador</small>
+                    {{ Auth::user()->nombre }}
+                    <small> {{ Auth::user()->idrol }}</small>
                   </p>
                 </li>
 
@@ -130,9 +130,9 @@
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-          <li class="header">MAIN NAVIGATION</li>
+          <li class="header"></li>
 
-
+        @if(Auth::user()->idrol==1)
           <!-- Ussuarios -->
           <li>
             <a href="{{ URL::asset('/administrador') }}">
@@ -142,6 +142,7 @@
               </small>
             </a>
           </li>
+        @endif
           <!-- Empleados -->
           <li>
             <a href="{{ URL::asset('/empleados') }}">
