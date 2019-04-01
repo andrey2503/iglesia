@@ -226,28 +226,32 @@ public function reporte(Request $request){
 if($request->tipoReporte == 0){
 
 }
-//   if($request->tipoReporte == 2){
 
-//       $cuentas= CuentaBancaria::all();
-//       $view= view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
-//       unset($pdf);
-//       $pdf=\App::make('dompdf.wrapper');
-//       $pdf->loadhtml($view);
-//       return $pdf->stream('document.pdf');
-//   //  dd($cuentas);
 
-//     // return view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>'','fechaFinal'=>'']);
-//   }
-  if($request->tipoReporte != 0){
+if($request->tipoReporte != 0){
     $this->validate($request,[
-        'fechaInicio'=>'required',
-        'fechaFinal'=>'required',
-        'tipoReporte'=>'required'
-        ]);
-        $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
-        $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
-    $cuentas= CuentaBancaria::where('fechaRegistro','>',$fechaInicio)->where('fechaRegistro','<',$fechaFinal)->get();
-    $view= view('reportes.pdfReporteCuentaBancaria')->with(['cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
+            'fechaInicio'=>'required|date',
+            'fechaFinal'=>'required|date',
+            'tipoReporte'=>'required'            
+    ]);
+  $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+  $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+  $cuentas= CuentaBancaria::all();
+  $mov_entrada=MovimientoEntrada::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+  $mov_salida=MovimientoSalida::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+  
+
+
+//   if($request->tipoReporte != 0){
+//     $this->validate($request,[
+//         'fechaInicio'=>'required',
+//         'fechaFinal'=>'required',
+//         'tipoReporte'=>'required'
+//         ]);
+//         $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+//         $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+//     $cuentas= CuentaBancaria::where('fechaRegistro','>',$fechaInicio)->where('fechaRegistro','<',$fechaFinal)->get();
+    $view= view('reportes.pdfReporteCuentaBancaria')->with(['mov_entrada'=>$mov_entrada,'mov_salida'=>$mov_salida,'cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
     unset($pdf);
     $pdf=\App::make('dompdf.wrapper');
     $pdf->loadhtml($view);

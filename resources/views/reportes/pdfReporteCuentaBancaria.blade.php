@@ -76,68 +76,66 @@
 			<div class="">
 				<div class="row tabla-usuarios">
 					<div class="table-responsive">
-						<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">Nombre</th>
-						<th scope="col"># Cuenta</th>
-						<th scope="col">Banco</th>
-						<th scope="col">Tipo</th>
-						<th scope="col">Moneda</th>
-						<th scope="col">Monto</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php $totalColones = 0; ?>
-					<?php $totalDolares = 0; ?>
-					<?php $totalEuros = 0; ?>
-					@php $i=0;
-					@endphp
-					@if(isset($cuentas))
-						@foreach($cuentas as $c)
-						@php
-						$i =   $c->monto  + $i
-						@endphp
-					<tr>
-						<td >{{ $c->nombre }}</td>
-						<td>{{ $c->cuenta }}</td>
-						<td>{{$c->banco}}</td>
-						<td>{{ $c->tipo }}</td>
-						<td>{{ $c->moneda }}</td>
-						<td>{{ number_format($c->monto, 2, ' ', ',') }}</td>
-						<!-- verificar tipo moneda -->
+					@if(isset($mov_entrada) || isset($mov_salida))
+              <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th scope="col">Movimiento</th>                  
+                    <th scope="col">Rubro</th>                  
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Cantidad</th>                    
+                    <th scope="col">Fecha registro</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                  @if(isset($mov_entrada))
+                    @foreach($mov_entrada as $me)
+                    <tr>
+                      <!-- <th scope="row">{{ $me->cuenta }}</th> -->
+                      <th scope="row">Entrada</th>
+                      <td>{{ $me->rubro->nombre }}</td>                      
+                      <td>{{ $me->moneda }}</td>
+                      @if($me->moneda == "Dolares")
+                      <td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      @if($me->moneda == "Colones")
+                      <td class="text-right">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      @if($me->moneda == "Euros")
+                      <td class="text-right">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      @endif
+                      <!-- verificar tipo moneda -->
+                        <td>{{$me->fechaRegistro}}</td>
+                    </tr>
+                    @endforeach
+                  @endif
 
-					</tr>
-					  @if($c->moneda=='Colones')
-                      <?php $totalColones = $totalColones + $c->monto; ?>
+                   @if(isset($mov_salida))
+                    @foreach($mov_salida as $ms)
+                    <tr>
+                      <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
+                      <th scope="row">Salida</th>    
+                      <td>{{ $me->rubro->nombre }}</td>                                                              
+                      <td>{{ $ms->moneda }}</td>
+                      @if($ms->moneda == "Dolares")
+                      <td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
-                      @if($c->moneda=='Dolares')
-                      <?php $totalDolares = $totalDolares + $c->monto; ?>
+                      @if($ms->moneda == "Colones")
+                      <td class="text-right">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
-                      @if($c->moneda=='Euros')
-                      <?php $totalEuros = $totalEuros + $c->monto; ?>
+                      @if($ms->moneda == "Euros")
+                      <td class="text-right">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
-					@endforeach
-				@endif
-				</tbody>
-			</table>
-			<h5>Totales</h5>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-					<th scope="col">Colones</th>
-					<th scope="col">Dolares</th>
-					<th scope="col">Euros</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>C {{ number_format($totalColones, 2, ' ', ',') }}</td>
-						<td>$ {{ number_format($totalDolares, 2, ' ', ',') }} </td>
-						<td>€ {{ number_format($totalEuros, 2, ' ', ',') }}</td>
-					</tr>
-				</tbody>
-			</table>
+                      <!-- verificar tipo moneda -->
+                        <td>{{$ms->fechaRegistro}}</td>
+                    </tr>
+                    @endforeach
+                  @endif
+
+                  </tbody>
+              </table>
+            @endif
+			
 		</div><br>
 					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
 					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>
