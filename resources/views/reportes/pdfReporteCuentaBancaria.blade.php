@@ -19,14 +19,7 @@
 		width: 100%;
 		text-align: center;
 	}
-	td{
-		width: 50%;
-		padding: 5px;
-		/*border-top:1px black solid;*/
-		border-bottom:1px black solid;
-		border-left:1px black solid;
-
-	}
+	
 	.left{
 		border-right:1px black solid;
 	}
