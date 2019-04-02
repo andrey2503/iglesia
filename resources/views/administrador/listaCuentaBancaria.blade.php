@@ -13,10 +13,12 @@
         {{ session()->get('messageError') }}
       </div>
 @endif
+@if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
   <a href="{{ URL::asset('/nuevaCuentaBancaria') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Cuenta Bancaria
   </a>
+  @endif
   <!-- Trigger the modal with a button -->
 <a type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#totalCuentas" style="margin-top: 24px;"><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> Total Cuentas Bancarias</a>
 <a href="{{ URL::asset('/reportesCuentasBancarias') }}" class="btn btn-danger btn-md" style="margin-top: 24px;">
@@ -63,9 +65,13 @@
                         @endif
 
                         <td>
+                           @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarCuenta') }}/{{$c->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
+                          @endif
                          <a class="btn btn-success btn-md" href="{{ url('/verCuenta') }}/{{$c->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                          @if(Auth::user()->idrol==1)
                          <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$c->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
+                           @endif
                         </td>
                       </tr>
 

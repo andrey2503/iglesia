@@ -3,11 +3,12 @@
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
   <h3>Salarios</h3>
+  @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
   <a href="{{ URL::asset('/nuevoSalario') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Salario
   </a>
-
+  @endif
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
             <div class="table-responsive">
@@ -33,9 +34,13 @@
                         <td>{{ $s->salarioNeto }}</td>
 
                         <td>
+                          @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarSalario') }}/{{$s->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
+                         @endif
                          <a class="btn btn-success btn-md" href="{{ url('/verSalario') }}/{{$s->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                         @if(Auth::user()->idrol==1)
                          <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$s->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
+                         @endif
                         </td>
                       </tr>
 

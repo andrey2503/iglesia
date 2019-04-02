@@ -13,10 +13,12 @@
         {{ session()->get('messageError') }}
       </div>
 @endif
+@if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
   <a href="{{ URL::asset('/nuevoPuesto') }}" class="btn btn-success btn-md" style="margin-top: 24px;">
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Puesto
   </a>
+  @endif
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
             <div class="table-responsive">
@@ -35,9 +37,13 @@
                         <td>{{ $p->descripcion }}</td>
 
                         <td>
+                           @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarPuesto') }}/{{$p->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
+                         @endif
                          <a class="btn btn-success btn-md" href="{{ url('/verPuesto') }}/{{$p->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                         @if(Auth::user()->idrol==1)
                          <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$p->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
+                         @endif
                         </td>
                       </tr>
 

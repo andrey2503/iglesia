@@ -80,7 +80,11 @@
 </div>
         </div>
         <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Actualizar usuario</button>
-        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/administrador') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
+        @if(Auth::user()->idrol==1 )
+        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/usuarios') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
+        @else
+        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/cuentas') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
+        @endif
       </form>
       </div><!-- /.box -->
 </div>

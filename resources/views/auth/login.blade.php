@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+
     <link rel="shortcut icon" type="image/png" href="{{ URL::asset('img/favicon.png') }}"/>
     <link rel="shortcut icon" type="image/png" href="{{ URL::asset('img/favicon.png') }}"/>
     <title>Log in</title>
@@ -18,7 +18,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
+    <!-- <link rel="stylesheet" href="plugins/iCheck/square/blue.css"> -->
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -78,18 +78,18 @@
     <script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
     <script src="{{ URL::asset('js/jquery-1.12.4.js') }}"></script>
     <!-- iCheck -->
-    <script src="../../plugins/iCheck/icheck.min.js"></script>
+    <!-- <script src="../../plugins/iCheck/icheck.min.js"></script> -->
 <script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
 
     <script>
 
-      $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' // optional
-        });
-      });
+      // $(function () {
+      //   $('input').iCheck({
+      //     checkboxClass: 'icheckbox_square-blue',
+      //     radioClass: 'iradio_square-blue',
+      //     increaseArea: '20%' // optional
+      //   });
+      // });
     </script>
 
 

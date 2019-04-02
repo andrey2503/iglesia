@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/modificarUsuario/{id}','AdminController@show');
     Route::post('/modificarUsuario','AdminController@update');
     Route::get('/nuevoUsuario','AdminController@create');
+    Route::get('/usuarios','AdminController@index');
     Route::post('/nuevoUsuario','AdminController@store');
     Route::get('/verUsuario/{id}','AdminController@verusuario');
     Route::post('/eliminarUsuario','AdminController@destroy');

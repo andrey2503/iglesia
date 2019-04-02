@@ -135,7 +135,7 @@
         @if(Auth::user()->idrol==1)
           <!-- Ussuarios -->
           <li>
-            <a href="{{ URL::asset('/administrador') }}">
+            <a href="{{ URL::asset('/usuarios') }}">
               <i class="glyphicon glyphicon-user"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
               <small class="label pull-right bg-blue">
                 <span class="glyphicon glyphicon-user"></span>
@@ -249,6 +249,7 @@
         </small>
       </a>
     </li> -->
+    @if(Auth::user()->idrol==1)
 
     <li>
       <a href="{{ URL::asset('/logs') }}">
@@ -258,6 +259,7 @@
         </small>
       </a>
     </li>
+        @endif
     <li>
       <a href="{{ URL::asset('/aout') }}">
         <i class="glyphicon glyphicon-off"></i> <span>cerrar sesión</span><i class="fa fa-angle-left pull-right"></i>
