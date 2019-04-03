@@ -24,17 +24,7 @@ class RedirectIfAuthenticated
         // }
 
         if (Auth::guard($guard)->check()) {
-            switch (Auth::guard($guard)->user()->idrol) {
-            case '1':
-            return redirect('administrador');//cru
-            break;
-            case '2':
-             return redirect('digitador');//cru
-            break;
-            default:
-             return redirect('login');
-            break;
-            }// fin del switch
+            return redirect('cuentas');//cru
           }// fin del switch
         return $next($request);
     }
