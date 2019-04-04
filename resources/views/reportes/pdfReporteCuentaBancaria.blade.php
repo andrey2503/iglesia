@@ -108,7 +108,7 @@
                     <tr>
                       <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
                       <th scope="row">Salida</th>    
-                      <td>{{ $me->rubro->nombre }}</td>                                                              
+                      <td>{{ $ms->rubro->nombre }}</td>                                                              
                       <td>{{ $ms->moneda }}</td>
                       @if($ms->moneda == "Dolares")
                       <td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
