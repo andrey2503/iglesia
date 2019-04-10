@@ -158,7 +158,7 @@ class CuentaBancariaController extends Controller
     {
       // dd($request);
       $cuenta = CuentaBancaria::find($request->id);
-      
+
       if(
         MovimientoEntrada::where('fk_cuenta','=',$request->id)->get()->isNotEmpty() ||
         MovimientoSalida::where('fk_cuenta','=',$request->id)->get()->isNotEmpty()
@@ -192,21 +192,41 @@ public function reportesCuentasBancarias(){
 public function reportesConsultar(Request $request){
 // dd($request);
 if($request->tipoReporte==0){
-    return redirect('/reportesCuentasBancarias');
+  // dd($request);
+  $this->validate($request,[
+          'fechaInicio'=>'required|date',
+          'fechaFinal'=>'required|date',
+          'tipoReporte'=>'required'
+  ]);
+$fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+$fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+$cuentas= CuentaBancaria::all();
+$mov_entrada=MovimientoEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+$mov_salida=MovimientoSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+// dd($mov_entrada);
+return view('administrador.reportesCuentasBancarias')->with([
+    'cuentas'=>$cuentas,
+    'tipoReporte'=>$request->tipoReporte,
+    'fechaInicio'=>$fechaInicio,
+    'fechaFinal'=>$fechaFinal,
+    'titulo'=>"Reporte de Todas las cuentas bancarias",
+    'mov_salida'=>$mov_salida,
+    'mov_entrada'=>$mov_entrada
+    ]);
 }
 // dd($request);
 if($request->tipoReporte != 0){
     $this->validate($request,[
             'fechaInicio'=>'required|date',
             'fechaFinal'=>'required|date',
-            'tipoReporte'=>'required'            
+            'tipoReporte'=>'required'
     ]);
   $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
   $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
   $cuentas= CuentaBancaria::all();
   $mov_entrada=MovimientoEntrada::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
   $mov_salida=MovimientoSalida::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-  
+
   return view('administrador.reportesCuentasBancarias')->with([
       'cuentas'=>$cuentas,
       'tipoReporte'=>$request->tipoReporte,
@@ -224,7 +244,22 @@ if($request->tipoReporte != 0){
 public function reporte(Request $request){
 // dd($request);
 if($request->tipoReporte == 0){
+  $this->validate($request,[
+          'fechaInicio'=>'required|date',
+          'fechaFinal'=>'required|date',
+          'tipoReporte'=>'required'
+  ]);
+$fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
+$fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
+$cuentas= CuentaBancaria::all();
+$mov_entrada=MovimientoEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+$mov_salida=MovimientoSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
 
+  $view= view('reportes.pdfReporteCuentaBancaria')->with(['mov_entrada'=>$mov_entrada,'mov_salida'=>$mov_salida,'cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
+  unset($pdf);
+  $pdf=\App::make('dompdf.wrapper');
+  $pdf->loadhtml($view);
+  return $pdf->stream('document.pdf');
 }
 
 
@@ -232,14 +267,14 @@ if($request->tipoReporte != 0){
     $this->validate($request,[
             'fechaInicio'=>'required|date',
             'fechaFinal'=>'required|date',
-            'tipoReporte'=>'required'            
+            'tipoReporte'=>'required'
     ]);
   $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
   $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
   $cuentas= CuentaBancaria::all();
   $mov_entrada=MovimientoEntrada::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
   $mov_salida=MovimientoSalida::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-  
+
 
 
 //   if($request->tipoReporte != 0){

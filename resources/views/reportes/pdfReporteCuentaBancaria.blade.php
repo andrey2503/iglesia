@@ -19,7 +19,7 @@
 		width: 100%;
 		text-align: center;
 	}
-	
+
 	.left{
 		border-right:1px black solid;
 	}
@@ -58,7 +58,7 @@
 		<?php
 		date_default_timezone_set("America/Costa_Rica");
 		 ?>
-		<h3>Reporte de Cuenta bancaria</h3>
+		<h3>Reporte de Cuentas bancarias</h3>
 		@if($tipoReporte ==1)
 	<p>Fecha de Registro: Desde: {{ date('d-m-Y', strtotime($fechaInicio))}} Hasta: {{ date('d-m-Y', strtotime($fechaFinal))}}<br>
 	@endif
@@ -73,10 +73,10 @@
               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <tr>
-                    <th scope="col">Movimiento</th>                  
-                    <th scope="col">Rubro</th>                  
-                    <th scope="col">Moneda</th>
-                    <th scope="col">Cantidad</th>                    
+                    <th scope="col">Movimiento</th>
+                    <th scope="col">Rubro</th>
+
+                    <th scope="col">Monto</th>
                     <th scope="col">Fecha registro</th>
                   </tr>
                 </thead>
@@ -86,16 +86,16 @@
                     <tr>
                       <!-- <th scope="row">{{ $me->cuenta }}</th> -->
                       <th scope="row">Entrada</th>
-                      <td>{{ $me->rubro->nombre }}</td>                      
-                      <td>{{ $me->moneda }}</td>
+                      <td>{{ $me->rubro->nombre }}</td>
+
                       @if($me->moneda == "Dolares")
-                      <td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Colones")
-                      <td class="text-right">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">C {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Euros")
-                      <td class="text-right">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
                         <td>{{$me->fechaRegistro}}</td>
@@ -107,17 +107,17 @@
                     @foreach($mov_salida as $ms)
                     <tr>
                       <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
-                      <th scope="row">Salida</th>    
-                      <td>{{ $ms->rubro->nombre }}</td>                                                              
-                      <td>{{ $ms->moneda }}</td>
+                      <th scope="row">Salida</th>
+                      <td>{{ $ms->rubro->nombre }}</td>
+
                       @if($ms->moneda == "Dolares")
-                      <td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($ms->moneda == "Colones")
-                      <td class="text-right">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($ms->moneda == "Euros")
-                      <td class="text-right">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
                         <td>{{$ms->fechaRegistro}}</td>
@@ -128,7 +128,7 @@
                   </tbody>
               </table>
             @endif
-			
+
 		</div><br>
 					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
 					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>

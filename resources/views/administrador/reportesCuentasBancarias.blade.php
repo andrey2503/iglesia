@@ -8,16 +8,17 @@
 
     <div style="padding: 15px;" class="col-md-3">
       <label for="user">Cuentas</label>
-      <select class="form-control" name="tipoReporte" id="tipoReporte">
+      <select class="form-control chosen-select"  data-placeholder="Seleccione la Cuenta" name="tipoReporte" id="tipoReporte">
         @if(isset($cuentas))
-        <option value="0">Selecione Tipo reporte</option>        
+        <option value="0">Todo</option>
+
           @foreach($cuentas as $c)
           <option value="{{ $c->id }}">{{ $c->nombre }}</option>
           @endforeach
         @endif
       </select>
     </div>
-    
+
 
     <div style="padding: 15px;" class="col-md-3" hidden id="fInicio">
       <div class="form-group">
@@ -63,10 +64,10 @@
               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <tr>
-                    <th scope="col">Movimiento</th>                  
-                    <th scope="col">Rubro</th>                  
-                    <th scope="col">Moneda</th>
-                    <th scope="col">Cantidad</th>                    
+                    <th scope="col">Movimiento</th>
+                    <th scope="col">Rubro</th>
+
+                    <th scope="col">Monto</th>
                     <th scope="col">Fecha registro</th>
                   </tr>
                 </thead>
@@ -76,16 +77,16 @@
                     <tr>
                       <!-- <th scope="row">{{ $me->cuenta }}</th> -->
                       <th scope="row">Entrada</th>
-                      <td>{{ $me->rubro->nombre }}</td>                      
-                      <td>{{ $me->moneda }}</td>
+                      <td>{{ $me->rubro->nombre }}</td>
+
                       @if($me->moneda == "Dolares")
-                      <td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Colones")
-                      <td class="text-right">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Euros")
-                      <td class="text-right">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
                         <td>{{$me->fechaRegistro}}</td>
@@ -97,17 +98,17 @@
                     @foreach($mov_salida as $ms)
                     <tr>
                       <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
-                      <th scope="row">Salida</th>    
-                      <td>{{ $ms->rubro->nombre }}</td>                                                              
+                      <th scope="row">Salida</th>
+                      <td>{{ $ms->rubro->nombre }}</td>
                       <td>{{ $ms->moneda }}</td>
                       @if($ms->moneda == "Dolares")
-                      <td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($ms->moneda == "Colones")
-                      <td class="text-right">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($ms->moneda == "Euros")
-                      <td class="text-right">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
                         <td>{{$ms->fechaRegistro}}</td>
@@ -127,7 +128,7 @@
                     <th scope="col"># Cuenta</th>
                     <th scope="col">Banco</th>
                     <th scope="col">Tipo</th>
-                    <th scope="col">Moneda</th>
+
                     <th scope="col">Monto</th>
                     <th scope="col">Fecha Registro</th>
                     <th scope="col">Datos Actualizacion</th>
@@ -146,7 +147,7 @@
                       <th scope="row">{{ $c->cuenta }}</th>
                       <td>{{$c->banco}}</td>
                       <td>{{ $c->tipo }}</td>
-                      <td>{{ $c->moneda }}</td>
+
                       @if($c->moneda == "Dolares")
                       <td class="text-right">$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
                       @endif
@@ -187,7 +188,7 @@
         <th scope="col"># Cuenta</th>
         <th scope="col">Banco</th>
         <th scope="col">Tipo</th>
-        <th scope="col">Moneda</th>
+
         <th scope="col">Monto</th>
         <th scope="col">Fecha Registro</th>
         <th scope="col">Datos Actualizacion</th>
@@ -205,7 +206,7 @@
         <th scope="row">{{ $c->cuenta }}</th>
         <td>{{$c->banco}}</td>
         <td>{{ $c->tipo }}</td>
-        <td>{{ $c->moneda }}</td>
+
         @if($c->moneda == "Dolares")
         <td class="text-right">$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
         @endif
@@ -272,6 +273,8 @@
 @section('scripts')
 <script>
 $( document ).ready(function() {
+  $("#fInicio").show();
+    $("#fFin").show();
     $("#tipoReporte").change(function(){
       var elt = document.getElementById("tipoReporte");
       $("#titulo").attr("value",elt.options[elt.selectedIndex].text);
