@@ -29,6 +29,10 @@
   <link rel="stylesheet" href="{{ URL::asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
   <!-- Date Picker -->
   <link rel="stylesheet" href="{{ URL::asset('plugins/datepicker/datepicker3.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('plugins/chosen/chosen.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('plugins/chosen/chosen.min.css') }}">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" /> -->
+
 
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ URL::asset('plugins/daterangepicker/daterangepicker-bs3.css') }}">
@@ -345,6 +349,8 @@ $.widget.bridge('uibutton', $.ui.button);
 
 <script src="{{ URL::asset('bootstrap/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('bootstrap/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/chosen/chosen.jquery.min.js') }}"></script>
+
 <script src="{{ URL::asset('js/mainJS.js') }}"></script>
 @yield('scripts')
 
@@ -352,6 +358,7 @@ $.widget.bridge('uibutton', $.ui.button);
 <script type="text/javascript">
 $(document).ready(function() {
   $('#example').DataTable();
+   $(".chosen-select").chosen();
 } );
 </script>
 </body>
