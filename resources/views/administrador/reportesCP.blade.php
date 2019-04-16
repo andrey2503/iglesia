@@ -53,7 +53,7 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
-              <table class="table table-striped">
+              <table class="table table-striped"  id="example">
           <thead>
             <tr>
                 <th scope="col">Nombre</th>
@@ -199,6 +199,10 @@
 @section('scripts')
 <script>
 $( document ).ready(function() {
+  $( document ).ready(function() {
+    $('#example').dataTable({
+    'iDisplayLength': 100
+  });
     $("#tipoReporte").change(function(){
       if ($("#tipoReporte").val()==1) {
         $("#fInicio").show();

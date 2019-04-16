@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es"><head>
+	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Reporte Entradas</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 </head><body>
 <style type="text/css">
+	body { font-family: DejaVu Sans; }
 		.table-encabezado{
 			width: 100%;
 			text-align: center;
@@ -49,6 +51,9 @@
 		.header{
 			text-align: center;
 		}
+		.center{
+			text-align:center;
+		}
 	</style>
 	<div class="header">
 		<img class="escudo" src="./img/corazon.png">
@@ -70,11 +75,12 @@
     <div class="row">
 		    <table class="table-encabezado">
 		    			<thead class="thead-dark">
-							<th class="col">Rubro</th>
-							<th class="col">Descripcion</th>
-							<th class="col">Monto</th>
-							<th class="col">#Documento</th>
-							<th class="col">Editado</th>
+							<th class="col center" >Fecha Registro</th>
+							<th class="col center">Rubro</th>
+							<th class="col center">#Documento</th>
+							<th class="col center">Nombre</th>
+							<th class="col center">Descripcion</th>
+							<th class="col center">Monto</th>
 						</thead>
 
 				<tbody>
@@ -84,11 +90,22 @@
 				<tr></tr>
 				@foreach($entradas as $e)
 					<tr>
+							<td>{{\Carbon\Carbon::parse($e->fechaRegistro)->format('d/m/Y')}}</td>
 							<td class="rigth">{{ $e->rubro->nombre }}</td>
+							<td class="rigth">{{ $e->documento }}</td>
+								<td class="rigth">{{ $e->nombre }}</td>
 						<td class="rigth">{{ $e->descripcion }}</td>
-						<td class="rigth">{{ $e->monto }}</td>
-						<td class="rigth">{{ $e->documento }}</td>
-						<td>{{\Carbon\Carbon::parse($e->updated_at)->format('d/m/Y')}}</td>
+						<td class="rigth">
+							 @if($e->moneda=='Colones')
+                     C {{ number_format($e->monto, 2, ' ', ',') }}
+                       @endif
+                       @if($e->moneda=='Dolares')
+                       $ {{ number_format($e->monto, 2, ' ', ',') }}
+                       @endif
+                       @if($e->moneda=='Euros')
+                       € {{ number_format($e->monto, 2, ' ', ',') }}
+                       @endif
+											</td>
 					</tr>
 					  @if($e->moneda=='Colones')
                       <?php $totalColones = $totalColones + $e->monto; ?>
@@ -113,9 +130,9 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>C {{ number_format($totalColones, 2, ' ', ',') }}</td>
+						<td>₡ {{ number_format($totalColones, 2, ' ', ',') }}</td>
 						<td>$ {{ number_format($totalDolares, 2, ' ', ',') }} </td>
-						<td>€ {{ number_format($totalEuros, 2, ' ', ',') }}</td>
+						<td> &#8364; {{ number_format($totalEuros, 2, ' ', ',') }}</td>
 					</tr>
 				</tbody>
 			</table>

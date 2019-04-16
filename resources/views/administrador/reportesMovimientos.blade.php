@@ -314,6 +314,10 @@
 @section('scripts')
 <script>
 $( document ).ready(function() {
+  $( document ).ready(function() {
+    $('#example').dataTable({
+    'iDisplayLength': 100
+  });
     $("#tipoReporte").change(function(){
       var elt = document.getElementById("tipoReporte");
       $("#titulo").attr("value",elt.options[elt.selectedIndex].text);

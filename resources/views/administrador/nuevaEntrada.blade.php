@@ -81,7 +81,7 @@ $("#cuentaPagar").hide();
          </div>
 
               <div class="form-group">
-               <label for="nombre">Nombre persona</label>
+               <label for="nombre">Nombre</label>
                <input type="text" step="any" class="form-control" name="nombre" placeholder="Nombre" value="{{ old('nombre') }}"/>
                @if($errors->has('nombre'))
                  <span style="color: red;">{{ $errors->first('nombre') }}</span>

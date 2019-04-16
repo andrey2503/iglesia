@@ -423,6 +423,7 @@ class SalidaController extends Controller
           unset($pdf);
           $pdf=\App::make('dompdf.wrapper');
           $pdf->loadhtml($view);
+          $pdf->setPaper('L', 'landscape');
           return $pdf->stream('document.pdf');
       //  dd($cuentas);
 
@@ -440,6 +441,7 @@ class SalidaController extends Controller
         unset($pdf);
         $pdf=\App::make('dompdf.wrapper');
         $pdf->loadhtml($view);
+        $pdf->setPaper('L', 'landscape');
         return $pdf->stream('document.pdf');  }
     }// fin de reporte
 }

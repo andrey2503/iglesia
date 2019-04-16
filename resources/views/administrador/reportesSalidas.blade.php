@@ -53,13 +53,14 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
-              <table class="table table-striped">
+              <table class="table table-striped"  id="example">
           <thead>
             <tr>
                 <th scope="col">Rubro</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Monto</th>
               <th scope="col">documento</th>
+                <th scope="col">Nombre</th>
                 <th scope="col">Fecha Registro</th>
               <th scope="col">Editado</th>
             </tr>
@@ -87,6 +88,7 @@
                 @endif
                 <!-- verificar tipo moneda -->
                 <td>{{$s->documento}}</td>
+                  <td>{{$s->nombre}}</td>
                 <td>{{$s->fechaRegistro}}</td>
                 <td>{{$s->updated_at}}</td>
               </tr>
@@ -199,6 +201,10 @@
 @section('scripts')
 <script>
 $( document ).ready(function() {
+  $( document ).ready(function() {
+    $('#example').dataTable({
+    'iDisplayLength': 100
+  });
     $("#tipoReporte").change(function(){
       if ($("#tipoReporte").val()==1) {
         $("#fInicio").show();

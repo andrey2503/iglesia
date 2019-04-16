@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es"><head>
+	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Reporte Salidas</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -13,6 +14,7 @@
 			width: 100%;
 			text-align: center;
 		}
+		body { font-family: DejaVu Sans; }
 		td{
 			width: 50%;
 			padding: 5px;
@@ -49,6 +51,9 @@
 		.header{
 			text-align: center;
 		}
+		.center{
+			text-align:center;
+		}
 	</style>
 	<div class="header">
 		<img class="escudo" src="./img/corazon.png">
@@ -70,11 +75,12 @@
     <div class="row">
 		    <table class="table-encabezado">
 		    			<thead class="thead-dark">
-							<th class="col">Rubro</th>
-							<th class="col">Descripcion</th>
-							<th class="col">Monto</th>
-							<th class="col">#Documento</th>
-							<th class="col">Editado</th>
+								<th class="col center" >Fecha Registro</th>
+								<th class="col center">Rubro</th>
+								<th class="col center">#Documento</th>
+								<th class="col center">Nombre</th>
+								<th class="col center">Descripcion</th>
+								<th class="col center">Monto</th>
 						</thead>
 
 				<tbody>
@@ -84,11 +90,24 @@
 				<tr></tr>
 				@foreach($salidas as $s)
 					<tr>
-							<td class="rigth">{{ $s->rubro->nombre }}</td>
-						<td class="rigth">{{ $s->descripcion }}</td>
-						<td class="rigth">{{ $s->monto }}</td>
-						<td class="rigth">{{ $s->documento }}</td>
 						<td>{{\Carbon\Carbon::parse($s->updated_at)->format('d/m/Y')}}</td>
+						<td class="rigth">{{ $s->rubro->nombre }}</td>
+							<td class="rigth">{{ $s->documento }}</td>
+								<td class="rigth">{{ $s->nombre }}</td>
+						<td class="rigth">{{ $s->descripcion }}</td>
+						<td class="rigth">
+							@if($s->moneda=='Colones')
+							₡ {{ number_format($s->monto, 2, ' ', ',') }}
+							@endif
+							@if($s->moneda=='Dolares')
+							$ {{ number_format($s->monto, 2, ' ', ',') }}
+							@endif
+							@if($s->moneda=='Euros')
+							€ {{ number_format($s->monto, 2, ' ', ',') }}
+							@endif
+									 </td>
+
+
 					</tr>
 					  @if($s->moneda=='Colones')
                       <?php $totalColones = $totalColones + $s->monto; ?>
@@ -113,9 +132,9 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>C {{ number_format($totalColones, 2, ' ', ',') }}</td>
+						<td>₡ {{ number_format($totalColones, 2, ' ', ',') }}</td>
 						<td>$ {{ number_format($totalDolares, 2, ' ', ',') }} </td>
-						<td>€ {{ number_format($totalEuros, 2, ' ', ',') }}</td>
+						<td>&#8364; {{ number_format($totalEuros, 2, ' ', ',') }}</td>
 					</tr>
 				</tbody>
 			</table>

@@ -41,7 +41,7 @@
 
 <h3>Entradas</h3>
 
-          <!-- tabla principal de usuarios -->
+          <!-- tabla principal de entradas -->
           @if(isset($tipoReporte))
           <form class="" action="{{ url('/reportegenerarEntradas') }}" method="post" target="_blank">
             {{ csrf_field() }}
@@ -53,13 +53,14 @@
           @endif
           <div class="row tabla-usuarios">
             <div class="table-responsive">
-              <table class="table table-striped">
+              <table class="table table-striped" id="example">
           <thead>
             <tr>
                 <th scope="col">Rubro</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Monto</th>
               <th scope="col">documento</th>
+                <th scope="col">Nombre</th>
                 <th scope="col">Fecha Registro</th>
               <th scope="col">Editado</th>
             </tr>
@@ -87,6 +88,7 @@
                 @endif
                 <!-- verificar tipo moneda -->
                 <td>{{$e->documento}}</td>
+                  <td>{{$e->nombre}}</td>
                 <td>{{$e->fechaRegistro}}</td>
                   <td>{{$e->updated_at}}</td>
               </tr>
@@ -115,7 +117,8 @@
         <th scope="col">Rubro</th>
       <th scope="col">Descripcion</th>
       <th scope="col">Monto</th>
-      <th scope="col">documento</th>
+      <th scope="col">Documento</th>
+        <th scope="col">Nombre</th>
       <th scope="col">Fecha Registro</th>
       <th scope="col">Editado</th>
       </tr>
@@ -143,6 +146,7 @@
         @endif
         <!-- verificar tipo moneda -->
         <td>{{$e->documento}}</td>
+        <td>{{$e->nombre}}</td>
         <td>{{$e->fechaRegistro}}</td>
           <td>{{$e->updated_at}}</td>
       </tr>
@@ -199,6 +203,10 @@
 @section('scripts')
 <script>
 $( document ).ready(function() {
+  $('#example').dataTable({
+  'iDisplayLength': 100
+});
+
     $("#tipoReporte").change(function(){
       if ($("#tipoReporte").val()==1) {
         $("#fInicio").show();
