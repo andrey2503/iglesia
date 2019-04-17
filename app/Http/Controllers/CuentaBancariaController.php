@@ -203,7 +203,7 @@ $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
 $cuentas= CuentaBancaria::all();
 $mov_entrada=MovimientoEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
 $mov_salida=MovimientoSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-// dd($mov_entrada);
+ // dd($mov_entrada);
 return view('administrador.reportesCuentasBancarias')->with([
     'cuentas'=>$cuentas,
     'tipoReporte'=>$request->tipoReporte,

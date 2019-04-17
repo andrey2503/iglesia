@@ -15,11 +15,14 @@
 		width: 100%;
 		text-align: center;
 	}
+		body { font-family: DejaVu Sans; }
 	.tabla-datos{
 		width: 100%;
 		text-align: center;
 	}
-
+	.center{
+		text-align:center;
+	}
 	.left{
 		border-right:1px black solid;
 	}
@@ -73,15 +76,16 @@
               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <tr>
-                    <th scope="col">Movimiento</th>
-                    <th scope="col">Rubro</th>
+                    <th scope="col center">Movimiento</th>
+                    <th scope="col center">Rubro</th>
 
-                    <th scope="col">Monto</th>
-                    <th scope="col">Fecha registro</th>
+                    <th scope="col center">Monto</th>
+                    <th scope="col center">Fecha registro</th>
                   </tr>
                 </thead>
                   <tbody>
                   @if(isset($mov_entrada))
+										<!-- print_r($mov_entrada); -->
                     @foreach($mov_entrada as $me)
                     <tr>
                       <!-- <th scope="row">{{ $me->cuenta }}</th> -->
@@ -92,10 +96,10 @@
                       <td class="text-left">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Colones")
-                      <td class="text-left">C {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Euros")
-                      <td class="text-left">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">>&#8364; {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
                         <td>{{$me->fechaRegistro}}</td>
@@ -104,12 +108,14 @@
                   @endif
 
                    @if(isset($mov_salida))
+
                     @foreach($mov_salida as $ms)
+
                     <tr>
                       <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
                       <th scope="row">Salida</th>
                       <td>{{ $ms->rubro->nombre }}</td>
-
+											 
                       @if($ms->moneda == "Dolares")
                       <td class="text-left">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
@@ -117,7 +123,7 @@
                       <td class="text-left">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($ms->moneda == "Euros")
-                      <td class="text-left">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">>&#8364; {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
                         <td>{{$ms->fechaRegistro}}</td>
