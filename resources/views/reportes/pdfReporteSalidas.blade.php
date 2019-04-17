@@ -74,7 +74,7 @@
 <div class="container">
     <div class="row">
 		    <table class="table-encabezado">
-		    			<thead class="thead-dark">
+		    			<thead>
 								<th class="col center" >Fecha Registro</th>
 								<th class="col center">Rubro</th>
 								<th class="col center">#Documento</th>

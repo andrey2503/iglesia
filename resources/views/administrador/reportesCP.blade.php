@@ -199,7 +199,6 @@
 @section('scripts')
 <script>
 $( document ).ready(function() {
-  $( document ).ready(function() {
     $('#example').dataTable({
     'iDisplayLength': 100
   });
