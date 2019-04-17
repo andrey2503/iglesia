@@ -18,7 +18,7 @@
     </div>
     <div style="padding: 15px;" class="col-md-2" id="frubro" hidden>
       <label for="user">Rubro:</label>
-      <select class="form-control chosen-select"  data-placeholder="Seleccione Rubro"  name="rubro" id="filtrorubro" multiple >
+      <select class="form-control chosen-select"  data-placeholder="Seleccione Rubro" name="rubro[]" id="filtrorubro" multiple="true" >
       <option value="0">Todos</option>
       @foreach($rubros as $r)
           <option value="{{$r->id}}">{{$r->nombre}}</option>
