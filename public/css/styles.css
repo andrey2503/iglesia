@@ -30,3 +30,6 @@
 .chosen-container {
     width: 100% !important;
 	}
+	.center{
+		text-align:center;
+	}

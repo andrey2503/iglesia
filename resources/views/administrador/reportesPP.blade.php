@@ -59,7 +59,7 @@
                 <th scope="col">Nombre</th>
               <th scope="col"># ID</th>
               <th scope="col">Rubro</th>
-              <th scope="col">Moneda</th>
+
               <th scope="col">Monto</th>
               <th scope="col">Fecha Registro</th>
             </tr>
@@ -76,7 +76,7 @@
               <td scope="row">{{ $pp->nombre }}</td>
               <th scope="row">0{{ $pp->id }}PC</th>
               <td>{{$pp->rubro->nombre}}</td>
-              <td>{{ $pp->moneda }}</td>
+          
               @if($pp->moneda == "Dolares")
               <td>$ {{ number_format($pp->monto, 2, ' ', ',') }}</td>
               @endif

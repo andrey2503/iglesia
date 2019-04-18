@@ -59,7 +59,6 @@
                 <th scope="col">Nombre</th>
               <th scope="col"># ID</th>
               <th scope="col">Rubro</th>
-              <th scope="col">Moneda</th>
               <th scope="col">Monto</th>
               <th scope="col">Fecha Registro</th>
             </tr>
@@ -76,7 +75,6 @@
               <td scope="row">{{ $cp->nombre }}</td>
               <th scope="row">0{{ $cp->id }}PC</th>
               <td>{{$cp->rubro->nombre}}</td>
-              <td>{{ $cp->moneda }}</td>
               @if($cp->moneda == "Dolares")
               <td>$ {{ number_format($cp->monto, 2, ' ', ',') }}</td>
               @endif

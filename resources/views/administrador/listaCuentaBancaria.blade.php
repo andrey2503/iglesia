@@ -35,7 +35,6 @@
                   <th>Nombre</th>
                   <th>Banco</th>
                   <th>Tipo</th>
-                  <th>Moneda</th>
                   <th># Cuenta</th>
                   <th>Monto Total</th>
                   <th>Acción</th>
@@ -52,7 +51,7 @@
                         <!-- <td>{{ $c->user }}</td> -->
                         <td>{{ $c->banco }}</td>
                         <td>{{ $c->tipo }}</td>
-                        <td>{{ $c->moneda }}</td>
+                      
                         <td>{{ $c->cuenta }}</td>
                         @if($c->moneda == "Dolares")
                         <td class="text-right">$ {{ number_format($c->monto, 2, ' ', ',') }}</td>

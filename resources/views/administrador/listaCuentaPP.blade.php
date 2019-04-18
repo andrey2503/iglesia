@@ -22,7 +22,7 @@
                   <th>Identificacion</th>
                   <th>Rubro</th>
                   <th>Monto</th>
-                  <th>Moneda</th>
+
                   <th>Acción</th>
                 </thead>
                 <tbody>
@@ -33,8 +33,18 @@
                         <td>{{ $cpp->nombre }}</td>
                         <td>0{{ $cpp->id }}PP</td>
                         <td>{{ $cpp->rubro->nombre }}</td>
-                        <td>{{ $cpp->monto }}</td>
-                          <td>{{ $cpp->moneda }}</td>
+
+                        @if($cpp->moneda == "Dolares")
+                        <td class="text-left">$ {{ number_format($cpp->monto, 2, ' ', ',') }}</td>
+                        @endif
+                        @if($cpp->moneda == "Colones")
+                        <td class="text-left">₡ {{ number_format($cpp->monto, 2, ' ', ',') }}</td>
+                        @endif
+                        @if($cpp->moneda == "Euros")
+                        <td class="text-left">€ {{ number_format($cpp->monto, 2, ' ', ',') }}</td>
+                        @endif
+
+
                         <td>
                            @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarPP') }}/{{$cpp->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>

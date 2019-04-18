@@ -22,7 +22,7 @@
                   <th>Identificacion</th>
                   <th>Rubro</th>
                   <th>Monto</th>
-                  <th>Moneda</th>
+
                   <th>Acción</th>
                 </thead>
                 <tbody>
@@ -33,11 +33,20 @@
                     @foreach($cuentasCobrar as $cpc)
 
                       <tr>
-                        <td>{{ $cpc->nombre }}</td>
-                        <td>0{{ $cpc->id }}PC</td>
-                        <td>{{ $cpc->rubro->nombre }}</td>
-                        <td>{{ $cpc->monto }}</td>
-                          <td>{{ $cpc->moneda }}</td>
+                        <td class="text-left">{{ $cpc->nombre }}</td>
+                        <td class="text-left">0{{ $cpc->id }}PC</td>
+                        <td class="text-left">{{ $cpc->rubro->nombre }}</td>
+
+                          @if($cpc->moneda == "Dolares")
+                          <td class="text-left">$ {{ number_format($cpc->monto, 2, ' ', ',') }}</td>
+                          @endif
+                          @if($cpc->moneda == "Colones")
+                          <td class="text-left">₡ {{ number_format($cpc->monto, 2, ' ', ',') }}</td>
+                          @endif
+                          @if($cpc->moneda == "Euros")
+                          <td class="text-left">€ {{ number_format($cpc->monto, 2, ' ', ',') }}</td>
+                          @endif
+
                         <td>
                           @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarPC') }}/{{$cpc->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>

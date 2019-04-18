@@ -20,6 +20,11 @@
 		width: 100%;
 		text-align: center;
 	}
+	body { font-family: DejaVu Sans; }
+
+	.center{
+		text-align:center;
+	}
 	td{
 		width: 50%;
 		padding: 5px;
@@ -80,11 +85,11 @@
 						<table class="table table-striped">
 				<thead>
 					<tr>
-						<th scope="col">Nombre</th>
-		      	<th scope="col" ># ID</th>
-		      	<th scope="col" >Rubro</th>
-		      	<th scope="col">Monto</th>
-						<th scope="col">Editado</th>
+						<th scope="col center" >Nombre</th>
+		      	<th scope="col center" ># ID</th>
+		      	<th scope="col center" >Rubro</th>
+		      	<th scope="col center">Monto</th>
+						<th scope="col center">Editado</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -107,10 +112,10 @@
 		        <td>$ {{ number_format($pp->monto, 2, ' ', ',') }}</td>
 		        @endif
 		        @if($pp->moneda == "Colones")
-		        <td>C {{ number_format($pp->monto, 2, ' ', ',') }}</td>
+		        <td>₡ {{ number_format($pp->monto, 2, ' ', ',') }}</td>
 		        @endif
 		        @if($pp->moneda == "Euros")
-		        <td>€ {{ number_format($pp->monto, 2, ' ', ',') }}</td>
+		        <td>&#8364; {{ number_format($pp->monto, 2, ' ', ',') }}</td>
 		        @endif
 		        <!-- verificar tipo moneda -->
 		          <td>{{\Carbon\Carbon::parse($pp->updated_at)->format('d/m/Y')}}</td>
@@ -139,11 +144,11 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>C {{ number_format($totalColones, 2, ' ', ',') }} </td>
+						<td>₡ {{ number_format($totalColones, 2, ' ', ',') }} </td>
 
 						<td>$ {{ number_format($totalDolares, 2, ' ', ',') }} </td>
 
-						<td>€ {{ number_format($totalEuros, 2, ' ', ',') }} </td>
+						<td>&#8364; {{ number_format($totalEuros, 2, ' ', ',') }} </td>
 
 					</tr>
 				</tbody>

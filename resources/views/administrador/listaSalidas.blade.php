@@ -24,12 +24,12 @@
             <div class="table-responsive">
               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
-                  <th>Rubro</th>
-                  <th>Descripcion</th>
-                  <th>Moneda</th>
-                  <th>Monto</th>
-                  <th>Fecha</th>
-                  <th>Acción</th>
+                  <th class="center">Rubro</th>
+                  <th class="center">Descripcion</th>
+
+                  <th class="center">Monto</th>
+                  <th class="center">Fecha</th>
+                  <th class="center">Acción</th>
                 </thead>
                 <tbody>
                   <!-- @define $i = 1 -->
@@ -41,8 +41,16 @@
                       <tr>
                       <td>{{ $s->rubro->nombre }}</td>
                         <td>{{ $s->descripcion }}</td>
-                        <td>{{ $s->moneda }}</td>
-                        <td>{{ $s->monto }}</td>
+
+                        @if($s->moneda == "Dolares")
+                        <td class="text-left">$ {{ number_format($s->monto, 2, ' ', ',') }}</td>
+                        @endif
+                        @if($s->moneda == "Colones")
+                        <td class="text-left">₡ {{ number_format($s->monto, 2, ' ', ',') }}</td>
+                        @endif
+                        @if($s->moneda == "Euros")
+                        <td class="text-left">&#8364; {{ number_format($s->monto, 2, ' ', ',') }}</td>
+                        @endif
                         <td>{{ $s->created_at }}</td>
 
                         <td>

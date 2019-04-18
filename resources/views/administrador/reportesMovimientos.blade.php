@@ -74,12 +74,13 @@
           @if($tipoReporte>0)
           <form class="" action="{{ url('/reportegenerarMovimiento') }}" method="post" target="_blank">
             {{ csrf_field() }}
+            <?php print_r($rubros); ?>
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
             <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}">
             <input type="hidden" name="fechaFinal" value="{{$fechaFinal}}">
             <input type="hidden" name="filtroMoneda" value="{{$moneda}}">
               <input type="hidden" name="titulo" value="{{$titulo}}">
-              <input type="hidden" name="rubro" value="{{$rubroid}}">
+              <input type="hidden" name="rubro" multiple="true" value="{{$rubroid}}">
             <button href="#" target="_blank" type="submit"  class="btn btn-warning">Generar</button>
           </form>
           @endif

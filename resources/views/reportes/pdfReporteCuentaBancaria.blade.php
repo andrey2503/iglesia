@@ -99,7 +99,7 @@
                       <td class="text-left">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Euros")
-                      <td class="text-left">>&#8364; {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="text-left">&#8364; {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
                         <td>{{$me->fechaRegistro}}</td>
@@ -115,7 +115,7 @@
                       <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
                       <th scope="row">Salida</th>
                       <td>{{ $ms->rubro->nombre }}</td>
-											 
+
                       @if($ms->moneda == "Dolares")
                       <td class="text-left">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif

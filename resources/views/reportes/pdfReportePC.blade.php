@@ -16,6 +16,12 @@
 		width: 100%;
 		text-align: center;
 	}
+		body { font-family: DejaVu Sans; }
+
+		.center{
+			text-align:center;
+		}
+
 	.tabla-datos{
 		width: 100%;
 		text-align: center;
@@ -77,14 +83,14 @@
 			<div class="">
 				<div class="row tabla-usuarios">
 					<div class="table-responsive">
-						<table class="table table-striped">
+						<table  class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<thead>
 					<tr>
-						<th scope="col">Nombre</th>
-						<th scope="col" style="width:60px;"># ID</th>
-						<th scope="col"  style="width:200px;">Rubro</th>
-						<th scope="col">Monto</th>
-						<th scope="col">Edicion</th>
+						<th scope="col center">Nombre</th>
+						<th scope="col center" style="width:60px;"># ID</th>
+						<th scope="col center" >Rubro</th>
+						<th scope="col center">Monto</th>
+						<th scope="col center">Edicion</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -100,17 +106,17 @@
 		        @endphp
 		      <tr>
 		        <td>{{ $cp->nombre }}</td>
-		        <td style="width:60px;">0{{ $cp->id }}PC</td>
-		        <td  style="width:200px;">{{$cp->rubro->nombre}}</td>
+		        <td  style="width:60px;">0{{ $cp->id }}PC</td>
+		        <td  >{{$cp->rubro->nombre}}</td>
 
 		        @if($cp->moneda == "Dolares")
 		        <td>$ {{ number_format($cp->monto, 2, ' ', ',') }}</td>
 		        @endif
 		        @if($cp->moneda == "Colones")
-		        <td>C {{ number_format($cp->monto, 2, ' ', ',') }}</td>
+		        <td>₡ {{ number_format($cp->monto, 2, ' ', ',') }}</td>
 		        @endif
 		        @if($cp->moneda == "Euros")
-		        <td>€ {{ number_format($cp->monto, 2, ' ', ',') }}</td>
+		        <td>&#8364; {{ number_format($cp->monto, 2, ' ', ',') }}</td>
 		        @endif
 		        <!-- verificar tipo moneda -->
 		          <td>{{$cp->updated_at}}</td>
@@ -139,9 +145,9 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>C {{ number_format($totalColones, 2, ' ', ',') }} </td>
+						<td>₡ {{ number_format($totalColones, 2, ' ', ',') }} </td>
 						<td>$ {{ number_format($totalDolares, 2, ' ', ',') }} </td>
-						<td>€ {{ number_format($totalEuros, 2, ' ', ',') }} </td>
+						<td>&#8364; {{ number_format($totalEuros, 2, ' ', ',') }} </td>
 					</tr>
 				</tbody>
 			</table>

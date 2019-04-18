@@ -25,7 +25,6 @@
                 <thead>
                   <th>Rubro</th>
                   <th>Descripcion</th>
-                  <th>Moneda</th>
                   <th>Monto</th>
                   <th>Fecha</th>
                   <th>Acción</th>
@@ -41,8 +40,17 @@
                         <td>{{ $e->rubro->nombre }}</td>
                         <!-- <td>{{ $e->user }}</td> -->
                         <td>{{ $e->descripcion }}</td>
-                        <td>{{ $e->moneda }}</td>
-                        <td>{{ $e->monto }}</td>
+
+                        @if($e->moneda == "Dolares")
+                        <td class="text-left">$ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                        @endif
+                        @if($e->moneda == "Colones")
+                        <td class="text-left">₡ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                        @endif
+                        @if($e->moneda == "Euros")
+                        <td class="text-left">&#8364; {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                        @endif
+
                         <td>{{ $e->created_at }}</td>
 
                         <td>

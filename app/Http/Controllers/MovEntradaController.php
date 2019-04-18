@@ -113,7 +113,8 @@ class MovEntradaController extends Controller
         $sumaEurosE=0;
         $rubrofiltro="Todos";
         $rubroid=0;
-
+        $rubros=array();
+        
         if($request->rubro[0]==0 ){
 
           foreach ($rubros as $key => $value) {
@@ -169,7 +170,8 @@ class MovEntradaController extends Controller
         'moneda'=> $request->filtroMoneda,
         'rubros'=>$rubros,
         'rubrofiltro'=>$rubrofiltro,
-        'rubroid'=> $rubroid
+        'rubroid'=> $rubroid,
+        'rubros'=> $request->$rubro
         ]);
 
       }//reporte value 1
@@ -400,7 +402,7 @@ class MovEntradaController extends Controller
         $sumaEurosE=0;
 
 
-        if($request->rubro==0 ){
+        if($request->rubro[0]==0 ){
 
           foreach ($rubros as $key => $value) {
             $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
