@@ -74,7 +74,10 @@
           @if($tipoReporte>0)
           <form class="" action="{{ url('/reportegenerarMovimiento') }}" method="post" target="_blank">
             {{ csrf_field() }}
-
+            @if(isset($arrRubro))
+          <!-- <h1>{{$arrRubro}}</h1> -->
+            <input type="hidden" name="rubros" value="{{$arrRubro}}">
+            @endif
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
             <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}">
             <input type="hidden" name="fechaFinal" value="{{$fechaFinal}}">

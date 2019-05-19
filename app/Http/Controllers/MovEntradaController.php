@@ -113,6 +113,7 @@ class MovEntradaController extends Controller
         $sumaEurosE=0;
         $rubrofiltro="Todos";
         $rubroid=0;
+        $arrayRubros="";
         // $rubros=array();
 
         if($request->rubro[0] == 0 ){
@@ -128,8 +129,12 @@ class MovEntradaController extends Controller
           }// fin del for
           // dd($SumatoriaEntradas);
         }else{
+          for ($i=0; $i < count($request->rubro) ; $i++) {
+            $arrayRubros=$arrayRubros.$request->rubro[$i]."-";
+          }
           foreach ($rubros as $key => $value) {
             for ($i=0; $i < count($request->rubro) ; $i++) {
+              // $arrayRubros=$arrayRubros.$request->rubro[$i]."-";
               if ($request->rubro[$i]==0) {
                 // dd("rueba");
                 return redirect('/reportesMovimientos');
@@ -145,6 +150,7 @@ class MovEntradaController extends Controller
                 array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>$request->filtroMoneda]);
                 }
           }
+          // dd($arrayRubros);
               // echo($request->rubro[$i]);
 
 
@@ -168,7 +174,8 @@ class MovEntradaController extends Controller
         'moneda'=> $request->filtroMoneda,
         'rubros'=>$rubros,
         'rubrofiltro'=>$rubrofiltro,
-        'rubroid'=> $rubroid
+        'rubroid'=> $rubroid,
+        'arrRubro'=>$arrayRubros
         ]);
 
       }//reporte value 1
@@ -387,6 +394,18 @@ class MovEntradaController extends Controller
     public function reportegenerarMovimiento(Request $request){
 
       if($request->tipoReporte == 1){
+        $arrRubros=array();
+        $arrRubros1=array();
+        // dd($request);
+        $arrRubros1=(explode("-", $request->rubros));
+        foreach ($arrRubros1 as $key => $value) {
+          if ($value != "") {
+            // code...
+              array_push($arrRubros,$value);
+          }
+
+        }
+        // dd($arrRubros);
         $rubros= Rubro::all();
         $SumatoriaEntradas=array();
         $SumatoriaSalidas=array();
@@ -399,7 +418,7 @@ class MovEntradaController extends Controller
         $sumaEurosE=0;
 
 
-        if($request->rubro[0]==0 ){
+        if($arrRubros[0]==0 ){
 
           foreach ($rubros as $key => $value) {
             $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
@@ -414,7 +433,10 @@ class MovEntradaController extends Controller
         }else{
 
           foreach ($rubros as $key => $value) {
-            if($request->rubro==$value->id){
+            for ($i=0; $i < count($arrRubros) ; $i++) {
+              // code...
+
+            if($arrRubros[$i]==$value->id){
             $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->sum('monto');
             $sumaColoresE+=$sumRubroe;
             array_push($SumatoriaEntradas,['rubro'=>$value->nombre,'monto'=>$sumRubroe,'moneda'=>$request->filtroMoneda]);
@@ -423,7 +445,7 @@ class MovEntradaController extends Controller
             $sumaColoresS+=$sumRubros;
             array_push($SumatoriaSalidas,['rubro'=>$value->nombre,'monto'=>$sumRubros,'moneda'=>$request->filtroMoneda]);
             }
-
+              }
           }// fin del for
         }//else
 // dd($request->titulo);
