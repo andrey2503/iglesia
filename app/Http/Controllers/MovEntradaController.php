@@ -94,7 +94,7 @@ class MovEntradaController extends Controller
 
     public function reporteMovimientos(Request $request){
   //dd($request->rubro);
-
+// dd($request->rubro);
     if($request->tipoReporte == 0){
       return redirect('/reportesMovimientos');
     }//
@@ -113,7 +113,7 @@ class MovEntradaController extends Controller
         $sumaEurosE=0;
         $rubrofiltro="Todos";
         $rubroid=0;
-        $rubros=array();
+        // $rubros=array();
 
         if($request->rubro[0] == 0 ){
 
@@ -131,7 +131,7 @@ class MovEntradaController extends Controller
           foreach ($rubros as $key => $value) {
             for ($i=0; $i < count($request->rubro) ; $i++) {
               if ($request->rubro[$i]==0) {
-                dd("rueba");
+                // dd("rueba");
                 return redirect('/reportesMovimientos');
               }else if($request->rubro[$i] == $value->id){
                 $rubrofiltro=  $value->nombre;
