@@ -15,6 +15,7 @@
 		width: 100%;
 		text-align: center;
 	}
+		body { font-family: DejaVu Sans; }
 	.tabla-datos{
 		width: 100%;
 		text-align: center;
@@ -67,6 +68,7 @@
 		?>
 		@if(isset($titulo))
 		<h3>{{ $titulo }} en {{ $moneda }} </h3>
+		<h1>priehba</h1>
 		@endif
 
 		@if($fechaInicio!="" && $fechaFinal!="" )
@@ -96,16 +98,16 @@
 								@if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
 								<tr>
 									<td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
-									<td scope="row" class="text-right">{{ $movRubroEntrada[$i]['monto'] }}</td>
-									<td scope="row" class="text-right">{{ $movRubroSalida[$i]['monto'] }}</td>
+									<td scope="row" class="text-right">₡ {{ $movRubroEntrada[$i]['monto'] }}</td>
+									<td scope="row" class="text-right">₡ {{ $movRubroSalida[$i]['monto'] }}</td>
 								</tr>
 								@endif
 								@endfor
 
 								<tr>
 									<td scope="row">Monto Neto</td>
-									<td class="text-right" style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)C {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
-									<td class="text-right" style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)C {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
+									<td class="text-right" style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)₡ {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
+									<td class="text-right" style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
 
 								</tr>
 								@endif
@@ -142,7 +144,7 @@
 									<td class="text-right">C {{ number_format($me->monto, 2, ' ', ',') }}</td>
 									@endif
 									@if($me->moneda == "Euros")
-									<td class="text-right">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+									<td class="text-right">&#8364;{{ number_format($me->monto, 2, ' ', ',') }}</td>
 									@endif
 
 						<!-- verificar tipo moneda -->
@@ -167,7 +169,7 @@
 						<td class="text-right">C {{ number_format($ms->monto, 2, ' ', ',') }}</td>
 						@endif
 						@if($ms->moneda == "Euros")
-						<td class="text-right">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+						<td class="text-right">&#8364;{{ number_format($ms->monto, 2, ' ', ',') }}</td>
 						@endif
 
 						<!-- verificar tipo moneda -->
