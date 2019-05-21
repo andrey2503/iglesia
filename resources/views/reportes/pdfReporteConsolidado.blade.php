@@ -67,8 +67,7 @@
 		date_default_timezone_set("America/Costa_Rica");
 		?>
 		@if(isset($titulo))
-		<h3>{{ $titulo }} en {{ $moneda }} </h3>
-		<h1>priehba</h1>
+		<h3>{{ $titulo }} por Rubros </h3>
 		@endif
 
 		@if($fechaInicio!="" && $fechaFinal!="" )
@@ -98,8 +97,8 @@
 								@if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
 								<tr>
 									<td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
-									<td scope="row" class="text-right">₡ {{ $movRubroEntrada[$i]['monto'] }}</td>
-									<td scope="row" class="text-right">₡ {{ $movRubroSalida[$i]['monto'] }}</td>
+									<td scope="row" class="text-right">₡ {{ number_format($movRubroEntrada[$i]['monto'], 2, ' ', ',') }}</td>
+									<td scope="row" class="text-right">₡ {{ number_format($movRubroSalida[$i]['monto'], 2, ' ', ',') }}</td>
 								</tr>
 								@endif
 								@endfor
@@ -141,7 +140,7 @@
 									<td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
 									@endif
 									@if($me->moneda == "Colones")
-									<td class="text-right">C {{ number_format($me->monto, 2, ' ', ',') }}</td>
+									<td class="text-right">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
 									@endif
 									@if($me->moneda == "Euros")
 									<td class="text-right">&#8364;{{ number_format($me->monto, 2, ' ', ',') }}</td>
@@ -166,7 +165,7 @@
 						<td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
 						@endif
 						@if($ms->moneda == "Colones")
-						<td class="text-right">C {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+						<td class="text-right">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
 						@endif
 						@if($ms->moneda == "Euros")
 						<td class="text-right">&#8364;{{ number_format($ms->monto, 2, ' ', ',') }}</td>

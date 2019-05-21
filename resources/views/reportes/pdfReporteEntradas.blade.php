@@ -97,7 +97,7 @@
 						<td class="rigth">{{ $e->descripcion }}</td>
 						<td class="rigth">
 							 @if($e->moneda=='Colones')
-                     C {{ number_format($e->monto, 2, ' ', ',') }}
+                     ₡ {{ number_format($e->monto, 2, ' ', ',') }}
                        @endif
                        @if($e->moneda=='Dolares')
                        $ {{ number_format($e->monto, 2, ' ', ',') }}
