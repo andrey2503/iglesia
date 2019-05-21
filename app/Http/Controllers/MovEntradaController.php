@@ -252,27 +252,43 @@ class MovEntradaController extends Controller
 
 
     if($request->tipoReporte == 3){
-      $movEntrada=0;
-      $movSalida=0;
+
+      // $movEntrada=0;
+      // $movSalida=0;
       $rubros= Rubro::all();
       $rubrofiltro="Todos";
       $rubroid=0;
+      $movEntrada1=array();
+      $movSalida1=array();
+      $movEntrada=array();
+      $movSalida=array();
 
-
-      if($request->rubro==0){
+      if($request->rubro[0]==0){
+        // dd($request);
         $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda);
         $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda);
       }else{
 
         foreach ($rubros as $key => $value) {
-          if($request->rubro==$value->id){
+            for ($i=0; $i < count($request->rubro) ; $i++) {
+          if($request->rubro[$i]==$value->id){
+// dd("if");
           $rubrofiltro =  $value->nombre;
           $rubroid  = $value->id;
+          $movEntrada1 = MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$request->rubro[$i]);
+          $movSalida1  = MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$request->rubro[$i]);
+          // $movEntrada= $movEntrada.$movEntrada1;
+          // $movSalida=$movSalida.$movSalida1;
+          array_push($movEntrada, $movEntrada1);
+          array_push($movSalida, $movSalida1);
+        // print_r($movEntrada1);
+             // dd($movEntrada);
         }
       }
+      }
 
-        $movEntrada = MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$request->rubro);
-        $movSalida  = MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$request->rubro);
+ dd($movEntrada);
+  dd($movSalida);
       }
 
       return view('administrador.reportesMovimientos')->with([
