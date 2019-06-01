@@ -202,7 +202,7 @@ class MovEntradaController extends Controller
           $rubrofiltro = "Todos";
           $rubroid=0;
 
-          if($request->rubro==0 ){
+          if($request->rubro[0]==0 ){
           foreach ($rubros as $key => $value) {
 
           $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
@@ -277,7 +277,7 @@ class MovEntradaController extends Controller
                       $movEntrada1 = MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$value->id);
                       $movSalida1  = MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$value->id);
                         if(count($movEntrada1)==3 ){
-                          dd($movEntrada1);
+                          // dd($movEntrada1);
                         }
                         for ($ii = 0; $ii < count($movEntrada1); $ii++) {
                         array_push($movEntrada,['id'=>$movEntrada1[$ii]->id,'monto'=>$movEntrada1[$ii]->monto,'fechaRegistro'=>$movEntrada1[$ii]->fechaRegistro,
@@ -336,7 +336,7 @@ class MovEntradaController extends Controller
       $movSalida  = 0;
       $rubrofiltro="Todos";
       $rubroid=0;
-      if($request->rubro==0){
+      if($request->rubro[0]==0){
         $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
         $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
       } else{
@@ -514,7 +514,7 @@ class MovEntradaController extends Controller
           $sumaColoresE=0;
           $sumaDolaresE=0;
           $sumaEurosE=0;
-          if($request->rubro==0 ){
+          if($request->rubro[0]==0 ){
           foreach ($rubros as $key => $value) {
 
           $sumRubroe=MovEntrada::where('fk_rubro','=',$value->id)->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->sum('monto');
@@ -565,7 +565,7 @@ class MovEntradaController extends Controller
         $movSalida=0;
         $rubros= Rubro::all();
 
-        if($request->rubro==0){
+        if($request->rubro[0]==0){
           $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda);
           $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda);
         }else{
@@ -599,7 +599,7 @@ class MovEntradaController extends Controller
         $movEntrada = 0;
         $movSalida  = 0;
 
-        if($request->rubro==0){
+        if($request->rubro[0]==0){
           $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
           $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal);
         } else{
