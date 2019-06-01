@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es">
+<head>
 	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Reporte Salidas</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -17,7 +18,7 @@
 		body { font-family: DejaVu Sans; }
 		td{
 			width: 50%;
-			padding: 5px;
+			padding: 0px 5px;
 			/*border-top:1px black solid;*/
 			border-bottom:1px black solid;
 			border-left:1px black solid;
@@ -34,12 +35,13 @@
 			color: white;
 		}
 		.col{
-			padding: 10px;
+			padding: 10px !important;
 		}
 		.titulo{
 			text-align: center;
 		}
-		.right{
+		.rigth{
+			overflow:hidden;
 		}
 		.escudo{
 			position: absolute;
@@ -53,6 +55,9 @@
 		}
 		.center{
 			text-align:center;
+		}
+		.oculto{
+			display:none;
 		}
 	</style>
 	<div class="header">
@@ -71,54 +76,55 @@
 <p>Fecha del reporte: {{ date ("d-m-Y g:i a",time())}} <br>
 		Generado por: {{ Auth::user()->nombre }}</p>
 </div>
+<?php $totalColones = 0; ?>
+<?php $totalDolares = 0; ?>
+<?php $totalEuros = 0; ?>
 <div class="container">
     <div class="row">
-		    <table class="table-encabezado">
+		    <table class="table-encabezado table table-striped">
 		    			<thead>
-								<th class="col center" >Fecha Registro</th>
+								<th class="col center">Fecha Registro</th>
 								<th class="col center">Rubro</th>
 								<th class="col center">#Documento</th>
 								<th class="col center">Nombre</th>
 								<th class="col center">Descripcion</th>
 								<th class="col center">Monto</th>
+								<th></th>
 						</thead>
 
 				<tbody>
-				<?php $totalColones = 0; ?>
-				<?php $totalDolares = 0; ?>
-				<?php $totalEuros = 0; ?>
 				<tr></tr>
 				@foreach($salidas as $s)
 					<tr>
-						<td>{{\Carbon\Carbon::parse($s->updated_at)->format('d/m/Y')}}</td>
+						<td class="rigth">{{\Carbon\Carbon::parse($s->updated_at)->format('d/m/Y')}}</td>
 						<td class="rigth">{{ $s->rubro->nombre }}</td>
-							<td class="rigth">{{ $s->documento }}</td>
-								<td class="rigth">{{ $s->nombre }}</td>
+						<td class="rigth">{{ $s->documento }}</td>
+						<td class="rigth">{{ $s->nombre }}</td>
 						<td class="rigth">{{ $s->descripcion }}</td>
 						<td class="rigth">
-							@if($s->moneda=='Colones')
-							₡ {{ number_format($s->monto, 2, ' ', ',') }}
-							@endif
-							@if($s->moneda=='Dolares')
-							$ {{ number_format($s->monto, 2, ' ', ',') }}
-							@endif
-							@if($s->moneda=='Euros')
-							€ {{ number_format($s->monto, 2, ' ', ',') }}
-							@endif
-									 </td>
-
-
+								@if($s->moneda=='Colones')
+								₡ {{ number_format($s->monto, 2, ' ', ',') }}
+								@endif
+								@if($s->moneda=='Dolares')
+								$ {{ number_format($s->monto, 2, ' ', ',') }}
+								@endif
+								@if($s->moneda=='Euros')
+								€ {{ number_format($s->monto, 2, ' ', ',') }}
+								@endif
+					
+												@if($s->moneda=='Colones')
+													<?php $totalColones = $totalColones + $s->monto; ?>
+												@endif
+												@if($s->moneda=='Dolares')
+													<?php $totalDolares = $totalDolares + $s->monto; ?>
+												@endif
+												@if($s->moneda=='Euros')
+													<?php $totalEuros = $totalEuros + $s->monto; ?>
+												@endif
+						</td>
 					</tr>
-					  @if($s->moneda=='Colones')
-                      <?php $totalColones = $totalColones + $s->monto; ?>
-                      @endif
-                      @if($s->moneda=='Dolares')
-                      <?php $totalDolares = $totalDolares + $s->monto; ?>
-                      @endif
-                      @if($s->moneda=='Euros')
-                      <?php $totalEuros = $totalEuros + $s->monto; ?>
-                      @endif
 				@endforeach
+				<tr></tr>
 				</tbody>
 			</table>
 			<h5>Totales</h5>
