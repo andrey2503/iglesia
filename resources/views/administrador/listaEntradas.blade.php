@@ -43,17 +43,16 @@
                         <td>{{ $e->descripcion }}</td>
 
                         @if($e->moneda == "Dolares")
-                        <td class="text-left">$ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                        <td class="text-left" style=" width: 22%;">$ {{ number_format($e->monto, 2, ' ', ',') }}</td>
 
                         @endif
                         @if($e->moneda == "Colones")
-                        <td class="text-left">₡ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                        <td class="text-left" style=" width: 22%;">₡ {{ number_format($e->monto, 2, ' ', ',') }}</td>
                         @endif
                         @if($e->moneda == "Euros")
-                        <td class="text-left">&#8364; {{ number_format($e->monto, 2, ' ', ',') }}</td>
+                        <td class="text-left" style=" width: 22%;">&#8364; {{ number_format($e->monto, 2, ' ', ',') }}</td>
                         @endif
-
-                        <td>{{ $e->created_at }}</td>
+                          <td style=" width: 10%;">{{\Carbon\Carbon::parse($e->created_at)->format('d-m-Y')}}</td>
                         <td class="text-left" hidden>{{ $e->monto }}</td>
 
                         <td>

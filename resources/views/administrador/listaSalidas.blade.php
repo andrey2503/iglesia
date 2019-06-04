@@ -44,15 +44,16 @@
                         <td>{{ $s->descripcion }}</td>
 
                         @if($s->moneda == "Dolares")
-                        <td class="text-left">$ {{ number_format($s->monto, 2, ' ', ',') }}</td>
+                        <td class="text-left" style=" width: 22%;">$ {{ number_format($s->monto, 2, ' ', ',') }}</td>
                         @endif
                         @if($s->moneda == "Colones")
-                        <td class="text-left">₡ {{ number_format($s->monto, 2, ' ', ',') }}</td>
+                        <td class="text-left" style=" width: 22%;">₡ {{ number_format($s->monto, 2, ' ', ',') }}</td>
                         @endif
                         @if($s->moneda == "Euros")
-                        <td class="text-left">&#8364; {{ number_format($s->monto, 2, ' ', ',') }}</td>
+                        <td class="text-left" style=" width: 22%;">&#8364; {{ number_format($s->monto, 2, ' ', ',') }}</td>
                         @endif
-                        <td>{{ $s->created_at }}</td>
+                        <td style=" width: 10%;">{{\Carbon\Carbon::parse($s->created_at)->format('d-m-Y')}}</td>
+
                         <td class="text-left" hidden>{{ $s->monto }}</td>
                         <td>
                           @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
