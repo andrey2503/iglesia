@@ -262,7 +262,8 @@ class MovEntradaController extends Controller
       $movSalida1=array();
       $movEntrada=array();
       $movSalida=array();
-      if($request->rubro[0]==0){
+      // dd($request->rubro[0]);
+      if($request->rubro[0] == 0){
         // dd($request);
         $movEntrada= MovEntrada::all()->where('moneda','=',$request->filtroMoneda);
         $movSalida= MovSalida::all()->where('moneda','=',$request->filtroMoneda);
@@ -274,18 +275,18 @@ class MovEntradaController extends Controller
       // dd("if");
                       $rubrofiltro =  $value->nombre;
                       $rubroid  = $value->id;
-                      $movEntrada1 = MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$value->id);
-                      $movSalida1  = MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$value->id);
-                        if(count($movEntrada1)==3 ){
-                          // dd($movEntrada1);
-                        }
-                        for ($ii = 0; $ii < count($movEntrada1); $ii++) {
-                        array_push($movEntrada,['id'=>$movEntrada1[$ii]->id,'monto'=>$movEntrada1[$ii]->monto,'fechaRegistro'=>$movEntrada1[$ii]->fechaRegistro,
-                                     'fk_rubro'=>$movEntrada1[$ii]->fk_rubro,
-                                     'fk_cuenta'=>$movEntrada1[$ii]->fk_cuenta,
-                                     'fk_usuario'=>$movEntrada1[$ii]->fk_usuario,
-                                     'fk_entrada'=>$movEntrada1[$ii]->fk_entrada]);
-                      }//foreach
+                      $movEntrada = MovEntrada::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$value->id);
+                      $movSalida  = MovSalida::all()->where('moneda','=',$request->filtroMoneda)->where('fk_rubro','=',$value->id);
+                      //   if(count($movEntrada1)==3 ){
+                      //     // dd($movEntrada1);
+                      //   }
+                      //   for ($ii = 0; $ii < count($movEntrada1); $ii++) {
+                      //   array_push($movEntrada,['id'=>$movEntrada1[$ii]->id,'monto'=>$movEntrada1[$ii]->monto,'fechaRegistro'=>$movEntrada1[$ii]->fechaRegistro,
+                      //                'fk_rubro'=>$movEntrada1[$ii]->fk_rubro,
+                      //                'fk_cuenta'=>$movEntrada1[$ii]->fk_cuenta,
+                      //                'fk_usuario'=>$movEntrada1[$ii]->fk_usuario,
+                      //                'fk_entrada'=>$movEntrada1[$ii]->fk_entrada]);
+                      // }//foreach
                       // $movEntrada= $movEntrada.$movEntrada1;
                       // $movSalida=$movSalida.$movSalida1;
                       // array_push($movEntrada,['id'=>$movEntrada1[$i]->id,'monto'=>$movEntrada1[$i]->monto,'fechaRegistro'=>$movEntrada1[$i]->fechaRegistro,
@@ -299,7 +300,7 @@ class MovEntradaController extends Controller
               }//if
             }//forarch
       }//for
-      dd($movEntrada);
+       // dd($movEntrada);
 
  //
    // dd($movEntrada);

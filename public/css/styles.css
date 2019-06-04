@@ -33,3 +33,12 @@
 	.center{
 		text-align:center;
 	}
+	.chosen-container-multi .chosen-choices li.search-field {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    width: 100% !important;
+}
+.chosen-container-multi .chosen-choices li.search-field input[type=text] {
+  width: 100% !important;
+}
