@@ -54,7 +54,8 @@ $("#cuentaPagar").hide();
         <div class="box-body">
           <div class="form-group">
            <label for="user">Rubro</label>
-           <select class="form-control" name="rubro">
+           <select class="form-control" name="rubro" id="rubro">
+              <option value="" selected>Seleccione un rubro</option>
              @if(isset($rubros))
                @foreach($rubros as $r)
              <option value="{{ $r->id }}">{{ $r->nombre }}</option>

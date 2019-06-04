@@ -359,6 +359,10 @@ $.widget.bridge('uibutton', $.ui.button);
 $(document).ready(function() {
   $('#example').DataTable();
    $(".chosen-select").chosen();
+   $("#rubro").chosen({
+      placeholder_text_single: "Seleccione un rubro",
+      no_results_text: "no se encontraron resultados"
+    });
 } );
 </script>
 </body>

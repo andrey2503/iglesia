@@ -29,6 +29,7 @@
 
                   <th class="center">Monto</th>
                   <th class="center">Fecha</th>
+                  <th hidden>Monto</th>
                   <th class="center">Acción</th>
                 </thead>
                 <tbody>
@@ -52,7 +53,7 @@
                         <td class="text-left">&#8364; {{ number_format($s->monto, 2, ' ', ',') }}</td>
                         @endif
                         <td>{{ $s->created_at }}</td>
-
+                        <td class="text-left" hidden>{{ $s->monto }}</td>
                         <td>
                           @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarSalida') }}/{{$s->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>

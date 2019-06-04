@@ -27,6 +27,7 @@
                   <th>Descripcion</th>
                   <th>Monto</th>
                   <th>Fecha</th>
+                  <th hidden>Monto</th>
                   <th>Acción</th>
                 </thead>
                 <tbody>
@@ -43,6 +44,7 @@
 
                         @if($e->moneda == "Dolares")
                         <td class="text-left">$ {{ number_format($e->monto, 2, ' ', ',') }}</td>
+
                         @endif
                         @if($e->moneda == "Colones")
                         <td class="text-left">₡ {{ number_format($e->monto, 2, ' ', ',') }}</td>
@@ -52,6 +54,7 @@
                         @endif
 
                         <td>{{ $e->created_at }}</td>
+                        <td class="text-left" hidden>{{ $e->monto }}</td>
 
                         <td>
                           @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
