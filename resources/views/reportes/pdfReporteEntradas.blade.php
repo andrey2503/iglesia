@@ -36,6 +36,9 @@
 		.col{
 			padding: 10px;
 		}
+		.rigth{
+			overflow:hidden;
+		}
 		.titulo{
 			text-align: center;
 		}
@@ -90,7 +93,7 @@
 				<tr></tr>
 				@foreach($entradas as $e)
 					<tr>
-							<td>{{\Carbon\Carbon::parse($e->fechaRegistro)->format('d/m/Y')}}</td>
+							<td  class="rigth">{{\Carbon\Carbon::parse($e->fechaRegistro)->format('d/m/Y')}}</td>
 							<td class="rigth">{{ $e->rubro->nombre }}</td>
 							<td class="rigth">{{ $e->documento }}</td>
 								<td class="rigth">{{ $e->nombre }}</td>

@@ -259,6 +259,7 @@ $mov_salida=MovimientoSalida::where('fechaRegistro','>=',$fechaInicio)->where('f
   unset($pdf);
   $pdf=\App::make('dompdf.wrapper');
   $pdf->loadhtml($view);
+  $pdf->setPaper('L', 'landscape');
   return $pdf->stream('document.pdf');
 }
 
@@ -290,6 +291,7 @@ if($request->tipoReporte != 0){
     unset($pdf);
     $pdf=\App::make('dompdf.wrapper');
     $pdf->loadhtml($view);
+    $pdf->setPaper('L', 'landscape');
     return $pdf->stream('document.pdf');  }
 }// fin de reporte
 

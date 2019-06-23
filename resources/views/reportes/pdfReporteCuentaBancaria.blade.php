@@ -80,7 +80,7 @@
                     <th scope="col center">Rubro</th>
 
                     <th scope="col center">Monto</th>
-                    <th scope="col center">Fecha registro</th>
+                    z
                   </tr>
                 </thead>
                   <tbody>

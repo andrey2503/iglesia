@@ -82,7 +82,7 @@
 <div class="container">
     <div class="row">
 		    <table class="table-encabezado table table-striped">
-		    			<thead>
+		    			<thead class="thead-dark">
 								<th class="col center">Fecha Registro</th>
 								<th class="col center">Rubro</th>
 								<th class="col center">#Documento</th>
@@ -111,7 +111,7 @@
 								@if($s->moneda=='Euros')
 								€ {{ number_format($s->monto, 2, ' ', ',') }}
 								@endif
-					
+
 												@if($s->moneda=='Colones')
 													<?php $totalColones = $totalColones + $s->monto; ?>
 												@endif

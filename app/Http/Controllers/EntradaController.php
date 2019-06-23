@@ -286,7 +286,7 @@ class EntradaController extends Controller
       'monto'=>'required|same:confMonto'
     ]);
     if ($request->estado == 0) {
-      // dd($request->id);
+       // dd($request);
       $cuentaId = MovEntrada::where('fk_entrada','=',$request->id)->first();
       //update movEntrada
       $movEntrada = MovEntrada::find($cuentaId->id);
@@ -296,7 +296,7 @@ class EntradaController extends Controller
       //  dd($cuentaId->fk_cuenta);
       $cuenta= CuentaBancaria::find($cuentaId->fk_cuenta);
       $montoActual=$cuenta->monto;
-      $cuenta->monto=($request->montoRechazado-$montoActual);
+      $cuenta->monto=($montoActual-$request->montoRechazado);
       $cuenta->save();
       // dd($request->estado);
       $entrada=Entrada::find($request->id);

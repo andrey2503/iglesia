@@ -292,7 +292,7 @@ class SalidaController extends Controller
             //  dd($cuentaId->fk_cuenta);
             $cuenta= CuentaBancaria::find($cuentaId->fk_cuenta);
             $montoActual=$cuenta->monto;
-            $cuenta->monto=($request->montoRechazado+$montoActual);
+            $cuenta->monto=($montoActual+$request->montoRechazado);
             $cuenta->save();
             // dd($request->estado);
             $salida=Salida::find($request->id);
