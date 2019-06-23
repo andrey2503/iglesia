@@ -500,6 +500,7 @@ class MovEntradaController extends Controller
           unset($pdf);
           $pdf=\App::make('dompdf.wrapper');
           $pdf->loadhtml($view);
+          $pdf->setPaper('L', 'landscape');
           return $pdf->stream('document.pdf');
       }
       if($request->tipoReporte == 2){
@@ -558,6 +559,7 @@ class MovEntradaController extends Controller
           unset($pdf);
           $pdf=\App::make('dompdf.wrapper');
           $pdf->loadhtml($view);
+          $pdf->setPaper('L', 'landscape');
           return $pdf->stream('document.pdf');
       }
 
@@ -587,6 +589,7 @@ class MovEntradaController extends Controller
           unset($pdf);
           $pdf=\App::make('dompdf.wrapper');
           $pdf->loadhtml($view);
+          $pdf->setPaper('L', 'landscape');
           return $pdf->stream('document.pdf');
 
       }// reporte value 3
@@ -621,6 +624,7 @@ class MovEntradaController extends Controller
           unset($pdf);
           $pdf=\App::make('dompdf.wrapper');
           $pdf->loadhtml($view);
+          $pdf->setPaper('L', 'landscape');
           return $pdf->stream('document.pdf');
       }// reporte value 4
     }

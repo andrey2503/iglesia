@@ -122,11 +122,13 @@
 								<thead>
 									<tr>
 										<th scope="col">Fecha Registro</th>
+											<th scope="col">Documento</th>
 										<th scope="col">Tipo</th>
-										<th scope="col">Monto</th>
-										<th scope="col">Cuenta</th>
+										<!-- <th scope="col">Cuenta</th> -->
 										<th scope="col">Rubro</th>
 										<th scope="col">Nombre</th>
+										<th scope="col">Detalle</th>
+											<th scope="col">Monto</th>
 
 									</tr>
 								</thead>
@@ -135,22 +137,23 @@
 									@foreach($movEntrada as $me)
 								<tr>
 									<td>{{$me->fechaRegistro}}</td>
+									<td>{{$me->entrada->documento}}</td>
 									<td scope="row" style="width:60px;">Entrada</td>
-									@if($me->moneda == "Dolares")
-									<td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
-									@endif
-									@if($me->moneda == "Colones")
-									<td class="text-right">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
-									@endif
-									@if($me->moneda == "Euros")
-									<td class="text-right">&#8364;{{ number_format($me->monto, 2, ' ', ',') }}</td>
-									@endif
 
 						<!-- verificar tipo moneda -->
 									<td>{{$me->cuenta->cuenta}}</td>
 										<td>{{$me->rubro->nombre}}</td>
 										<td>{{$me->entrada->nombre}}</td>
-
+										<td>{{$me->entrada->descripcion}}</td>
+										@if($me->moneda == "Dolares")
+										<td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+										@endif
+										@if($me->moneda == "Colones")
+										<td class="text-right">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+										@endif
+										@if($me->moneda == "Euros")
+										<td class="text-right">&#8364;{{ number_format($me->monto, 2, ' ', ',') }}</td>
+										@endif
 									</tr>
 						@endforeach
 						@endif
@@ -160,22 +163,24 @@
 
 						<tr>
 						<td>{{$ms->fechaRegistro}}</td>
+						<td>{{$ms->salida->documento}}</td>
 						<td scope="row" style="width:60px;">Salida</td>
-						@if($ms->moneda == "Dolares")
-						<td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
-						@endif
-						@if($ms->moneda == "Colones")
-						<td class="text-right">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
-						@endif
-						@if($ms->moneda == "Euros")
-						<td class="text-right">&#8364;{{ number_format($ms->monto, 2, ' ', ',') }}</td>
-						@endif
+
 
 						<!-- verificar tipo moneda -->
 							<td>{{$ms->cuenta->cuenta}}</td>
 							<td>{{$ms->rubro->nombre}}</td>
 							<td>{{$ms->salida->nombre}}</td>
-
+							<td>{{$ms->salida->descripcion}}</td>
+							@if($ms->moneda == "Dolares")
+							<td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+							@endif
+							@if($ms->moneda == "Colones")
+							<td class="text-right">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+							@endif
+							@if($ms->moneda == "Euros")
+							<td class="text-right">&#8364;{{ number_format($ms->monto, 2, ' ', ',') }}</td>
+							@endif
 						</tr>
 						@endforeach
 						@endif
