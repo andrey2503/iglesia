@@ -10,6 +10,9 @@
 		.table-encabezado{
 			width: 100%;
 			text-align: center;
+			height: 40px !important;
+			max-height: 40px !important;
+			min-height: 40px !important;
 		}
 		.tabla-datos{
 			width: 100%;
@@ -42,8 +45,7 @@
 		.titulo{
 			text-align: center;
 		}
-		.right{
-		}
+
 		.escudo{
 			position: absolute;
 			top:20px;
@@ -76,13 +78,13 @@
 </div>
 <div class="container">
     <div class="row">
-		    <table class="table-encabezado">
+		    <table class="table-encabezado" >
 		    			<thead class="thead-dark">
 							<th class="col center" >Fecha Registro</th>
+								<th class="col center">Cuenta</th>
 							<th class="col center">Rubro</th>
 							<th class="col center">#Documento</th>
 							<th class="col center">Nombre</th>
-							<th class="col center">Descripcion</th>
 							<th class="col center">Monto</th>
 						</thead>
 
@@ -94,10 +96,11 @@
 				@foreach($entradas as $e)
 					<tr>
 							<td  class="rigth">{{\Carbon\Carbon::parse($e->fechaRegistro)->format('d/m/Y')}}</td>
+							<td class="rigth">{{ $e->cuenta->nombre }}</td>
 							<td class="rigth">{{ $e->rubro->nombre }}</td>
-							<td class="rigth">{{ $e->documento }}</td>
-								<td class="rigth">{{ $e->nombre }}</td>
-						<td class="rigth">{{ $e->descripcion }}</td>
+							<td class="rigth">{{ $e->entrada->documento }}</td>
+								<td class="rigth">{{ $e->entrada->nombre }}</td>
+						<!-- <td class="rigth">{{ $e->descripcion }}</td> -->
 						<td class="rigth">
 							 @if($e->moneda=='Colones')
                      ₡ {{ number_format($e->monto, 2, ' ', ',') }}

@@ -24,7 +24,7 @@
 		text-align:center;
 	}
 	.left{
-		border-right:1px black solid;
+		text-align: left;
 	}
 	tr{
 		border-radius: 2px;
@@ -61,26 +61,28 @@
 		<?php
 		date_default_timezone_set("America/Costa_Rica");
 		 ?>
-		<h3>Reporte de Cuentas bancarias</h3>
-		@if($tipoReporte ==1)
+		<h3>Reporte de Cuenta 	@if(isset($mov_entrada) || isset($mov_salida))
+			{{$mov_entrada[0]->cuenta->nombre}}
+				@endif</h3>
+		@if($tipoReporte != 0)
 	<p>Fecha de Registro: Desde: {{ date('d-m-Y', strtotime($fechaInicio))}} Hasta: {{ date('d-m-Y', strtotime($fechaFinal))}}<br>
 	@endif
 	<p>Fecha del reporte: {{ date ("d-m-Y g:i a",time())}} <br>
 			Generado por: {{ Auth::user()->nombre }}</p>
 		</div>
-		<div class="">
-			<div class="">
-				<div class="row tabla-usuarios">
-					<div class="table-responsive">
-					@if(isset($mov_entrada) || isset($mov_salida))
-              <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th scope="col center">Movimiento</th>
-                    <th scope="col center">Rubro</th>
+		<div class="container">
+		    <div class="row">
 
+					@if(isset($mov_entrada) || isset($mov_salida))
+             <table class="table-encabezado table table-striped" >
+                <thead class="thead-dark">
+                  <tr>
+										<th scope="col center">Fecha registro</th>
+                    <th scope="col center">Movimiento</th>
+										<th scope="col center">#Documento</th>
+                    <th scope="col center">Rubro</th>
                     <th scope="col center">Monto</th>
-                    z
+
                   </tr>
                 </thead>
                   <tbody>
@@ -88,21 +90,23 @@
 										<!-- print_r($mov_entrada); -->
                     @foreach($mov_entrada as $me)
                     <tr>
+											<td class="left">{{$me->fechaRegistro}}</td>
                       <!-- <th scope="row">{{ $me->cuenta }}</th> -->
-                      <th scope="row">Entrada</th>
-                      <td>{{ $me->rubro->nombre }}</td>
+                      <th scope="row" class="left">Entrada</th>
+											 <td class="left">{{ $me->entrada->documento }}</td>
+                      <td class="left">{{ $me->rubro->nombre }}</td>
 
                       @if($me->moneda == "Dolares")
-                      <td class="text-left">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="left">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Colones")
-                      <td class="text-left">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="left">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($me->moneda == "Euros")
-                      <td class="text-left">&#8364; {{ number_format($me->monto, 2, ' ', ',') }}</td>
+                      <td class="left"> {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
-                        <td>{{$me->fechaRegistro}}</td>
+
                     </tr>
                     @endforeach
                   @endif
@@ -112,21 +116,22 @@
                     @foreach($mov_salida as $ms)
 
                     <tr>
+											<td class="left">{{$ms->fechaRegistro}}</td>
                       <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
-                      <th scope="row">Salida</th>
-                      <td>{{ $ms->rubro->nombre }}</td>
+                      <th scope="row" class="left">Salida</th>
+											<td  class="left">{{ $ms->salida->documento }}</td>
+                      <td  class="left">{{ $ms->rubro->nombre }}</td>
 
                       @if($ms->moneda == "Dolares")
-                      <td class="text-left">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="left">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($ms->moneda == "Colones")
-                      <td class="text-left">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="left">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       @if($ms->moneda == "Euros")
-                      <td class="text-left">>&#8364; {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+                      <td class="left"> {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
-                        <td>{{$ms->fechaRegistro}}</td>
                     </tr>
                     @endforeach
                   @endif
@@ -135,13 +140,12 @@
               </table>
             @endif
 
-		</div><br>
+	<br>
 					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
 					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>
 						Telefono y fax (506) 22370494 Apto 186-3000,Heredia Costa Rica<br>
 						email: <a href="#" target="_top">parroquiacorjesus@gmail.com</a> Facebook:Sagrado Corazón
 					</p>
-				</div>
 			</div>
 		</div>
 	</body></html>

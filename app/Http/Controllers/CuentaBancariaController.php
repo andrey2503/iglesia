@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\CuentaBancaria;
-use App\MovimientoEntrada;
-use App\MovimientoSalida;
+use App\Entrada;
+// use App\MovEntrada;
+use App\Salida;
+// use App\MovSalida;
+use App\MovEntrada;
+use App\MovSalida;
 // use App\MovEntrada;
 // use App\MovSalida;
 use Illuminate\Http\Request;
@@ -160,8 +164,8 @@ class CuentaBancariaController extends Controller
       $cuenta = CuentaBancaria::find($request->id);
 
       if(
-        MovimientoEntrada::where('fk_cuenta','=',$request->id)->get()->isNotEmpty() ||
-        MovimientoSalida::where('fk_cuenta','=',$request->id)->get()->isNotEmpty()
+        MovEntrada::where('fk_cuenta','=',$request->id)->get()->isNotEmpty() ||
+        MovSalida::where('fk_cuenta','=',$request->id)->get()->isNotEmpty()
        ){
                 return redirect()->back()->with('messageError','Cuenta bancaria "'.$cuenta->nombre.' " no se puede eliminar, este cuenta bancaria esta siendo usado por otros elementos');
             }else{
@@ -201,8 +205,8 @@ if($request->tipoReporte==0){
 $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
 $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
 $cuentas= CuentaBancaria::all();
-$mov_entrada=MovimientoEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-$mov_salida=MovimientoSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+$mov_entrada=MovEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+$mov_salida=MovSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
  // dd($mov_entrada);
 return view('administrador.reportesCuentasBancarias')->with([
     'cuentas'=>$cuentas,
@@ -224,9 +228,9 @@ if($request->tipoReporte != 0){
   $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
   $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
   $cuentas= CuentaBancaria::all();
-  $mov_entrada=MovimientoEntrada::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-  $mov_salida=MovimientoSalida::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-
+  $mov_entrada=MovEntrada::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+  $mov_salida=MovSalida::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+//dd($mov_entrada);
   return view('administrador.reportesCuentasBancarias')->with([
       'cuentas'=>$cuentas,
       'tipoReporte'=>$request->tipoReporte,
@@ -252,14 +256,14 @@ if($request->tipoReporte == 0){
 $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
 $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
 $cuentas= CuentaBancaria::all();
-$mov_entrada=MovimientoEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-$mov_salida=MovimientoSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+$mov_entrada=MovEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+$mov_salida=MovSalida::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
 
   $view= view('reportes.pdfReporteCuentaBancaria')->with(['mov_entrada'=>$mov_entrada,'mov_salida'=>$mov_salida,'cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
   unset($pdf);
   $pdf=\App::make('dompdf.wrapper');
+    $pdf->setPaper('L', 'landscape');
   $pdf->loadhtml($view);
-  $pdf->setPaper('L', 'landscape');
   return $pdf->stream('document.pdf');
 }
 
@@ -273,8 +277,8 @@ if($request->tipoReporte != 0){
   $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
   $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
   $cuentas= CuentaBancaria::all();
-  $mov_entrada=MovimientoEntrada::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
-  $mov_salida=MovimientoSalida::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+  $mov_entrada=MovEntrada::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+  $mov_salida=MovSalida::where('fk_cuenta','=',$request->tipoReporte)->where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
 
 
 
@@ -290,8 +294,8 @@ if($request->tipoReporte != 0){
     $view= view('reportes.pdfReporteCuentaBancaria')->with(['mov_entrada'=>$mov_entrada,'mov_salida'=>$mov_salida,'cuentas'=>$cuentas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
     unset($pdf);
     $pdf=\App::make('dompdf.wrapper');
+      $pdf->setPaper('L', 'landscape');
     $pdf->loadhtml($view);
-    $pdf->setPaper('L', 'landscape');
     return $pdf->stream('document.pdf');  }
 }// fin de reporte
 

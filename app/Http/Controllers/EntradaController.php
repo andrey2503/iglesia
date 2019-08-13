@@ -21,7 +21,8 @@ class EntradaController extends Controller
   public function index()
   {
     //
-    $entradas= Entrada::all()->where('estado','=',1);
+    // $entradas= Entrada::all()->where('estado','=',1);
+    $entradas= Entrada::all();
     // dd($cuentas);
     return view('administrador.listaEntradas')->with(['entradas'=>$entradas]);
   }
@@ -307,7 +308,7 @@ class EntradaController extends Controller
       }else{
 
       }
-    }else {
+    }else{
       $entrada=Entrada::find($request->id);
       $entrada->descripcion=$request->descripcion;
       $entrada->documento=$request->documento;
@@ -455,7 +456,8 @@ class EntradaController extends Controller
       ]);
       $fechaInicio=Carbon::parse($request->fechaInicio)->format('Y-m-d');
       $fechaFinal=Carbon::parse($request->fechaFinal)->format('Y-m-d');
-      $entradas= Entrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+      $entradas= MovEntrada::where('fechaRegistro','>=',$fechaInicio)->where('fechaRegistro','<=',$fechaFinal)->get();
+      // dd($entradas);
       $view= view('reportes.pdfReporteEntradas')->with(['entradas'=>$entradas,'tipoReporte'=>$request->tipoReporte,'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal]);
       unset($pdf);
       $pdf=\App::make('dompdf.wrapper');

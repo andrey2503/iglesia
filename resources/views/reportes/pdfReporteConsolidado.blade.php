@@ -29,7 +29,7 @@
 
 	}
 	.left{
-		border-right:1px black solid;
+		text-align: left;
 	}
 	tr{
 		border-radius: 2px;
@@ -76,12 +76,11 @@
 		<p>Fecha del reporte: {{ date ("d-m-Y g:i a",time())}} <br>
 			Generado por: {{ Auth::user()->nombre }}</p>
 		</div>
-		<div class="">
-			<div class="">
-				<div class="row tabla-usuarios">
-					<div class="table-responsive">
+		<div class="container">
+		    <div class="row">
+
 						@if($tipoReporte==1 || $tipoReporte==2)
-						<table id="example" class="table table-striped">
+						<table  class="table-encabezado table table-striped">
 							<thead>
 								<tr>
 									<th scope="col">Rubro</th>
@@ -96,17 +95,17 @@
 								<!-- verifica el monto que la suma sea mayor a 0 -->
 								@if(($movRubroEntrada[$i]['monto'] )+($movRubroSalida[$i]['monto']) >0  )
 								<tr>
-									<td scope="row">{{ $movRubroEntrada[$i]['rubro'] }}</td>
-									<td scope="row" class="text-right">₡ {{ number_format($movRubroEntrada[$i]['monto'], 2, ' ', ',') }}</td>
-									<td scope="row" class="text-right">₡ {{ number_format($movRubroSalida[$i]['monto'], 2, ' ', ',') }}</td>
+									<td scope="row" class="left">{{ $movRubroEntrada[$i]['rubro'] }}</td>
+									<td scope="row" class="left">₡ {{ number_format($movRubroEntrada[$i]['monto'], 2, ' ', ',') }}</td>
+									<td scope="row" class="left">₡ {{ number_format($movRubroSalida[$i]['monto'], 2, ' ', ',') }}</td>
 								</tr>
 								@endif
 								@endfor
 
 								<tr>
 									<td scope="row">Monto Neto</td>
-									<td class="text-right" style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)₡ {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
-									<td class="text-right" style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
+									<td class="left" style="color:green;font-weight: bold;"> @if( $sumaColonesS < $sumaColonesE)₡ {{ number_format($sumaColonesE-$sumaColonesS, 2, ' ', ',') }}@endif</td>
+									<td class="left" style="color:red;font-weight: bold;"> @if( $sumaColonesS > $sumaColonesE)₡ {{ number_format($sumaColonesS-$sumaColonesE, 2, ' ', ',') }}@endif</td>
 
 								</tr>
 								@endif
@@ -118,17 +117,17 @@
 						@endif
 
 						@if($tipoReporte == 0  || $tipoReporte == 4 || $tipoReporte == 3)
-						<table id="example" class="table table-striped">
-								<thead>
+						<table class="table table-striped">
+								<thead class="thead-dark">
 									<tr>
-										<th scope="col">Fecha Registro</th>
-											<th scope="col">Documento</th>
-										<th scope="col">Tipo</th>
-										<!-- <th scope="col">Cuenta</th> -->
-										<th scope="col">Rubro</th>
-										<th scope="col">Nombre</th>
-										<th scope="col">Detalle</th>
-											<th scope="col">Monto</th>
+										<th scope="col center">Fecha Registro</th>
+											<th scope="col center">Documento</th>
+										<th scope="col center">Tipo</th>
+										<th scope="col center">Cuenta</th>
+										<th scope="col center">Rubro</th>
+										<!-- <th scope="col" >Nombre</th> -->
+										<!-- <th scope="col"  style="width:20% !important;">Detalle</th> -->
+										<th scope="col">Monto</th>
 
 									</tr>
 								</thead>
@@ -136,23 +135,23 @@
 								@if(isset($movEntrada))
 									@foreach($movEntrada as $me)
 								<tr>
-									<td>{{$me->fechaRegistro}}</td>
-									<td>{{$me->entrada->documento}}</td>
-									<td scope="row" style="width:60px;">Entrada</td>
+									<td class="left">{{$me->fechaRegistro}}</td>
+									<td scope="row" class="left">{{$me->entrada->documento}}</td>
+									<td scope="row"class="left" >Entrada</td>
 
 						<!-- verificar tipo moneda -->
-									<td>{{$me->cuenta->cuenta}}</td>
-										<td>{{$me->rubro->nombre}}</td>
-										<td>{{$me->entrada->nombre}}</td>
-										<td>{{$me->entrada->descripcion}}</td>
+									<td>{{$me->cuenta->nombre}}</td>
+										<td class="left">{{$me->rubro->nombre}}</td>
+										<!-- <td>{{$me->entrada->nombre}}</td> -->
+										<!-- <td  style="width:100px;">{{$me->entrada->descripcion}}</td> -->
 										@if($me->moneda == "Dolares")
-										<td class="text-right">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+										<td class="left">$ {{ number_format($me->monto, 2, ' ', ',') }}</td>
 										@endif
 										@if($me->moneda == "Colones")
-										<td class="text-right">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
+										<td class="left">₡ {{ number_format($me->monto, 2, ' ', ',') }}</td>
 										@endif
 										@if($me->moneda == "Euros")
-										<td class="text-right">&#8364;{{ number_format($me->monto, 2, ' ', ',') }}</td>
+										<td class="left">{{ number_format($me->monto, 2, ' ', ',') }}</td>
 										@endif
 									</tr>
 						@endforeach
@@ -162,24 +161,24 @@
 						@foreach($movSalida as $ms)
 
 						<tr>
-						<td>{{$ms->fechaRegistro}}</td>
-						<td>{{$ms->salida->documento}}</td>
-						<td scope="row" style="width:60px;">Salida</td>
+						<td class="left">{{$ms->fechaRegistro}}</td>
+						<td class="left">{{$ms->salida->documento}}</td>
+						<td scope="row" class="left">Salida</td>
 
 
 						<!-- verificar tipo moneda -->
-							<td>{{$ms->cuenta->cuenta}}</td>
-							<td>{{$ms->rubro->nombre}}</td>
-							<td>{{$ms->salida->nombre}}</td>
-							<td>{{$ms->salida->descripcion}}</td>
+							<td>{{$ms->cuenta->nombre}}</td>
+							<td class="left">{{$ms->rubro->nombre}}</td>
+							<!-- <td>{{$ms->salida->nombre}}</td> -->
+							<!-- <td  style="width:100px;">{{$ms->salida->descripcion}}</td> -->
 							@if($ms->moneda == "Dolares")
-							<td class="text-right">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+							<td class="left">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
 							@endif
 							@if($ms->moneda == "Colones")
-							<td class="text-right">₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
+							<td class="left" >₡ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
 							@endif
 							@if($ms->moneda == "Euros")
-							<td class="text-right">&#8364;{{ number_format($ms->monto, 2, ' ', ',') }}</td>
+							<td class="left">{{ number_format($ms->monto, 2, ' ', ',') }}</td>
 							@endif
 						</tr>
 						@endforeach
@@ -192,15 +191,13 @@
 
 						<!-- Suma de todos los valores -->
 						@endif
-
-
-					</div><br>
+						<br>
 					<label for="">Firma Ecargado:</label><div style="border-bottom:solid black 1px; width:80%;margin-left:15%;"></div><br>
 					<p style="text-align:center;">"Vayan por todo el mundo y proclamen la Buena Noticia a toda creatura" <br>
 						Telefono y fax (506) 22370494 Apto 186-3000,Heredia Costa Rica<br>
 						email: <a href="#" target="_top">parroquiacorjesus@gmail.com</a> Facebook:Sagrado Corazón
 					</p>
-				</div>
+
 			</div>
 		</div>
 	</body></html>

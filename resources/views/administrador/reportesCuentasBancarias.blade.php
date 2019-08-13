@@ -64,19 +64,25 @@
               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <tr>
+                    <th scope="col">Fecha registro</th>
                     <th scope="col">Movimiento</th>
+                    <th scope="col">#Documento</th>
+
                     <th scope="col">Rubro</th>
 
                     <th scope="col">Monto</th>
-                    <th scope="col">Fecha registro</th>
+
                   </tr>
                 </thead>
                   <tbody>
                   @if(isset($mov_entrada))
                     @foreach($mov_entrada as $me)
                     <tr>
+                        <td>{{$me->fechaRegistro}}</td>
                       <!-- <th scope="row">{{ $me->cuenta }}</th> -->
                       <th scope="row">Entrada</th>
+                      <td>{{ $me->entrada->documento }}</td>
+
                       <td>{{ $me->rubro->nombre }}</td>
 
                       @if($me->moneda == "Dolares")
@@ -89,7 +95,7 @@
                       <td class="text-left">€ {{ number_format($me->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
-                        <td>{{$me->fechaRegistro}}</td>
+
                     </tr>
                     @endforeach
                   @endif
@@ -97,10 +103,14 @@
                    @if(isset($mov_salida))
                     @foreach($mov_salida as $ms)
                     <tr>
+                      <td>{{$ms->fechaRegistro}}</td>
                       <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
+                      <!-- <td>{{ $me->rubro->nombre }}</td> -->
                       <th scope="row">Salida</th>
+                      <td>{{ $ms->salida->documento }}</td>
+
                       <td>{{ $ms->rubro->nombre }}</td>
-                      <td>{{ $ms->moneda }}</td>
+                      <!-- <td>{{ $ms->moneda }}</td> -->
                       @if($ms->moneda == "Dolares")
                       <td class="text-left">$ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
@@ -111,8 +121,7 @@
                       <td class="text-left">€ {{ number_format($ms->monto, 2, ' ', ',') }}</td>
                       @endif
                       <!-- verificar tipo moneda -->
-                        <td>{{$ms->fechaRegistro}}</td>
-                    </tr>
+                        </tr>
                     @endforeach
                   @endif
 
