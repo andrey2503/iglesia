@@ -254,8 +254,11 @@ class EntradaController extends Controller
   {
     //
     $entradas= Entrada::find($id);
+    $movEntrada= MovEntrada::all()->where('fk_entrada','=',$id);
+    // dd($movEntrada);
     $rubros= Rubro::all();
-    return view('administrador.modificarEntradas')->with(['entradas'=>$entradas,'rubros'=>$rubros]);
+    $cuentas= CuentaBancaria::all();
+    return view('administrador.modificarEntradas')->with(['entradas'=>$entradas,'rubros'=>$rubros,'cuentas'=>$cuentas,'movEntrada'=>$movEntrada]);
   }
 
   /**
@@ -287,6 +290,7 @@ class EntradaController extends Controller
       'monto'=>'required|same:confMonto'
     ]);
     if ($request->estado == 0) {
+      // dd("rechazo");
        // dd($request);
       $cuentaId = MovEntrada::where('fk_entrada','=',$request->id)->first();
       //update movEntrada
@@ -309,11 +313,13 @@ class EntradaController extends Controller
 
       }
     }else{
+         // dd($request);
       $entrada=Entrada::find($request->id);
       $entrada->descripcion=$request->descripcion;
       $entrada->documento=$request->documento;
       $entrada->fk_rubro=$request->rubro;
       $entrada->monto=$request->monto;
+      $entrada->estado = $request->estado;
       $entrada->fechaRegistro=Carbon::parse($request->fechaRegistro)->format('Y-m-d');
       //actualizar movimiento
       $cuentaId = MovEntrada::where('fk_entrada','=',$request->id)->first();
@@ -324,6 +330,14 @@ class EntradaController extends Controller
       $cuenta= CuentaBancaria::find($cuentaId->fk_cuenta);
        // dd($cuentaId);
       $montoActual=$cuenta->monto;
+       // dd($movEntrada->monto);
+      if ($movEntrada->monto == 0 ) {
+        // dd($montoActual+$request->monto);
+        $cuenta->monto=($montoActual+$request->monto);
+        $movEntrada->monto=($montoActual+$request->monto);
+        $movEntrada->save();
+        $cuenta->save();
+      }
       if ($request->montoRechazado > $request->monto) {
         $total=($request->montoRechazado)-($request->monto);
       //  dd("anterior".$request->montoRechazado." actual ".$request->monto." total ".$total);
@@ -331,14 +345,15 @@ class EntradaController extends Controller
         $movEntrada->save();
         $cuenta->monto=($montoActual-$total);
         $cuenta->save();
-      }else{
-          $total=($request->monto)-($request->montoRechazado);
-          //dd("anterior".$request->montoRechazado." actual ".$request->monto." total ".$total);
-          $movEntrada->monto=($request->montoRechazado+$total);
-          $movEntrada->save();
-          $cuenta->monto=($montoActual+$total);
-          $cuenta->save();
       }
+      // else{
+      //     // $total=($request->monto)-($request->montoRechazado);
+      //     // //dd("anterior".$request->montoRechazado." actual ".$request->monto." total ".$total);
+      //     // $movEntrada->monto=($request->montoRechazado+$total);
+      //     // $movEntrada->save();
+      //     // $cuenta->monto=($montoActual+$total);
+      //     // $cuenta->save();
+      // }
 
       if($entrada->save()){
         $log= new Logs();

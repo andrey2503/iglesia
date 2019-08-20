@@ -82,6 +82,25 @@
                     @endif
 
                   </div>
+
+                  <div class="form-group">
+                   <label for="user">Asignar Cuenta Bancaria</label>
+                   <select class="form-control" name="cuentaBancaria" id="cuentaMoneda">
+                       <option value="0">Sin Cuenta Bancaria Asignada</option>
+                     @if(isset($cuentas))
+                       @foreach($cuentas as $c)
+                       @if($movEntrada[2]->fk_cuenta == $c->id)
+                         <option  selected value="{{ $c->id }}" moneda="{{ $c->moneda }}">{{ $c->cuenta }}  //  {{ $c->moneda }} //  {{ $c->nombre }}</option>
+                       @endif
+                     <option value="{{ $c->id }}" moneda="{{ $c->moneda }}">{{ $c->cuenta }}  //  {{ $c->moneda }} //  {{ $c->nombre }}</option>
+                       @endforeach
+                     @endif
+                   </select>
+                   @if($errors->has('cuentaBancaria'))
+                     <span style="color: red;">{{ $errors->first('cuentaBancaria') }}</span>
+                   @endif
+                 </div>
+
                   <div class="form-group">
                     <label for="user">Estado</label>
                     <select class="form-control" name="estado">
