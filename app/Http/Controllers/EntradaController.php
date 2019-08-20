@@ -313,7 +313,7 @@ class EntradaController extends Controller
 
       }
     }else{
-         // dd($request);
+          // dd($request);
       $entrada=Entrada::find($request->id);
       $entrada->descripcion=$request->descripcion;
       $entrada->documento=$request->documento;
@@ -344,6 +344,14 @@ class EntradaController extends Controller
         $movEntrada->monto=($request->montoRechazado-$total);
         $movEntrada->save();
         $cuenta->monto=($montoActual-$total);
+        $cuenta->save();
+      }
+      if ($request->montoRechazado < $request->monto) {
+        $total=($request->monto)-($request->montoRechazado);
+      //  dd("anterior".$request->montoRechazado." actual ".$request->monto." total ".$total);
+        $movEntrada->monto=($request->montoRechazado+$total);
+        $movEntrada->save();
+        $cuenta->monto=($montoActual+$total);
         $cuenta->save();
       }
       // else{
