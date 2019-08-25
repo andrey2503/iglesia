@@ -334,7 +334,9 @@ $( document ).ready(function() {
 
       if ($("#tipoReporte").val()==2 ||$("#tipoReporte").val()==4) {
         $("#fInicio").show();
+        $("#fInicio > div > input").attr("required","required");
           $("#fFin").show();
+        $("#fFin > div > input").attr("required","required");
       }else if($("#tipoReporte").val()==1 || $("#tipoReporte").val()==3){
         $("#fInicio").hide();
           $("#fFin").hide();
