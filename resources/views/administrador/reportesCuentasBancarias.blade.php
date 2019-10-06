@@ -104,8 +104,6 @@
                     @foreach($mov_salida as $ms)
                     <tr>
                       <td>{{$ms->fechaRegistro}}</td>
-                      <!-- <th scope="row">{{ $ms->cuenta }}</th> -->
-                      <!-- <td>{{ $me->rubro->nombre }}</td> -->
                       <th scope="row">Salida</th>
                       <td>{{ $ms->salida->documento }}</td>
 

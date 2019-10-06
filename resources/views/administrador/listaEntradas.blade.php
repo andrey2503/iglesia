@@ -55,7 +55,7 @@
                           <td style=" width: 10%;">{{\Carbon\Carbon::parse($e->created_at)->format('d-m-Y')}}</td>
                         <td class="text-left" hidden>{{ $e->monto }}</td>
 
-                        <td>
+                        <td class="col-md-4">
                           @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarEntrada') }}/{{$e->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
                          @endif
