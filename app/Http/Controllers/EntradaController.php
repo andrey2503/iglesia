@@ -255,7 +255,7 @@ class EntradaController extends Controller
     //
     $entradas= Entrada::find($id);
     $movEntrada= MovEntrada::all()->where('fk_entrada','=',$id);
-    // dd($movEntrada);
+    //dd($movEntrada);
     $rubros= Rubro::all();
     $cuentas= CuentaBancaria::all();
     return view('administrador.modificarEntradas')->with(['entradas'=>$entradas,'rubros'=>$rubros,'cuentas'=>$cuentas,'movEntrada'=>$movEntrada]);
