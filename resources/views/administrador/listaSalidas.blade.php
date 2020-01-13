@@ -24,13 +24,13 @@
             <div class="table-responsive">
               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
-                  <th class="center">Rubro</th>
-                  <th class="center">Descripcion</th>
+                  <th class="">Rubro</th>
+                  <th class="">Descripcion</th>
 
-                  <th class="center">Monto</th>
-                  <th class="center">Fecha</th>
+                  <th class="">Monto</th>
+                  <th class="">Fecha</th>
                   <th hidden>Monto</th>
-                  <th class="center">Acción</th>
+                  <th class="">Acción</th>
                 </thead>
                 <tbody>
                   <!-- @define $i = 1 -->
@@ -55,7 +55,7 @@
                         <td style=" width: 10%;">{{\Carbon\Carbon::parse($s->created_at)->format('d-m-Y')}}</td>
 
                         <td class="text-left" hidden>{{ $s->monto }}</td>
-                        <td>
+                        <td class="col-md-4">
                           @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarSalida') }}/{{$s->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
                          @endif

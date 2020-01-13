@@ -198,14 +198,21 @@
                       @if($entradas->estado ==1 )
 
                          <option  value="0">Rechazado</option>
-
                          <option selected value="1">Aceptado</option>
+                         <option  value="2">Inactivo</option>
 
-                         @else
+
+                      @elseif($entradas->estado == 0 )
 
                          <option  selected value="0">Rechazado</option>
-
                          <option  value="1">Aceptado</option>
+                         <option  value="2">Inactivo</option>
+
+                      @elseif($entradas->estado == 2 )
+
+                         <option   value="0">Rechazado</option>
+                         <option  value="1">Aceptado</option>
+                         <option selected  value="2">Inactivo</option>
 
                       @endif
 
