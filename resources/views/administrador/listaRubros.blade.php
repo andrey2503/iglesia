@@ -36,7 +36,7 @@
                         <td>{{ $r->nombre }}</td>
                         <td>{{ $r->descripcion }}</td>
 
-                        <td>
+                        <td  class="col-md-4">
                            @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
                          <a class="btn btn-primary btn-md" href="{{ url('/modificarRubro') }}/{{$r->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
                            @endif

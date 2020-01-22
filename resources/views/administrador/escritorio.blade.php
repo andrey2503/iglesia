@@ -48,6 +48,46 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+
+  <style>
+    .navbar-static-top{
+      background-color: #fff !important;
+    }
+    .nav>li>a{
+      color: #616161 !important;
+    }
+    .sidebar-toggle{
+      color: #616161 !important;
+    }
+    .sidebar-toggle:hover{
+      background-color: white !important;
+    }
+    .logo{
+      background-color: #37aee6 !important;
+    }
+  </style>
+
+<style>
+  .form-group{
+    margin: 6px 0px !important;
+  }
+
+  .chosen-default{
+    height: 34px !important;
+    padding: 4px 10px !important;
+    background: white !important;
+  }
+
+  .form-control{
+    border-radius: 4px;
+  }
+
+  .box.box-primary {
+    border-top-color: #ffffff !important;;
+  }
+
+</style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
@@ -55,10 +95,12 @@
       <!-- Logo -->
       <a href="{{ URL::asset('/') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
+        <span class="logo-mini"><b>M</b>NU</span>
         <!-- logo for regular state and mobile devices -->
-
+        <!--
         <span class="logo-lg"><span class="glyphicon glyphicon-user"> {{ Auth::user()->usuario }}</span></span>
+        -->
+        <span class="logo-lg" style="text-align: start;"><span class="" style="FONT-FAMILY: fantasy;font-size: 130%;">COREIESU</span></span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top" role="navigation">
@@ -102,11 +144,17 @@
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
-                <span class="glyphicon glyphicon-user"></span>
+                
                 <li class="user-header" style="height: 75px;">
                   <p>
-                    {{ Auth::user()->nombre }}
-                    <small> {{ Auth::user()->idrol }}</small>
+                  <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->nombre }}
+                    <small> 
+                      @if(Auth::user()->idrol==1)
+                        Administrador
+                      @elseif(Auth::user()->idrol==2)
+                        Empleado
+                      @endif
+                    </small>
                   </p>
                 </li>
 
@@ -286,7 +334,7 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
+  <!-- Content Header (Page header) 
   <section class="content-header">
     <h1>
       Dashboard
@@ -294,7 +342,7 @@
     </h1>
 
   </section>
-
+  -->
   <!-- Main content -->
   <section class="content" style="padding-left: 40px;">
     @yield('content')

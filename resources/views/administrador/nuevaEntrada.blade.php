@@ -1,6 +1,26 @@
 @extends('administrador.escritorio')
 
 @section('content')
+<style>
+  .form-group{
+    margin: 6px 0px !important;
+  }
+
+  .chosen-default{
+    height: 34px !important;
+    padding: 4px 10px !important;
+    background: white !important;
+  }
+
+  .form-control{
+    border-radius: 4px;
+  }
+
+  .box.box-primary {
+    border-top-color: #ffffff !important;;
+  }
+
+</style>
 <script type="text/javascript">
 
 $( document ).ready(function() {
@@ -47,10 +67,10 @@ $("#cuentaPagar").hide();
 
 
 </script>
-<div class="container row col-md-8 col-md-offset-2 ">
-  <div class=" col-md-12 box box-primary">
+<div class="container row col-md-12">
+  <div class="col-md-12 box box-primary">
     <div class="box-header with-border">
-                  <h3 class="box-title"> Nueva Entrada</h3>
+                  <h3 class=""> Nueva Entrada</h3>
                   @if(session()->has('message'))
                       <div class="alert alert-success">
                           {{ session()->get('message') }}
@@ -65,7 +85,7 @@ $("#cuentaPagar").hide();
       <form  role="form"   method="post"  action="{{ url('nuevaEntrada') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
         <div class="box-body">
-          <div class="form-group">
+          <div class="form-group col-md-6">
            <label for="user">Rubro</label>
            <select class="form-control" name="rubro" id="rubro">
               <option value="" selected>Seleccione un rubro</option>
@@ -81,7 +101,7 @@ $("#cuentaPagar").hide();
            @endif
          </div>
 
-              <div class="form-group">
+              <div class="form-group col-md-6">
                <label for="nombre">Nombre</label>
                <input type="text" step="any" class="form-control" name="nombre" placeholder="Nombre" value="{{ old('nombre') }}"/>
                @if($errors->has('nombre'))
@@ -90,14 +110,14 @@ $("#cuentaPagar").hide();
               </div>
 
 
-         <div class="form-group">
-          <label for="user">Numero Documento</label>
-          <input type="text" step="any" class="form-control" name="documento" placeholder="# documento" value="{{ old('documento') }}"/>
+         <div class="form-group col-md-6">
+          <label for="user">Número Documento</label>
+          <input type="text" step="any" class="form-control" name="documento" placeholder="Número documento" value="{{ old('documento') }}"/>
           @if($errors->has('documento'))
             <span style="color: red;">{{ $errors->first('documento') }}</span>
           @endif
          </div>
-         <div class="form-group">
+         <div class="form-group col-md-6">
 
            <label for="fechaRegistro">Fecha de Registro</label>
 
@@ -110,7 +130,7 @@ $("#cuentaPagar").hide();
            @endif
 
          </div>
-         <div class="form-group">
+         <div class="form-group col-md-6">
            <label for="email">Descripcion</label>
            <textarea type="text" class="form-control" name="descripcion" placeholder="Descripcion.." style="max-height: 300px;min-height: 200px;">{{ old('descripcion') }}</textarea>
            @if($errors->has('descripcion'))
@@ -118,7 +138,7 @@ $("#cuentaPagar").hide();
            @endif
          </div>
 
-              <div class="form-group">
+              <div class="form-group col-md-6">
                <label for="user">Moneda</label>
                <select class="form-control" name="moneda" value="{{ old('moneda') }}">
 
@@ -134,7 +154,7 @@ $("#cuentaPagar").hide();
               @endif
               </div>
 
-              <div class="form-group">
+              <div class="form-group col-md-6">
                <label for="user">Monto</label>
                <input type="number" step="any" class="form-control" name="monto" placeholder="Monto" value="{{ old('monto') }}"/>
                @if($errors->has('monto'))
@@ -142,14 +162,14 @@ $("#cuentaPagar").hide();
                @endif
               </div>
 
-              <div class="form-group">
+              <div class="form-group col-md-6">
                <label for="user">Confirmar Monto</label>
                <input type="number" step="any" class="form-control" name="confMonto" placeholder="Monto" value="{{ old('confMonto') }}"/>
                @if($errors->has('confMonto'))
                  <span style="color: red;">{{ $errors->first('confMonto') }}</span>
                @endif
               </div>
-              <div class="form-group" id="cuantaPagar-1">
+              <div class="form-group col-md-6" id="cuantaPagar-1">
                <label for="user">Generar cuenta por pagar</label>
                <select class="form-control" name="cuentaPagar1" id="cuentaPagar1">
                  <option value="0" selected> No</option>
@@ -160,7 +180,7 @@ $("#cuentaPagar").hide();
                @endif
              </div>
 
-             <div class="form-group" id="cuentaPagar">
+             <div class="form-group col-md-6" id="cuentaPagar">
               <label for="user">Nombre cuenta por Pagar</label>
               <input type="text" step="any" class="form-control" name="cuentaPagar"  placeholder="Nombre cuenta por Pagar" value="{{ old('cuentaPagar') }}">
               @if($errors->has('cuentaPagar'))
@@ -170,7 +190,7 @@ $("#cuentaPagar").hide();
                 <span style="color: red;">{{ $errors->first('cuentaBancaria') }}</span>
               @endif
              </div>
-             <div class="form-group" id="cuentaCobrarD">
+             <div class="form-group col-md-6" id="cuentaCobrarD">
               <label for="user">Cuenta por Cobrar a Disminuir</label>
               <select class="form-control" name="cuentaCobrarD"  id="cuentaCobrarD-1">
                   <option value="0">Seleccione Cuenta por Cobrar</option>
@@ -225,7 +245,7 @@ $("#cuentaPagar").hide();
             </div> -->
 
 
-             <div class="form-group">
+             <div class="form-group col-md-6">
               <label for="user">Asignar Cuenta Bancaria</label>
               <select class="form-control" name="cuentaBancaria" id="cuentaMoneda">
                   <option value="0">Sin Cuenta Bancaria Asignada</option>
@@ -257,8 +277,8 @@ $("#cuentaPagar").hide();
             </div> -->
 
         </div>
-        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear Entrada</button>
-        <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaEntradas') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
+          <a  style="margin-bottom: 15px; color:#fff;" class="btn btn-success" href="{{ url('/listaEntradas') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
+          <button style="margin-bottom: 15px; color:#fff;" type="submit" class="btn btn-default btn-info">Crear Entrada</button>
       </form>
       </div><!-- /.box -->
 </div>

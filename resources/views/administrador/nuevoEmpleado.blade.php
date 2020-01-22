@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="container row col-md-8 col-md-offset-2 ">
+<div class="container row col-md-12">
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
-                  <h3 class="box-title"> Nuevo empleado </h3>
+                  <h3 class=""> Nuevo empleado </h3>
                   @if(session()->has('message'))
                       <div class="alert alert-success">
                           {{ session()->get('message') }}
@@ -15,7 +15,7 @@
       <form  role="form"   method="post"  action="{{ url('nuevoEmpleado') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
         <div class="box-body">
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="nombre">Nombre</label>
                 <input type="text" class="form-control" name="nombre" placeholder="Nombre">
                 @if($errors->has('nombre'))
@@ -23,7 +23,7 @@
                 @endif
               </div>
 
-              <div class="form-group">
+              <div class="form-group col-md-6">
                 <label for="cedula">cedula</label>
                 <input type="number" class="form-control" name="cedula" placeholder="cedula">
                 @if($errors->has('cedula'))
@@ -31,7 +31,7 @@
                 @endif
               </div>
 
-               <div class="form-group">
+               <div class="form-group col-md-6">
                 <label for="telefono">Telefono</label>
                 <input type="number" class="form-control" name="telefono" placeholder="telefono">
                 @if($errors->has('telefono'))
@@ -40,7 +40,7 @@
               </div>
 
 
-              <div class="form-group">
+              <div class="form-group col-md-6">
                 <label for="fecha">Fecha ingreso</label>
                 <input type="date" class="form-control"  name="fecha" placeholder="YYYY-MM-DD" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" title="Enter a date in this formart YYYY-MM-DD"/>
                 <!-- <input type="date" class="form-control" name="fecha" format="yyyy-mm-dd" value="2017-06-01" placeholder="fecha"> -->
@@ -49,7 +49,7 @@
                 @endif
               </div>
 
-              <div class="form-group">
+              <div class="form-group col-md-6">
               <label for="contrasena">Puesto</label>
               @if(isset($puestos))
                 <select name="puesto"class="form-control">
@@ -63,7 +63,7 @@
               @endif
               </div>
 
-              <div class="form-group">
+              <div class="form-group col-md-6">
               <label for="estado">Estado</label>
                 <select name="estado"class="form-control">
                   <option value="0">Inactivo</option>
@@ -75,8 +75,8 @@
             </div>
 
         </div>
-        <button style="margin-bottom: 15px;" type="submit" class="btn btn-default btn-info">Crear empleado</button>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/empleados') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
+        <button style="margin-bottom: 15px;color:white;" type="submit" class="btn btn-default btn-info">Crear empleado</button>
 
       </form>
       </div><!-- /.box -->
