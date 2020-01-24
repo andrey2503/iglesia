@@ -82,9 +82,30 @@ class CuentaBancariaController extends Controller
         $log->accion="Agregar Cuenta Bancaria";
         $log->fecha=date ('y-m-d H:i:s');
         $log->save();
-          return redirect()->back()->with('message','Cuenta '.$request->cuenta.' creada correctamente');
+        if($request->ajax()){
+            return response()->json([
+                "status" => "202",
+                "mensaje" =>"Actualizado correctamente",
+                "error" => false
+            ]);
+            } else{
+                    return response()->json([
+                        "status" => "500",
+                        "mensaje" =>"Error al crear cuenta bancaria",
+                        "error" => true
+                    ]);
+                }//fin de is es ajax
+        //  return redirect()->back()->with('message','Cuenta '.$request->cuenta.' creada correctamente');
       }else{
-          return redirect('/nuevaCuentaBancaria');
+
+        if($request->ajax()){
+            return response()->json([
+                "status" => "400",
+                "mensaje" =>"Error",
+                "error" => true
+            ]);
+        }
+
       }
     }
 

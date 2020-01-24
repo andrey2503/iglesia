@@ -48,7 +48,7 @@
 
                 <label for="fechaRegistro">Fecha de Registro</label>
 
-                <input type="date" class="form-control" name="fechaRegistro" >
+                <input type="date" class="form-control fecha" name="fechaRegistro" >
 
                 @if($errors->has('fechaRegistro'))
 
@@ -103,6 +103,20 @@
 <script>
 
 $(document).ready(function() {
+  var hoy = new Date();
+  var mes=hoy.getMonth() + 1;
+  var dia=hoy.getDate();
+  if( mes <= 9 ){
+    mes="0"+mes;
+  }
+  if (dia<=9) {
+    dia="0"+dia;
+  }
+
+
+  var fecha =  hoy.getFullYear()+'-'+mes +'-'+dia ;
+  $(".fecha").val(fecha);
+
 
           $("#btn-accion-crear").click((event)=>{
 
@@ -127,9 +141,11 @@ $(document).ready(function() {
                         //$loader.show();
                     }
                 }).done((result)=>{
+
                     creandoElemento('Exito','Cuenta Bancaria creada correctamente','success',3000)
-                    $("#box-informatico").append('<div class="alert alert-danger">'+result.mensaje+'</div>')
+                    $("#box-informatico").append('<div class="alert alert-success">'+result.mensaje+'</div>')
                     console.log(result.mensaje);
+                    $('#formulario-datos')[0].reset();
                     if(result.error){
 
                     }
