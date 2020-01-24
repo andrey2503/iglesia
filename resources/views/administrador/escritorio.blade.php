@@ -40,6 +40,10 @@
   <link rel="stylesheet" href="{{ URL::asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 
   <link rel="stylesheet" href="{{ URL::asset('css/styles.css') }}">
+
+  <link href="{{ URL::asset('/assets/sweetalert2-9.7.0/package/dist/sweetalert2.min.css') }}" rel="stylesheet">
+
+
 <script src="{{ URL::asset('js/jquery-3.0.0.min.js') }}"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -399,19 +403,66 @@ $.widget.bridge('uibutton', $.ui.button);
 <script src="{{ URL::asset('bootstrap/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/chosen/chosen.jquery.min.js') }}"></script>
 
+<script src="{{ URL::asset('/assets/sweetalert2-9.7.0/package/dist/sweetalert2.all.min.js') }}"></script>
+
 <script src="{{ URL::asset('js/mainJS.js') }}"></script>
 @yield('scripts')
 
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#example').DataTable();
+
+  $('#example').DataTable({
+                        language: {
+                            "decimal": "",
+                            "emptyTable": "No hay información",
+                            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                            "infoPostFix": "",
+                            "thousands": ",",
+                            "lengthMenu": "Mostrar _MENU_ Entradas",
+                            "loadingRecords": "Cargando...",
+                            "processing": "Procesando...",
+                            "search": "Buscar:",
+                            "zeroRecords": "Sin resultados encontrados",
+                            "paginate": {
+                                "first": "Primero",
+                                "last": "Ultimo",
+                                "next": "Siguiente",
+                                "previous": "Anterior"
+                            }
+                        },
+                    });
+
    $(".chosen-select").chosen();
    $("#rubro").chosen({
       placeholder_text_single: "Seleccione un rubro",
       no_results_text: "no se encontraron resultados"
     });
-} );
+
+
+    });
+
+        function creandoElemento(titulo,mensaje,icon,tiempo){
+            Swal.fire({
+                            icon: icon,
+                            title: titulo,
+                            text: mensaje,
+            })
+        }
+
+        function creandoElementoLoading(titulo,mensaje){
+            Swal.fire({
+                title: titulo,
+                html: mensaje,
+                timerProgressBar: true,
+                    onBeforeOpen: () => {
+                        Swal.showLoading()
+                    }
+            })
+        }
+
 </script>
 </body>
 </html>
