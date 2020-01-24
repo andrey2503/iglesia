@@ -5,6 +5,20 @@
 <div class="container row col-md-12">
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
+
+      <div class="box-header with-border">
+                      @if(session()->has('error'))
+                          <div class="alert alert-danger">
+                              {{ session()->get('error') }}
+                          </div>
+                      @endif
+      </div><!-- /.box-header -->
+      <div class="box-header with-border" id="box-informatico">
+
+      </div><!-- /.box-header -->
+      <div class="box-header with-border"  id="box-errores">
+
+      </div>
                   <h3 class="box-title"> Nueva Cuenta Bancaria</h3>
                   @if(session()->has('message'))
                       <div class="alert alert-success">
@@ -12,7 +26,7 @@
                       </div>
                   @endif
       </div><!-- /.box-header -->
-      <form  role="form"   method="post"  action="{{ url('nuevaCuentaBancaria') }}" class="form-horizontal form_entrada" >
+      <form   id="formulario-datos" role="form"   method="post"  action="{{ url('nuevaCuentaBancaria') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
         <div class="box-body">
             <div class="form-group col-md-6">
@@ -77,9 +91,66 @@
 
         </div>
         <a  style="margin-bottom: 15px;" class="btn btn-success" href="{{ url('/listaCuentaBancaria') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
-        <button style="margin-bottom: 15px;color:white;" type="submit" class="btn btn-default btn-info">Crear Cuenta</button>
+        <button id="btn-accion-crear" style="margin-bottom: 15px;color:white;" type="submit" class="btn btn-default btn-info">Crear Cuenta</button>
 
       </form>
       </div><!-- /.box -->
 </div>
+@endsection
+
+@section('scripts')
+
+<script>
+
+$(document).ready(function() {
+
+          $("#btn-accion-crear").click((event)=>{
+
+          creandoElementoLoading('Proceso','Creando nueva cuenta bancaria');
+          $("#box-errores").empty();
+          $("#box-informatico").empty();
+          event.preventDefault();
+          var form=$("#formulario-datos");
+          var url = form.attr("action");
+          enviarPeticion(url,form.serialize());
+
+          }) //btn
+
+          function enviarPeticion(url,datos){
+
+            $.ajax({
+                    type:"POST",
+                    url: url,
+                    dataType: 'json',
+                    data:datos,
+                    beforeSend: function() {
+                        //$loader.show();
+                    }
+                }).done((result)=>{
+                    creandoElemento('Exito','Cuenta Bancaria creada correctamente','success',3000)
+                    $("#box-informatico").append('<div class="alert alert-danger">'+result.mensaje+'</div>')
+                    console.log(result.mensaje);
+                    if(result.error){
+
+                    }
+                }).fail((data)=>{
+                        creandoElemento('Oops...','Error en los datos','error',3000)
+                        var errors = $.parseJSON(data.responseText);
+                        console.log(errors);
+                        let lista="";
+                        $.each(errors.errors, function (key, value) {
+                            console.log(key);
+                            lista+='<li>' +value+' </li>';
+                            //$("#box-errores").append('<li>'+key+'</li>')
+                        });
+                        $("#box-errores").append('<h4>Los siguientes campos contienen errores</h4><br/> <ul style="padding:20px" class="alert-danger">'+lista+'</ul>')
+
+                    })
+                    .always(()=>{});
+
+          }//enviar peticion
+  })
+
+</script>
+
 @endsection

@@ -128,7 +128,7 @@
             @endif
 
             @if(!isset($mov_entrada))
-              <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+              <table id="exampleCuentas" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <tr>
                       <th scope="col">Nombres</th>
@@ -296,7 +296,7 @@ $( document ).ready(function() {
   $(".fecha2").val(fecha2);
   console.log(fecha2);
 
-    $('#example').dataTable({
+    $('#exampleCuentas').dataTable({
     'iDisplayLength': 100
   });
   $("#fInicio").show();

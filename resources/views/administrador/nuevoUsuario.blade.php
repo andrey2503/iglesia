@@ -25,22 +25,22 @@
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
 
-            <div class="box-header with-border">
+            <div class="box-heade with-border">
                             @if(session()->has('error'))
                                 <div class="alert alert-danger">
                                     {{ session()->get('error') }}
                                 </div>
                             @endif
             </div><!-- /.box-header -->
-            <div class="box-header with-border" id="box-informatico">
+            <div class="box-heade with-border" id="box-informatico">
 
             </div><!-- /.box-header -->
-            <div class="box-header with-border"  id="box-errores">
-            
+            <div class="box-heade with-border"  id="box-errores">
+
             </div>
 
                   <h3 class=""> Nuevo usuario</h3>
-                
+
       </div><!-- /.box-header -->
       <form  id="formulario-datos" role="form"   method="post"  action="{{ url('nuevoUsuario') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
@@ -169,11 +169,9 @@ $(document).ready(function() {
                     })
                     .always(()=>{});
 
-          }//enviar peticion  
+          }//enviar peticion
   })
 
 </script>
 
 @endsection
-
-
