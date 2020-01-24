@@ -51,7 +51,7 @@
                         <!-- <td>{{ $c->user }}</td> -->
                         <td>{{ $c->banco }}</td>
                         <td>{{ $c->tipo }}</td>
-                      
+
                         <td>{{ $c->cuenta }}</td>
                         @if($c->moneda == "Dolares")
                         <td class="text-right">$ {{ number_format($c->monto, 2, ' ', ',') }}</td>
@@ -65,11 +65,11 @@
 
                         <td>
                            @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
-                         <a class="btn btn-primary btn-md" href="{{ url('/modificarCuenta') }}/{{$c->id}}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar</a>
+                         <a class="btn btn-primary btn-md" href="{{ url('/modificarCuenta') }}/{{$c->id}}" data-toggle="tooltip" title="Editar"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a>
                           @endif
-                         <a class="btn btn-success btn-md" href="{{ url('/verCuenta') }}/{{$c->id}}"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver</a>
+                         <a class="btn btn-success btn-md" href="{{ url('/verCuenta') }}/{{$c->id}}" data-toggle="tooltip" title="Ver"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a>
                           @if(Auth::user()->idrol==1)
-                         <a  type="button" class="btn btn-danger btn-md" href="#"  data-toggle="modal" data-target="#myModal" onclick="preEliminar({{$c->id}})"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a>
+                         <a  type="button" class="btn btn-danger btn-md" href="#"  onclick="preEliminar({{$c->id}})" data-toggle="tooltip" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
                            @endif
                         </td>
                       </tr>
@@ -146,7 +146,7 @@
   </table> -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
 
@@ -177,6 +177,7 @@
 <script>
   function preEliminar(id){
     // alert(id);
+    $("#myModal").modal("show");
     let ruta= document.getElementById('rutaEliminar');
     ruta.value=id;
     console.log(ruta.value);
