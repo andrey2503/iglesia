@@ -23,20 +23,20 @@
     <div style="padding: 15px;" class="col-md-3" hidden id="fInicio">
       <div class="form-group">
        <label for="user">Fecha Inicio:</label>
-       <input type="date" step="any" class="form-control" name="fechaInicio"   placeholder="Fecha Inicial">
+       <input type="date" step="any" class="form-control fecha1" name="fechaInicio"   placeholder="Fecha Inicial">
     </div>
 
     </div>
     <div style="padding: 15px;" class="col-md-3" hidden id="fFin">
       <div class="form-group">
        <label for="user">Fecha Fin</label>
-       <input type="date" step="any" class="form-control" name="fechaFinal"   placeholder="Fecha Final">
+       <input type="date" step="any" class="form-control fecha2" name="fechaFinal"   placeholder="Fecha Final">
       </div>
-    </div>
+    </div><br>
       <div class="col-md-3">
         <div class="form-group"  style="margin-top: 39px;">
         <input type="hidden" id="titulo" name="titulo">
-        <button href="#" type="submit" class="btn btn-info" id="idconsultar">Consultar</button>
+        <button href="#" type="submit" class="btn btn-info" id="idconsultar" style="margin-top:5%;">Consultar</button>
       </div>
     </div>
 
@@ -53,8 +53,8 @@
           <form class="" action="{{ url('/reportegenerar') }}" method="post" target="_blank">
             {{ csrf_field() }}
             <input type="hidden" name="tipoReporte" value="{{$tipoReporte}}">
-            <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}">
-            <input type="hidden" name="fechaFinal" value="{{$fechaFinal}}">
+            <input type="hidden" name="fechaInicio" value="{{$fechaInicio}}" >
+            <input type="hidden" name="fechaFinal" value="{{$fechaFinal}}" >
             <button href="#" target="_blank" type="submit"  class="btn btn-warning">Generar</button>
           </form>
           @endif
@@ -280,6 +280,22 @@
 @section('scripts')
 <script>
 $( document ).ready(function() {
+  var hoy = new Date();
+  var mes=hoy.getMonth() + 1;
+  var dia=hoy.getDate();
+  if( mes <= 9 ){
+    mes="0"+mes;
+  }
+  if (dia<=9) {
+    dia="0"+dia;
+  }
+
+  var fecha1 = hoy.getFullYear()+'-'+mes+'-01';
+  var fecha2 =  hoy.getFullYear()+'-'+mes +'-'+dia ;
+  $(".fecha1").val(fecha1);
+  $(".fecha2").val(fecha2);
+  console.log(fecha2);
+
     $('#example').dataTable({
     'iDisplayLength': 100
   });
