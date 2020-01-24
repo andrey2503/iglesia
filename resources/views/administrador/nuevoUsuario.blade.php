@@ -25,17 +25,17 @@
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
 
-            <div class="box-header with-border">
+            <div class="box-heade with-border">
                             @if(session()->has('error'))
                                 <div class="alert alert-danger">
                                     {{ session()->get('error') }}
                                 </div>
                             @endif
             </div><!-- /.box-header -->
-            <div class="box-header with-border" id="box-informatico">
+            <div class="box-heade with-border" id="box-informatico">
 
             </div><!-- /.box-header -->
-            <div class="box-header with-border"  id="box-errores">
+            <div class="box-heade  with-border"  id="box-errores">
             
             </div>
 
@@ -127,49 +127,19 @@ $(document).ready(function() {
 
           $("#btn-accion-crear").click((event)=>{
 
-          creandoElementoLoading('Proceso','Creando nuevo plan');
+          
+
+          creandoElementoLoading('Proceso','Creando nuevo usuario');
           $("#box-errores").empty();
           $("#box-informatico").empty();
           event.preventDefault();
           var form=$("#formulario-datos");
           var url = form.attr("action");
-          enviarPeticion(url,form.serialize());
+          enviarPeticion(url,form.serialize(),"Creando usuario");
 
           }) //btn
 
-          function enviarPeticion(url,datos){
-
-            $.ajax({
-                    type:"POST",
-                    url: url,
-                    dataType: 'json',
-                    data:datos,
-                    beforeSend: function() {
-                        //$loader.show();
-                    }
-                }).done((result)=>{
-                    creandoElemento('Exito','Plan creado correctamente','success',3000)
-                    $("#box-informatico").append('<div class="alert alert-danger">'+result.mensaje+'</div>')
-                    console.log(result.mensaje);
-                    if(result.error){
-
-                    }
-                }).fail((data)=>{
-                        creandoElemento('Oops...','Error en los datos','error',3000)
-                        var errors = $.parseJSON(data.responseText);
-                        console.log(errors);
-                        let lista="";
-                        $.each(errors.errors, function (key, value) {
-                            console.log(key);
-                            lista+='<li>' +value+' </li>';
-                            //$("#box-errores").append('<li>'+key+'</li>')
-                        });
-                        $("#box-errores").append('<h4>Los siguientes campos contienen errores</h4><br/> <ul style="padding:20px" class="alert-danger">'+lista+'</ul>')
-
-                    })
-                    .always(()=>{});
-
-          }//enviar peticion  
+         
   })
 
 </script>

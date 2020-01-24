@@ -69,6 +69,10 @@
     .logo{
       background-color: #37aee6 !important;
     }
+
+
+    
+
   </style>
 
 <style>
@@ -88,6 +92,10 @@
 
   .box.box-primary {
     border-top-color: #ffffff !important;;
+  }
+
+  .user-header{
+    background-color: #37aee6 !important;
   }
 
 </style>
@@ -165,7 +173,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="{{ url('/modificarUsuario') }}/{{Auth::user()->id}}" class="btn btn-default btn-flat">Cambiar contraseña</a>
+                    <a href="{{ url('/modificarUsuario') }}/{{Auth::user()->id}}" class="btn btn-info btn-sm">Cambiar contraseña</a>
                   </div>
                   <!-- <div class="pull-right">
                     <a href="{{ url('admin/formActualizarDatos')}}" class="btn btn-default btn-flat">Cambiar datos</a>
@@ -462,6 +470,42 @@ $(document).ready(function() {
                     }
             })
         }
+
+        function enviarPeticion(url,datos,mensaje){
+
+          $.ajax({
+                  type:"POST",
+                  url: url,
+                  dataType: 'json',
+                  data:datos,
+                  beforeSend: function() {
+                      //$loader.show();
+                  }
+              }).done((result)=>{
+                  // validar el status de la respuesta
+                  creandoElemento('Exito',mensaje,'success',3000)
+                  $("#box-informatico").append('<div class="alert alert-success">'+result.mensaje+'</div>')
+                  console.log(result.mensaje);
+                  $("#formulario-datos")[0].reset();
+                  if(result.error){
+
+                  }
+              }).fail((data)=>{
+                      creandoElemento('Oops...','Error en los datos','error',3000)
+                      var errors = $.parseJSON(data.responseText);
+                      //console.log(errors);
+                      let lista="";
+                      $.each(errors.errors, function (key, value) {
+                          //console.log(key);
+                          lista+='<li>' +value+' </li>';
+                          //$("#box-errores").append('<li>'+key+'</li>')
+                      });
+                      $("#box-errores").append('<h4>Los siguientes campos contienen errores</h4><br/> <ul style="padding:20px" class="alert-danger">'+lista+'</ul>')
+
+                  })
+                  .always(()=>{});
+
+          }//enviar peticion  
 
 </script>
 </body>

@@ -70,6 +70,22 @@ $("#cuentaPagar").hide();
 <div class="container row col-md-12">
   <div class="col-md-12 box box-primary">
     <div class="box-header with-border">
+
+
+                <div class="box-header with-border">
+                                        @if(session()->has('error'))
+                                            <div class="alert alert-danger">
+                                                {{ session()->get('error') }}
+                                            </div>
+                                        @endif
+                        </div><!-- /.box-header -->
+                <div class="box-heade with-border" id="box-informatico">
+
+                </div><!-- /.box-header -->
+                <div class="box-heade with-border"  id="box-errores">
+                
+                </div>
+
                   <h3 class=""> Nueva Entrada</h3>
                   @if(session()->has('message'))
                       <div class="alert alert-success">
@@ -82,7 +98,7 @@ $("#cuentaPagar").hide();
                       </div>
                   @endif
       </div><!-- /.box-header -->
-      <form  role="form"   method="post"  action="{{ url('nuevaEntrada') }}" class="form-horizontal form_entrada" >
+      <form   id="formulario-datos"   role="form"   method="post"  action="{{ url('nuevaEntrada') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
         <div class="box-body">
           <div class="form-group col-md-6">
@@ -208,42 +224,6 @@ $("#cuentaPagar").hide();
               @endif
             </div>
 
-            <!-- <div class="form-group" id="cuentaPagarD">
-             <label for="user">Seleccione Cuenta por Pagar a Disminuir</label>
-             <select class="form-control" name="cuentaPagarD" id="cuentaPagarD-1">
-                 <option value="0">Seleccione Cuenta por Cobrar</option>
-               @if(isset($cuentasPagar))
-                 @foreach($cuentasPagar as $cpp)
-                 <option value="{{ $cpp->id }}">{{ $cpp->nombre }}  //  {{ $cpp->id }}PC //   @if($cpp->moneda =="Colones" )₡ @endif
-                 @if($cpp->moneda =="Dolares" ) $     @endif
-                 @if($cpp->moneda =="Euros" )€ @endif
-                 {{$cpp->monto}}</option>
-                 @endforeach
-               @endif
-             </select>
-             @if($errors->has('cuentaPagarD'))
-               <span style="color: red;">{{ $errors->first('cuentaPagarD') }}</span>
-             @endif
-           </div> -->
-
-           <!-- <div class="form-group">
-            <label for="user">Cuenta por Pagar a Aumentar</label>
-            <select class="form-control" name="cuentaPagarA">
-                <option value="">Selecione Cuenta por Cobrar</option>
-                @if(isset($cuentasPagar))
-                  @foreach($cuentasPagar as $cpp)
-                <option value="{{ $cpp->id }}">{{ $cpp->nombre }}  //  {{ $cpp->id }}PC //   @if($cpp->moneda =="Colones" )₡ @endif
-                @if($cpp->moneda =="Dolares" ) $     @endif
-                @if($cpp->moneda =="Euros" )€ @endif
-                {{$cpp->monto}}</option>
-                @endforeach
-              @endif
-            </select>
-              @if($errors->has('cuentaPagarA'))
-                <span style="color: red;">{{ $errors->first('cuentaPagarA') }}</span>
-              @endif
-            </div> -->
-
 
              <div class="form-group col-md-6">
               <label for="user">Asignar Cuenta Bancaria</label>
@@ -261,25 +241,37 @@ $("#cuentaPagar").hide();
             </div>
               <input name="validarMoneda" type="hidden" id="validarMoneda" value="0"/>
 
-            <!-- <div class="form-group">
-              <label for="user">Asignar Cuenta Bancaria</label>
-              <select class="form-control" name="cuentaBancaria" type="hidden">
-                  <option value="">Sin Cuenta Bancaria Asignada</option>
-                @if(isset($cuentas))
-                  @foreach($cuentas as $c)
-                <option value="{{ $c->moneda }}">{{ $c->cuenta }}  //  {{ $c->moneda }} //  {{ $c->nombre }}</option>
-                  @endforeach
-                @endif
-              </select>
-              @if($errors->has('cuentaBancaria'))
-                <span style="color: red;">{{ $errors->first('cuentaBancaria') }}</span>
-              @endif
-            </div> -->
+          
 
         </div>
           <a  style="margin-bottom: 15px; color:#fff;" class="btn btn-success" href="{{ url('/listaEntradas') }} " > <span class="glyphicon glyphicon-chevron-left"></span> Regresar</a>
-          <button style="margin-bottom: 15px; color:#fff;" type="submit" class="btn btn-default btn-info">Crear Entrada</button>
+          <button  id="btn-accion-crear"  style="margin-bottom: 15px; color:#fff;" type="submit" class="btn btn-default btn-info">Crear Entrada</button>
       </form>
       </div><!-- /.box -->
 </div>
+@endsection
+
+@section('scripts')
+
+<script>
+
+$(document).ready(function() {
+
+          $("#btn-accion-crear").click((event)=>{
+
+          creandoElementoLoading('Proceso','Creando nuevo usuario');
+          $("#box-errores").empty();
+          $("#box-informatico").empty();
+          event.preventDefault();
+          var form=$("#formulario-datos");
+          var url = form.attr("action");
+          enviarPeticion(url,form.serialize(),"Creando usuario");
+
+          }) //btn
+
+         
+  })
+
+</script>
+
 @endsection

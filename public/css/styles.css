@@ -11,7 +11,7 @@
 }
 
 .content-wrapper{
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .login-page{
