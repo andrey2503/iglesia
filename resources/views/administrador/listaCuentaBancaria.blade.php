@@ -65,11 +65,11 @@
 
                         <td>
                            @if(Auth::user()->idrol==1 || Auth::user()->idrol==2)
-                         <a class="btn btn-primary btn-md" href="{{ url('/modificarCuenta') }}/{{$c->id}}" data-toggle="tooltip" title="Editar"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a>
+                         <a class="btn btn-primary btn-sm" href="{{ url('/modificarCuenta') }}/{{$c->id}}" data-toggle="tooltip" title="Editar"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a>
                           @endif
-                         <a class="btn btn-success btn-md" href="{{ url('/verCuenta') }}/{{$c->id}}" data-toggle="tooltip" title="Ver"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a>
+                         <a class="btn btn-success btn-sm" href="{{ url('/verCuenta') }}/{{$c->id}}" data-toggle="tooltip" title="Ver"> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a>
                           @if(Auth::user()->idrol==1)
-                         <a  type="button" class="btn btn-danger btn-md" href="#"  onclick="preEliminar({{$c->id}})" data-toggle="tooltip" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
+                         <a  type="button" class="btn btn-danger btn-sm" href="#"  onclick="preEliminar({{$c->id}})" data-toggle="tooltip" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
                            @endif
                         </td>
                       </tr>
